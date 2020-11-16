@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="d748a880-96a2-47d3-b600-5b4523d91e2a" name="Default Changelist" comment="" />
+=======
     <list default="true" id="ef69a5aa-41e2-40e5-a676-51c1787f11b0" name="Default Changelist" comment="" />
+>>>>>>> origin/master
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -123,7 +127,11 @@
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
     </include_path>
   </component>
+<<<<<<< HEAD
+  <component name="ProjectId" id="1kNtyjl4XKoC68PTLwseXVk003W" />
+=======
   <component name="ProjectId" id="1kNsZ8lWNCbfuxsJHxA1zneOCHb" />
+>>>>>>> origin/master
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -143,12 +151,21 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
+      <changelist id="d748a880-96a2-47d3-b600-5b4523d91e2a" name="Default Changelist" comment="" />
+      <created>1605553133500</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605553133500</updated>
+      <workItem from="1605553135131" duration="18000" />
+=======
       <changelist id="ef69a5aa-41e2-40e5-a676-51c1787f11b0" name="Default Changelist" comment="" />
       <created>1605552436480</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1605552436480</updated>
       <workItem from="1605552437535" duration="436000" />
+>>>>>>> origin/master
     </task>
     <servers />
   </component>
