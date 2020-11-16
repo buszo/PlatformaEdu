@@ -28,3 +28,7 @@ Route::get('/', function () {
 Route::get('/', function () {
     return view('welcome4');
 });
+
+Route::get('/', function () {
+    return view('welcome5');
+});
