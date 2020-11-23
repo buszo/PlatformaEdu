@@ -13,7 +13,10 @@ use App\Http\Controllers\TaskController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
-//Route::get('/', [TaskController::class, 'index']);
-Route::view('/', 'task');
 Route::any('/new', [TaskController::class, 'new']);
+Route::get('/logout', 'App\Http\Controllers\HomeController@logout')
+    ->name('user.logout');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('homeMain');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

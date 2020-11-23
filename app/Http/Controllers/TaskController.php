@@ -14,18 +14,21 @@ class TaskController extends Controller
 
     public function createTask()
     {
-        $this->clearTasks();
+        //$this->clearTasks();
         DB::table('task')->insert(
             [
                 'title' => $this->request->input(['title']),
-                'description' => $this->request->input(['title'])
+                'description' => $this->request->input(['title']),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]
         );
     }
 
     public function showActiveTasks()
     {
-
+        $title = DB::table('task')->select('SELECT title from task');
+        dump($title);
     }
 
     public function clearTasks()
@@ -43,6 +46,7 @@ class TaskController extends Controller
             'description' => 'required | min:5'
         ]);
         $this->createTask();
+        $this->showActiveTasks();
         return view('task', ['adres' => $req->input('address')]);
     }
 }

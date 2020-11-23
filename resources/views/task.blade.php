@@ -1,4 +1,6 @@
-
+@extends('layouts.app')
+@auth()
+@section('content')
 <div class="content">
     <h1> Info: </h1>
     @foreach($errors->all() as $error)
@@ -19,3 +21,4 @@
 @if(!empty($adres))
     <p> {{ $adres }}</p>
     @endif
+@endsection
