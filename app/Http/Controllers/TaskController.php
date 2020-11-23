@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Schema;
+use mysql_xdevapi\Table;
 
 class TaskController extends Controller
 {
@@ -25,11 +26,6 @@ class TaskController extends Controller
         );
     }
 
-    public function showActiveTasks()
-    {
-
-    }
-
     public function clearTasks()
     {
         DB::table('task')->truncate();
@@ -39,10 +35,10 @@ class TaskController extends Controller
     public function new(Request $req)
     {
         $this->request = $req;
-
         if (!empty($req->input(['title']) && !empty($req->input(['description'])))) {
             $this->createTask();
         }
-        return view('task');
+        $select = DB::table('task')->select('id', 'title', 'updated_at', 'created_at')->get();
+        return view('task', ['select' => $select]);
     }
 }
