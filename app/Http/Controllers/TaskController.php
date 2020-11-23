@@ -18,7 +18,7 @@ class TaskController extends Controller
         DB::table('task')->insert(
             [
                 'title' => $this->request->input(['title']),
-                'description' => $this->request->input(['title']),
+                'description' => $this->request->input(['description']),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]
@@ -27,8 +27,7 @@ class TaskController extends Controller
 
     public function showActiveTasks()
     {
-        $title = DB::table('task')->select('SELECT title from task');
-        dump($title);
+
     }
 
     public function clearTasks()
@@ -40,13 +39,10 @@ class TaskController extends Controller
     public function new(Request $req)
     {
         $this->request = $req;
-        $req->validate([
-            'address' => 'required | min:5',
-            'title' => 'required | min:5',
-            'description' => 'required | min:5'
-        ]);
-        $this->createTask();
-        $this->showActiveTasks();
-        return view('task', ['adres' => $req->input('address')]);
+
+        if (!empty($req->input(['title']) && !empty($req->input(['description'])))) {
+            $this->createTask();
+        }
+        return view('task');
     }
 }

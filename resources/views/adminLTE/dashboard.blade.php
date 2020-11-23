@@ -35,7 +35,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Dashboard v2</h1>
+                        <h1 class="m-0 text-dark">Witaj na platformie EDU</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -48,12 +48,16 @@
         </div>
         <!-- /.content-header -->
         <!-- Main content -->
+        @section('content')
     @include('layouts.maincontent')
 
              @include('layouts.mainrow');
     <!-- /.control-sidebar -->
 
     <!-- Main Footer -->
+    @endsection
+    @yield('content')
+
 @include('layouts.footer')
 <!-- ./wrapper -->
 
