@@ -31,6 +31,11 @@ class TaskController extends Controller
         DB::table('task')->truncate();
     }
 
+    public function list()
+    {
+        $select = DB::table('task')->select('id', 'title', 'updated_at', 'created_at')->get();
+        return view('layouts.tasklist', ['select' => $select]);
+    }
 
     public function new(Request $req)
     {
@@ -38,7 +43,7 @@ class TaskController extends Controller
         if (!empty($req->input(['title']) && !empty($req->input(['description'])))) {
             $this->createTask();
         }
-        $select = DB::table('task')->select('id', 'title', 'updated_at', 'created_at')->get();
+        $select = DB::table('task')->latest('created_at')->first();
         return view('task', ['select' => $select]);
     }
 }
