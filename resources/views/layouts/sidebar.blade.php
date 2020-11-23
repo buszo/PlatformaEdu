@@ -289,6 +289,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/list" class="nav-link">
+                        <i class="nav-icon fas fa-clipboard-list"></i>
+                        <p>
+                            Lista dodanych zadań
+
+                        </p>
+                    </a>
+                </li>
 {{--                <li class="nav-item has-treeview">--}}
 {{--                    <a href="#" class="nav-link">--}}
 {{--                        <i class="nav-icon far fa-envelope"></i>--}}
