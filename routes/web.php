@@ -15,8 +15,10 @@ use App\Http\Controllers\TaskController;
 */
 Auth::routes();
 
-Route::any('/new', [TaskController::class, 'new']);
+
 Route::get('/logout', 'App\Http\Controllers\HomeController@logout')
     ->name('user.logout');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('homeMain');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/new', [TaskController::class, 'new'])->name('newTask');
+Route::post('/created', [TaskController::class, 'new'])->name('taskCreated');
