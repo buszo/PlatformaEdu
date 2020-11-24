@@ -23,3 +23,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/new', [TaskController::class, 'new'])->name('newTask');
 Route::post('/created', [TaskController::class, 'new'])->name('taskCreated');
 Route::get('/list', [TaskController::class, 'list'])->name('taskList');
+Route::get('/user', [App\Http\Controllers\UserController::class, 'showProfile'])->name('showProfile');
