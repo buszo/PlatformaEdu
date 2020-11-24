@@ -7,8 +7,8 @@ php artisan migrate
 
 ## Do zrobienia
 * profil użytkownika (jako strona główna?) - pawel 
-* kategorie zadań
-* konwertowanie do PDF(DomPDF Laravel)
-* integracja edytora WYSIWYG do dodawania zadań
-* opcja wydruku konkretnej kategorii zadań
-* połączenie wpisów w bazie z użytkownikiem, który utworzył dany wpis -pawel
+* kategorie zadań - Michał
+* konwertowanie do PDF(DomPDF Laravel) - Filip
+* integracja edytora WYSIWYG do dodawania zadań - Filip
+* opcja wydruku konkretnej kategorii zadań - Filip
+* połączenie wpisów w bazie z użytkownikiem, który utworzył dany wpis - Paweł
