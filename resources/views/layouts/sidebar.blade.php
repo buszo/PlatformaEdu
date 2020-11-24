@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        <img src={{asset('dist/img/AdminLTELogo.png')}} alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
         <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
@@ -16,7 +16,7 @@
                 <a class="d-block" href="/user">
 
                     <div class="image">
-                        <img src="dist/img/user1.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src={{asset('dist/img/user1.jpg')}}  class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
 
