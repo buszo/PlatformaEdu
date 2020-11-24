@@ -27,3 +27,5 @@ Route::get('/user', [App\Http\Controllers\UserController::class, 'showProfile'])
 Route::get('/details/{id}', [TaskController::class, 'taskDetails'])
     ->where(['id' => '[0-9]+'])
     ->name('taskDetails');
+Route::delete('/delete/{id}', [TaskController::class, 'deleteTask'])
+    ->where(['id' => '[0-9]+'])->name('taskDelete');

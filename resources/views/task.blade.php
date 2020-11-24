@@ -24,6 +24,7 @@
                                     <label for="Opis">Opis</label>
                                     <input type="text" class="form-control" name="description"
                                            placeholder="Podaj opis zadania">
+
                                 </div>
 
                             </div>

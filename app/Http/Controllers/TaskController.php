@@ -32,18 +32,24 @@ class TaskController extends Controller
         DB::table('task')->truncate();
     }
 
+    public function deleteTask(int $id)
+    {
+        DB::table('task')->delete($id);
+        return $this->list($id);
+    }
+
     public function taskDetails(int $id)
     {
-$select = DB::table('task')->find($id);
-        return view('taskdetails',[
+        $select = DB::table('task')->find($id);
+        return view('taskdetails', [
             'query' => $select
         ]);
     }
 
-    public function list()
+    public function list(int $deletedId = null)
     {
         $select = DB::table('task')->select('id', 'title', 'updated_at', 'created_at')->get();
-        return view('layouts.tasklist', ['select' => $select]);
+        return view('layouts.tasklist', ['select' => $select, 'deletedId' => $deletedId]);
     }
 
     public function new(Request $req)
