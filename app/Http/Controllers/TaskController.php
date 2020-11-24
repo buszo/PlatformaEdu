@@ -11,7 +11,6 @@ use mysql_xdevapi\Table;
 
 class TaskController extends Controller
 {
-    public array $userData = [];
     public Request $request;
 
     public function createTask()
@@ -31,6 +30,14 @@ class TaskController extends Controller
     public function clearTasks()
     {
         DB::table('task')->truncate();
+    }
+
+    public function taskDetails(int $id)
+    {
+$select = DB::table('task')->find($id);
+        return view('taskdetails',[
+            'query' => $select
+        ]);
     }
 
     public function list()

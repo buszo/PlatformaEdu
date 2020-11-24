@@ -23,6 +23,7 @@
                             </tr>
                             </thead>
                             <tbody>
+
                             @foreach($select ?? [] as $item)
                                 <tr>
                                     <td>{{$item->id}}</td>
@@ -31,17 +32,9 @@
                                     <td>{{$item->updated_at}}</td>
                                     <td>
                                         <div style="text-align: center;">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-warning">Operacje</button>
-                                                <button type="button" class="btn btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="true">
-                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                    <div class="dropdown-menu" role="menu" style="">
-                                                        <a class="dropdown-item" href="#">Szczegóły i edycja</a>
-                                                        <a class="dropdown-item" href="#">Usuń</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#">Drukuj zadanie</a>
-                                                    </div>
-                                                </button>
+                                            <div class="btn-group col-md-10">
+                                                <a class="btn btn-danger" href="#" role="button">Usuń</a>
+                                                <a class="btn btn-info" href="/details/{{$item->id}}" role="button">Szczegóły</a>
                                             </div>
                                         </div>
                                     </td>
