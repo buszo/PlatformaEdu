@@ -12,3 +12,4 @@ php artisan migrate
 * integracja edytora WYSIWYG do dodawania zadań - Filip
 * opcja wydruku konkretnej kategorii zadań - Filip
 * połączenie wpisów w bazie z użytkownikiem, który utworzył dany wpis - Paweł
+* dodanie widoku szczegóły zadania/edycja - Michał
