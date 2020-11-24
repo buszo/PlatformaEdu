@@ -11,3 +11,4 @@ php artisan migrate
 * konwertowanie do PDF(DomPDF Laravel)
 * integracja edytora WYSIWYG do dodawania zadań
 * opcja wydruku konkretnej kategorii zadań
+* połączenie wpisów w bazie z użytkownikiem, który utworzył dany wpis
