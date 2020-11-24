@@ -44,22 +44,23 @@
                             Tytuł: {{$select->title}}
                         </div>
                     @endif
-                    <div class="card card-success">
-                        <div class="card-header">
-                            <h4 class="card-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class=""
-                                   aria-expanded="false">
-                                    Ostatnio dodane <hr></hr><i>ID: {{$select->id}} | Tytuł: {{$select->title}}</i>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse show" style="">
-                            <div class="card-body">
-                                {{$select->description}}
+                    @if($ifidexist = DB::table('task')->count() != 0)
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h4 class="card-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class=""
+                                       aria-expanded="false">
+                                        Ostatnio dodane <hr></hr><i>ID: {{$select->id}} | Tytuł: {{$select->title}}</i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse show" style="">
+                                <div class="card-body">
+                                    {{$select->description}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-
+                    @endif
 
 
 @endsection
