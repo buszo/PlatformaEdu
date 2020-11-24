@@ -6,8 +6,8 @@ jak zrobicie pulla to odpalcie SQL i dajcie:
 php artisan migrate
 
 ## Do zrobienia
-*profil użytkownika (jako strona główna?)
-*kategorie zadań
-*konwertowanie do PDF(DomPDF Laravel)
-*integracja edytora WYSIWYG do dodawania zadań
-*opcja wydruku konkretnej kategorii zadań
+* profil użytkownika (jako strona główna?)
+* kategorie zadań
+* konwertowanie do PDF(DomPDF Laravel)
+* integracja edytora WYSIWYG do dodawania zadań
+* opcja wydruku konkretnej kategorii zadań
