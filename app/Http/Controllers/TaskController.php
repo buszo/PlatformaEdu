@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,7 @@ class TaskController extends Controller
             [
                 'title' => $this->request->input(['title']),
                 'description' => $this->request->input(['description']),
+                'createdBy' => Auth::user()->id,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]
