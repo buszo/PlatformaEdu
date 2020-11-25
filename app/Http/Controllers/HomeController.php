@@ -27,6 +27,18 @@ class HomeController extends Controller
         return view('adminLTE.dashboard');
     }
 
+
+    public function generatePdf()
+    {
+        return view('');
+    }
+
+    public function sheetEditor()
+    {
+        return view('editor');
+    }
+
+
     public function logout()
     {
 
