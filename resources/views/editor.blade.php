@@ -271,7 +271,7 @@
                             </div>
                         </div>
 
-
+                        <!-- resizer - nie widać i nie działa - do przerobienia -->
                         <output class="note-status-output" role="status" aria-live="polite"></output>
                         <div class="note-statusbar" role="status">
                             <div class="note-resizebar" aria-label="Resize">
@@ -292,11 +292,11 @@
                                     <div class="modal-body">
                                         <div class="form-group note-form-group" data-children-count="1">
                                             <label for="note-dialog-link-txt-16063198779941" class="note-form-label">Text to display</label>
-                                            <input id="note-dialog-link-txt-16063198779941" class="note-link-text form-control note-form-control note-input" type="text">
+                                            <input id="link-text" class="note-link-text form-control note-form-control note-input" type="text">
                                         </div>
                                         <div class="form-group note-form-group" data-children-count="1">
                                             <label for="note-dialog-link-url-16063198779941" class="note-form-label">To what URL should this link go?</label>
-                                            <input id="note-dialog-link-url-16063198779941" class="note-link-url form-control note-form-control note-input" type="text" value="http://">
+                                            <input id="link-link" class="note-link-url form-control note-form-control note-input" type="text" value="http://">
                                         </div>
                                         <div class="form-check sn-checkbox-open-in-new-window">
                                             <label class="form-check-label" data-children-count="1">
@@ -310,11 +310,12 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <input type="button" href="#" class="btn btn-primary note-btn note-btn-primary note-link-btn" value="Insert Link" disabled="">
+                                        <input id="add-link" type="button" href="#" class="btn btn-primary note-btn note-btn-primary note-link-btn" value="Insert Link" disabled>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="note-popover popover in note-link-popover bottom" style="display: none;">
                             <div class="arrow"></div>
                             <div class="popover-content note-children-container">
@@ -342,16 +343,16 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group note-form-group note-group-select-from-files">
-                                            <label for="note-dialog-image-file-16063198779941" class="note-form-label">Select from files</label>
-                                            <input id="note-dialog-image-file-16063198779941" class="note-image-input form-control-file note-form-control note-input" type="file" name="files" accept="image/*" multiple="multiple">
+                                            <label for="blob" class="note-form-label">Select from files</label>
+                                            <input id="blob" class="note-image-input form-control-file note-form-control note-input" type="file" name="files" accept="image/*" multiple="multiple">
                                         </div>
                                         <div class="form-group note-group-image-url" data-children-count="1">
-                                            <label for="note-dialog-image-url-16063198779941" class="note-form-label">Image URL</label>
-                                            <input id="note-dialog-image-url-16063198779941" class="note-image-url form-control note-form-control note-input" type="text">
+                                            <label for="image-url" class="note-form-label">Image URL</label>
+                                            <input id="image-url" class="note-image-url form-control note-form-control note-input" type="text">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <input type="button" href="#" class="btn btn-primary note-btn note-btn-primary note-image-btn" value="Insert Image" disabled="">
+                                        <input id="add-image" type="button" href="#" class="btn btn-primary note-btn note-btn-primary note-image-btn" value="Insert Image" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -608,6 +609,7 @@
                             </div>
                         </div>
 
+                        <!-- Submit modal box -->
                         <div id="option-submit" class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Submit">
                             <div class="modal-dialog mt-5">
                                 <div class="modal-content">

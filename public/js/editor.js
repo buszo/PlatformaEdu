@@ -23,7 +23,7 @@ $('#add-table').click(() => {
 
     console.log(table);
     
-    // wstawić tabelę w miejsce w którym ostatnio był kursor
+    // wstawić tabelę w miejsce, w którym ostatnio był kursor
 });
 
 
@@ -36,6 +36,29 @@ $('#close-insert-link').click(() => {
     $('#insert-link').hide();
 });
 
+$('#link-link').keyup(() => {
+    if ($('#link-link').length > 0) {
+        $('#add-link').removeAttr('disabled');
+    }
+    else {
+        $('#add-link').addAttr('disabled');
+    }
+
+    var text = $('#link-link').val();
+    text = text.substring(7, text.length);
+    $('#link-text').val(text);
+});
+$('#add-link').click(() => {
+    var a = document.createElement('a');
+    a.href = $('#link-link').val();
+    a.innerText = $('#link-text').val();
+
+    console.log(a);
+
+    // wstawić link w miejsce, w którym ostatnio był kursor
+});
+
+
 // foto
 $('#image-button').click(() => {
     $('#insert-image').show();
@@ -45,6 +68,27 @@ $('#close-insert-image').click(() => {
     $('#insert-image').hide();
 });
 
+$('#image-url').keyup(() => {
+    if ($('#image-url').length > 0) {
+        $('#add-image').removeAttr('disabled');
+    }
+    else {
+        $('#add-image').addAttr('disabled');
+    }
+});
+$('#add-image').click(() => {
+    var image = document.createElement('img');
+    var blob = $('#blob'); 
+
+     if(blob.files[0] != 0) {
+        var file = blob.files[0];
+
+        var fr = new FileReader();
+        // odczytać obrazek, przekonwertować do base64 i wyświetlić
+     }
+});
+
+
 // video
 $('#video-button').click(() => {
     $('#insert-video').show();
@@ -53,6 +97,9 @@ $('#video-button').click(() => {
 $('#close-insert-video').click(() => {
     $('#insert-video').hide();
 });
+
+
+
 
 // działania matematyczne
 $('#insert-math').click(() => {
