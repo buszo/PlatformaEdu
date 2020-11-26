@@ -58,12 +58,16 @@
                                 </div>
                             </div>
                             <div class="note-btn-group btn-group note-font">
-                                <button type="button" class="note-btn btn btn-light btn-sm note-btn-bold active" tabindex="-1" title="" aria-label="Bold (CTRL+B)" data-original-title="Bold (CTRL+B)">
+                                <button id="bold" type="button" class="note-btn btn btn-light btn-sm note-btn-bold" tabindex="-1" title="" aria-label="Bold (CTRL+B)" data-original-title="Bold (CTRL+B)">
                                     <i class="fas fa-bold"></i>
                                 </button>
-                                <button type="button" class="note-btn btn btn-light btn-sm note-btn-underline" tabindex="-1" title="" aria-label="Underline (CTRL+U)" data-original-title="Underline (CTRL+U)">
+                                <button id="italic" type="button" class="note-btn btn btn-light btn-sm note-btn-italic" tabindex="-1" title="" aria-label="Italic (CTRL+I)" data-original-title="Italic (CTRL+I)">
+                                    <i class="fas fa-italic"></i>
+                                </button>
+                                <button id="underline" type="button" class="note-btn btn btn-light btn-sm note-btn-underline" tabindex="-1" title="" aria-label="Underline (CTRL+U)" data-original-title="Underline (CTRL+U)">
                                     <i class="fas fa-underline"></i>
                                 </button>
+                                
                                 <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Remove Font Style (CTRL+\)" data-original-title="Remove Font       Style (CTRL+\)">
                                     <i class="fas fa-eraser"></i>
                                 </button>
@@ -256,13 +260,16 @@
                                 </div>
                             </div>
 
+
                             <!-- Zawartość utworzona przez użytkownika -->
-                            <div id="editor-content" class="note-editable card-block" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" autocorrect="true" style="height: 471.719px;">
+                            <div id="editor-content" class="note-editable card-block" contenteditable="true" aria-multiline="true" spellcheck="true" autocorrect="true" style="min-height: 471.719px;">
                                 <p>
-                                    <span style="font-family: &quot;Arial Black&quot;;"></span>Place <em>some</em> <u>text</u> <strong>here</strong>
+                                    <span style="font-family: &quot;Arial Black&quot;;"></span>Rozpocznij pisanie...
                                 </p>
                             </div>
                         </div>
+
+
                         <output class="note-status-output" role="status" aria-live="polite"></output>
                         <div class="note-statusbar" role="status">
                             <div class="note-resizebar" aria-label="Resize">
@@ -599,8 +606,8 @@
                             </div>
                         </div>
 
-                        <div id="option-submit" class="modal note-modal mt-5" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Submit">
-                            <div class="modal-dialog">
+                        <div id="option-submit" class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Submit">
+                            <div class="modal-dialog mt-5">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Podsumowanie</h4>
@@ -626,5 +633,4 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src={{ asset('js/editor.js') }}></script>
-    <script>
     @endsection
