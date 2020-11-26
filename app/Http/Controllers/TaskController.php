@@ -13,7 +13,7 @@ class TaskController extends Controller
 {
     public Request $request;
 
-    public function createTask()
+    public function createQuery()
     {
         //$this->clearTasks();
         DB::table('task')->insert(
@@ -35,7 +35,7 @@ class TaskController extends Controller
     public function deleteTask(int $id)
     {
         DB::table('task')->delete($id);
-        return $this->list($id);
+        return redirect()->back();
     }
 
     public function taskDetails(int $id)
@@ -46,18 +46,27 @@ class TaskController extends Controller
         ]);
     }
 
-    public function list(int $deletedId = null)
+    public function list()
     {
-        $select = DB::table('task')->select('id', 'title', 'updated_at', 'created_at')->get();
-        return view('layouts.tasklist', ['select' => $select, 'deletedId' => $deletedId]);
+        $count = DB::table('task')->count();
+        $select = DB::table('task')
+            ->select('id', 'title', 'updated_at', 'created_at')
+            ->simplePaginate(5);
+//            ->get();
+        return view('layouts.tasklist', ['select' => $select, 'count' => $count]);
     }
 
     public function new(Request $req)
     {
         $this->request = $req;
         if (!empty($req->input(['title']) && !empty($req->input(['description'])))) {
-            $this->createTask();
+            $this->createQuery();
         }
+        return redirect()->back();
+    }
+
+    public function index(Request $req)
+    {
         $select = DB::table('task')->latest('created_at')->first();
         return view('task', ['select' => $select]);
     }
