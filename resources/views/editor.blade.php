@@ -212,13 +212,15 @@
                                     <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="Table" data-original-title="Table">
                                         <i class="fas fa-table"></i>
                                     </button>
-                                    <div class="note-dropdown-menu dropdown-menu note-table" role="list" aria-label="Table">
-                                        <div class="note-dimension-picker">
-                                            <div class="note-dimension-picker-mousecatcher" data-event="insertTable" data-value="1x1" style="width: 10em; height: 10em;"></div>
-                                            <div class="note-dimension-picker-highlighted"></div>
-                                            <div class="note-dimension-picker-unhighlighted"></div>
+                                    <div class="note-dropdown-menu dropdown-menu note-table p-3" role="list" aria-label="Table">
+                                        <label>Rozmiar tabeli</label>
+                                        <div class="row ml-1">
+                                            <input id="table-rows" type="text" class="col-4 mr-2">x
+                                            <input id="table-cols" class="col-4 ml-2" type="text">
                                         </div>
-                                        <div class="note-dimension-display">1 x 1</div>
+                                        <div class="row">
+                                            <div id="add-table" class="btn btn-light btn-sm mt-2 ml-2">Wstaw</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -232,18 +234,18 @@
                                 <button id="video-button" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Video" data-original-title="Video">
                                     <i class="fas fa-video"></i>
                                 </button>
-                                <button id="video-button" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Video" data-original-title="Video">
+                                <button id="insert-math" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Video" data-original-title="Video">
                                     <i class="fas fa-square-root-alt"></i>
                                 </button>
                             </div>
                             <div class="note-btn-group btn-group note-view">
-                                <button type="button" class="note-btn btn btn-light btn-sm btn-fullscreen note-codeview-keep" tabindex="-1" title="" aria-label="Full Screen" data-original-title="Full Screen">
+                                <button id="full-screen" type="button" class="note-btn btn btn-light btn-sm btn-fullscreen note-codeview-keep" tabindex="-1" title="" aria-label="Full Screen" data-original-title="Full Screen">
                                     <i class="fas fa-expand"></i>
                                 </button>
-                                <button type="button" class="note-btn btn btn-light btn-sm btn-codeview note-codeview-keep" tabindex="-1" title="" aria-label="Code View" data-original-title="Code View">
+                                <button id="show-html" type="button" class="note-btn btn btn-light btn-sm btn-codeview note-codeview-keep" tabindex="-1" title="" aria-label="Code View" data-original-title="Code View">
                                     <i class="fas fa-code"></i>
                                 </button>
-                                <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Help" data-original-title="Help">
+                                <button id="help-button" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Help" data-original-title="Help">
                                     <i class="fas fa-question"></i>
                                 </button>
                             </div>
@@ -447,12 +449,12 @@
                         </div>
 
                         <!-- Help modal box -->
-                        <div id="help" class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Help">
+                        <div id="help-modal" class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Help">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Help</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
+                                        <button id="close-help-modal" type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
                                     </div>
                                     <div class="modal-body" style="max-height: 300px; overflow: scroll;">
                                         <div class="help-list-item"></div>
@@ -599,7 +601,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <p class="text-center">
-                                            <a href="http://summernote.org/" target="_blank">Summernote 0.8.18</a> · <a href="https://github.com/summernote/summernote" target="_blank">Project</a> · <a href="https://github.com/summernote/summernote/issues" target="_blank">Issues</a>
+                                            Coś tam do wpisania
                                         </p>
                                     </div>
                                 </div>
