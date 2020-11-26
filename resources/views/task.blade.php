@@ -1,5 +1,4 @@
 @extends('adminLTE.dashboard')
-
 @section('content')
     <section class="content">
         <div class="container-fluid">

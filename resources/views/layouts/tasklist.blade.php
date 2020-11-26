@@ -16,6 +16,8 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Tytuł</th>
+                                    <th>Kategoria</th>
+
                                     <th>Utworzono</th>
                                     <th>Ostatnia modyfikacja</th>
                                     <th>Operacje</th>
@@ -29,6 +31,7 @@
                                     <tr>
                                         <td>{{$item->id}}</td>
                                         <td>{{$item->title}}</td>
+                                        <td>...</td>
                                         <td>{{$item->created_at}}</td>
                                         <td>{{$item->updated_at}}</td>
                                         <td>
@@ -46,18 +49,34 @@
                                             </div>
                                         </td>
                                     </tr>
+
                                 @endforeach
+                                <th>Id</th>
+                                <th>                                            <select class="form-control select2" style="width: 100%;">
+                                        <option selected="selected">A-Z</option>
+                                        <option>Z-A</option>
+                                    </select></th>
+                                <th>
+
+                                            <select class="form-control select2" style="width: 100%;">
+                                                <option selected="selected">Wszystkie</option>
+                                                <option>Test</option>
+                                                <option>Test2</option>
+                                            </select>
+                                        </th>
+
+                                <th>
+                                   </th>
+                                <th>
+                              </th>
+                                <th></th>
                                 </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
-                   @if(!empty($deletedId))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h5><i class="icon fas fa-check"></i> Sukces!</h5>
-                        Usunięto zadanie o ID: {{$deletedId}}
+                    {{$select->links()}}
+
                     </div>
- @endif
 
 @endsection
