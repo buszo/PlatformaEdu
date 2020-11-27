@@ -1,6 +1,6 @@
-@php
-    session_start();
-@endphp
+{{--@php--}}
+{{--    session_start();--}}
+{{--@endphp--}}
 @extends('adminLTE.dashboard')
 
 @section('content')
@@ -19,6 +19,21 @@
                                      alt="User profile picture">
                             </div>
                             @if($edit == 0)
+                                @php
+                                    if (isset($_SESSION['success'])) {
+                                        $success = $_SESSION['success'];
+                                        echo <<<ERROR
+                                        <br>
+                                        <div class="alert alert-success alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <h5><i class="icon fas fa-check"></i> Sukces!</h5>
+                                        $success
+                                        </div>
+                                    ERROR;
+                                        unset($_SESSION['success']);
+                                        }
+                                @endphp
+
                                 <h3 class="profile-username text-center"> {{ Auth::user()->name }} </h3>
 
                                 <p class="text-muted text-center">{{ Auth::user()->email }}</p>
@@ -35,6 +50,7 @@
 
                                 <a href="/user/edit/data" class="btn btn-primary btn-block"><b>Edytuj profil</b></a>
                                 <a href="/user/edit/password" class="btn btn-primary btn-block"><b>Zmień hasło</b></a>
+                                <a href="/user/upload" class="btn btn-primary btn-block"><b>Zmień awatar</b></a>
                             @elseif($edit == 1)
                                 <form method="post" action="{{ route('userUpdate') }}">
                                     @csrf
@@ -74,20 +90,20 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-block">Zapisz</button>
                                 </form>
-                            @else
+                            @elseif($edit == 2)
                                 <br>
                                 @php
                                     if (isset($_SESSION['error'])) {
-                  $error = $_SESSION['error'];
-                  echo <<<ERROR
-              <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h5><i class="icon fas fa-ban"></i> Błąd!</h5>
-                    $error
-              </div>
-            ERROR;
-                  unset($_SESSION['error']);
-                }
+                                        $error = $_SESSION['error'];
+                                        echo <<<ERROR
+                                        <div class="alert alert-danger alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <h5><i class="icon fas fa-ban"></i> Błąd!</h5>
+                                        $error
+                                        </div>
+                                    ERROR;
+                                        unset($_SESSION['error']);
+                                        }
                                 @endphp
                                 <form method="post" action="{{ route('changePassword') }}">
                                     @csrf
@@ -140,6 +156,16 @@
                                         </div>
                                     </div>
                                 </form>
+                            @else
+                                <div class="card-body">
+                                    <form action="/upload" method="post">
+                                        <input type="file" name="picture" align="center">
+                                        <br>
+                                        <br>
+                                        <button type="submit" class="btn btn-primary btn-block">Dodaj
+                                        </button>
+                                    </form>
+                                </div>
                             @endif
                         </div>
                         <!-- /.card-body -->
