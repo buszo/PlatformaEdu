@@ -34,7 +34,7 @@ Route::get('/user/edit/data', [App\Http\Controllers\UserController::class, 'edit
 Route::post('user/edit/data', [App\Http\Controllers\UserController::class, 'updateData'])->name('userUpdate');
 Route::get('/user/edit/password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('changePassword');
 Route::post('/user/edit/password', [App\Http\Controllers\UserController::class, 'updatePassword'])->name('changePassword');
-
+Route::get('/user/upload', [App\Http\Controllers\UserController::class, 'changeAvatar'])->name('changeAvatar');
 Route::get('/details/{id}', [TaskController::class, 'taskDetails'])
     ->where(['id' => '[0-9]+'])
     ->name('taskDetails');

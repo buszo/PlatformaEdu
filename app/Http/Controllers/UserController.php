@@ -1,7 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
-
+session_start();
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\False_;
@@ -26,7 +25,11 @@ class UserController extends Controller
         $edit = 1;
         return view('profile', ['edit' => $edit]);
     }
-
+    public function changeAvatar()
+    {
+        $edit = 3;
+        return view('profile', ['edit' => $edit]);
+    }
 
     public function changePassword()
     {
@@ -36,7 +39,6 @@ class UserController extends Controller
 
     public function updateData(Request $request)
     {
-        $data = '';
         $name = $request->input(['name']);
         $email= $request->input(['email']);
         $request->validate(
@@ -55,12 +57,13 @@ class UserController extends Controller
             $data = $email;
         }
         $this->update($column, $data, $id);
+        $_SESSION['success'] = 'Dane zostały zmienione!';
         return redirect('/user');
 
     }
     public function updatePassword(Request $request)
     {
-        session_start();
+        $id = Auth::user()->id;
         $current_password = $request->input(['current_password']);
         $new_password = $request->input(['new_password']);
         $confirm_new_password = $request->input(['confirm_new_password']);
@@ -70,12 +73,13 @@ class UserController extends Controller
         {
             if ($new_password == $confirm_new_password)
             {
-                $error = 0;
-               dd('zmien haslo - tutaj update do bazy');
+                $_SESSION['success'] = 'Dane zostały zmienione!';
+                $new_password = Hash::make($new_password);
+                DB::update('update users set password=? where id = ?',[$new_password,$id]);
+                return redirect('/user');
             }
             else
             {
-                $error = 1;
                 $_SESSION['error'] = 'Podane hasła są różne!';
                 ?>
                 <script>
@@ -87,7 +91,6 @@ class UserController extends Controller
 
         else
         {
-            $error = 1;
             $_SESSION['error'] = 'Podane hasło jest nieprawidłowe!';
             ?>
             <script>
@@ -107,6 +110,12 @@ class UserController extends Controller
     public function update($column, $data, $id)
     {
         DB::update('update users set '.$column.'=? where id = ?',[$data,$id]);
+    }
+
+
+    public function upload()
+    {
+        return 1;
     }
 
 }
