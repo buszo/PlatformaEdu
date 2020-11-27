@@ -13,6 +13,12 @@ class TaskController extends Controller
 {
     public Request $request;
 
+    public function index(Request $req)
+    {
+        $select = DB::table('task')->latest('created_at')->first();
+        return view('task', ['select' => $select]);
+    }
+
     public function createQuery()
     {
         //$this->clearTasks();
@@ -32,10 +38,17 @@ class TaskController extends Controller
         DB::table('task')->truncate();
     }
 
-    public function deleteTask(int $id)
+    public function deleteTask(int $id, Request $request)
     {
+        session_start();
+        $var = $_SESSION['id'] = $id;
         DB::table('task')->delete($id);
-        return redirect()->back();
+        return back();
+    }
+
+    public function updateTask(int $id)
+    {
+
     }
 
     public function taskDetails(int $id)
@@ -65,9 +78,5 @@ class TaskController extends Controller
         return redirect()->back();
     }
 
-    public function index(Request $req)
-    {
-        $select = DB::table('task')->latest('created_at')->first();
-        return view('task', ['select' => $select]);
-    }
+
 }

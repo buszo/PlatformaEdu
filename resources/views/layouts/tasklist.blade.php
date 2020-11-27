@@ -69,14 +69,27 @@
                                    </th>
                                 <th>
                               </th>
-                                <th></th>
+                                <th> </th>
                                 </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
                     {{$select->links()}}
+                    @php
+                        @session_start();
+                    @endphp
+                    @if(!empty($_SESSION['id']))
 
+
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><i class="icon fas fa-check"></i> Sukces!</h5>
+                            Usunięto wpis od ID: {{$_SESSION['id']}}<br>
+                        </div>
+                        @unset($_SESSION['id'])
+                    @endif
                     </div>
+
 
 @endsection
