@@ -20,6 +20,8 @@ class CreateTaskTable extends Migration
             $table->foreignId('createdBy');
             $table->index(['createdBy']);
             $table->timestamps();
+
+            $table->foreign('createdBy')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
