@@ -1,6 +1,55 @@
-var bold = false;
-var italic = false;
+var e         = undefined;                  // element i pozycja y kursora
+var x         = undefined;                  // pozycja x kursora
+var bold      = false;
+var italic    = false;
 var underline = false;
+var MQ        = MathQuill.getInterface(2);  // zmienna do działań matematycznych
+
+// zwraca pozycję kursora w wierszu (elemencie)
+function getCaretPosition(editableDiv) {
+    var caretPos = 0,
+      sel, range;
+    if (window.getSelection) {
+      sel = window.getSelection();
+      if (sel.rangeCount) {
+        range = sel.getRangeAt(0);
+        if (range.commonAncestorContainer.parentNode == editableDiv) {
+          caretPos = range.endOffset;
+        }
+      }
+    } 
+    else if (document.selection && document.selection.createRange) {
+      range = document.selection.createRange();
+      if (range.parentElement() == editableDiv) {
+    
+        var tempEl = document.createElement("span");
+        editableDiv.insertBefore(tempEl, editableDiv.firstChild);
+        var tempRange = range.duplicate();
+        tempRange.moveToElementText(tempEl);
+        tempRange.setEndPoint("EndToEnd", range);
+        caretPos = tempRange.text.length;
+      }
+    }
+    return caretPos;
+  }
+
+  // zwraca wiersz (element), w którym jest kursor
+  function getSelectionStart() {
+    var node = document.getSelection().anchorNode;
+    return (node.nodeType == 3 ? node.parentNode : node);
+ }
+
+ // event odpala się w momencie zmiany zawartości
+ // ustawia współrzędne kursora
+document.getElementById('editor-content').addEventListener("input", function() {
+    e = getSelectionStart();
+    x = getCaretPosition(e) + 1;
+
+    // if (e.isEqualNode('table')) {
+        // jeśli element jest tabelą to inaczej odczytać pozycję kursora
+    //}
+}, false);
+
 
 // tabela
 $('#add-table').click(() => {
@@ -8,12 +57,15 @@ $('#add-table').click(() => {
     var cols = $('#table-cols').val();
 
     var table = document.createElement('table');
+    table.classList.add('table');
+    table.classList.add('table-bordered');
 
     for (i = 0; i < rows; i++) {
         var tr = document.createElement('tr');
 
         for (j = 0; j < cols; j++) {
             var td = document.createElement('td');
+            td.innerText = '    ';
             tr.append(td);
         }
         table.append(tr);
@@ -21,9 +73,16 @@ $('#add-table').click(() => {
     $('#table-rows').val('');
     $('#table-cols').val('');
 
+    var p = document.createElement('p');
+    var br = document.createElement('br');
+    var local_table = table;
+    console.log(p, br);
+    p.append(br);
     console.log(table);
+    e.after(table);
+    local_table.after(p);
     
-    // wstawić tabelę w miejsce, w którym ostatnio był kursor
+    // sformatować tabelę - teraz niewidoczna
 });
 
 
@@ -49,13 +108,13 @@ $('#link-link').keyup(() => {
     $('#link-text').val(text);
 });
 $('#add-link').click(() => {
-    var a = document.createElement('a');
-    a.href = $('#link-link').val();
-    a.innerText = $('#link-text').val();
+    var link = document.createElement('a');
+    link.href = $('#link-link').val();
+    link.innerText = $('#link-text').val();
 
-    console.log(a);
-
-    // wstawić link w miejsce, w którym ostatnio był kursor
+    console.log(link);
+    e.after(link);
+    // link nie jest klikalny i nie przenosi na stronę
 });
 
 
@@ -103,7 +162,26 @@ $('#close-insert-video').click(() => {
 
 // działania matematyczne
 $('#insert-math').click(() => {
+    var p = document.createElement('p');
+    var span = document.createElement('span');
+    span.innerText = 'x=';
+    var local_span = span;
 
+    var answerMathField = MQ.MathField(local_span, {
+        handlers: {
+            edit: () => {
+                var enteredMath = answerMathField.latex();
+                checkAnswer(enteredMath);
+            }
+        }
+    });
+
+    var pempty = document.createElement('p');
+    var br = document.createElement('br');
+    pempty.append(br);
+
+    e.after(span);
+    local_span.after(pempty);
 });
 
 // pełny ekran
