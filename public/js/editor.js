@@ -5,6 +5,12 @@ var italic    = false;
 var underline = false;
 var MQ        = MathQuill.getInterface(2);  // zmienna do działań matematycznych
 
+
+$(function() {
+    $('#editor-content').focus();
+});
+
+
 // zwraca pozycję kursora w wierszu (elemencie)
 function getCaretPosition(editableDiv) {
     var caretPos = 0,
@@ -51,6 +57,97 @@ document.getElementById('editor-content').addEventListener("input", function() {
 }, false);
 
 
+// formatowanie elementu
+$('#style-p').click(() => {
+    document.execCommand('formatBlock', false, '<p>'); 
+});
+$('#style-quote').click(() => {
+    document.execCommand('formatBlock', false, '<blockquote>'); 
+});
+$('#style-code').click(() => {
+    document.execCommand('formatBlock', false, '<pre>'); 
+});
+$('#style-h1').click(() => {
+    document.execCommand('formatBlock', false, '<h1>');
+    console.log('klik h1') 
+});
+$('#style-h2').click(() => {
+    document.execCommand('formatBlock', false, '<h2>'); 
+});
+$('#style-h3').click(() => {
+    document.execCommand('formatBlock', false, '<h3>'); 
+});
+$('#style-h4').click(() => {
+    document.execCommand('formatBlock', false, '<h4>'); 
+});
+$('#style-h5').click(() => {
+    document.execCommand('formatBlock', false, '<h5>'); 
+});
+$('#style-h6').click(() => {
+    document.execCommand('formatBlock', false, '<h6>'); 
+});
+
+
+// pogrubienie
+$('#bold').click(()=>{
+    if(!$('#bold').hasClass("active")) {
+        $('#bold').addClass("active");
+        document.execCommand("bold");
+    }
+    else {
+        $('#bold').removeClass("active");
+    }
+});
+
+// kursywa
+$('#italic').click(()=>{
+    if(!$('#italic').hasClass("active")) {
+        $('#italic').addClass("active");
+        document.execCommand("italic");
+    }
+    else {
+        $('#italic').removeClass("active");
+    }
+});
+
+// podkreślenie
+$('#underline').click(()=>{
+    if(!$('#underline').hasClass("active")) {
+        $('#underline').addClass("active");
+        document.execCommand("underline");
+        document.execCommand('formatBlock', false, '<h1>'); 
+    }
+    else {
+        $('#underline').removeClass("active");
+    }
+});
+
+// reset stylu
+$('#reset-style').click(() => {
+    document.execCommand('fontName', false, 'Source Sans Pro');
+    document.execCommand('foreColor', false, '#000000');
+    document.execCommand('backColor', false, '#ffffff');
+});
+
+// czcionka
+
+function setFont(fontName) {
+    document.execCommand('fontName', false, fontName);
+}
+
+// kolor tekstu i tła
+
+function setColor(color) {
+    document.execCommand('styleWithCSS', false, true);
+    document.execCommand('foreColor', false, color);
+}
+
+// wyrównanie tekstu
+
+function alignText() {
+    document.execCommand();
+}
+
 // tabela
 $('#add-table').click(() => {
     var rows = $('#table-rows').val();
@@ -81,8 +178,6 @@ $('#add-table').click(() => {
     console.log(table);
     e.after(table);
     local_table.after(p);
-    
-    // sformatować tabelę - teraz niewidoczna
 });
 
 
@@ -157,13 +252,12 @@ $('#close-insert-video').click(() => {
     $('#insert-video').hide();
 });
 
-
-
-
 // działania matematyczne
 $('#insert-math').click(() => {
     var p = document.createElement('p');
     var span = document.createElement('span');
+    span.style.border = 'solid 1px #C0C0C0';
+    span.style.borderRadius = '5px';
     span.innerText = 'x=';
     var local_span = span;
 
@@ -171,7 +265,7 @@ $('#insert-math').click(() => {
         handlers: {
             edit: () => {
                 var enteredMath = answerMathField.latex();
-                checkAnswer(enteredMath);
+                checkAnswer(enteredMath);                       //  <-- tutaj wyrzuca błąd, ale nie uniemożliwia korzystania
             }
         }
     });
@@ -233,36 +327,23 @@ $('#pdf-export').click(() => {
     });
 });
 
-// pogrubienie
-$('#bold').click(()=>{
-    if(!$('#bold').hasClass("active")) {
-        $('#bold').addClass("active");
-        document.execCommand("bold");
-    }
-    else {
-        $('#bold').removeClass("active");
-    }
-});
 
-// kursywa
-$('#italic').click(()=>{
-    if(!$('#italic').hasClass("active")) {
-        $('#italic').addClass("active");
-        document.execCommand("italic");
-    }
-    else {
-        $('#italic').removeClass("active");
-    }
+// resize bar
+$('#resize-bar').on('mousedown', function(e){
+    var $dragable = $('#editor-content'),
+        startHeight = $dragable.height(),
+        pY = e.pageY;
+    
+    $(document).on('mouseup', function(e){
+        $(document).off('mouseup').off('mousemove');
+    });
+    $(document).on('mousemove', function(me){
+        var my = (pY - me.pageY);
+        
+        $dragable.css({
+            height: startHeight - my,
+            top: my
+        });
+    });
+            
 });
-
-// podkreślenie
-$('#underline').click(()=>{
-    if(!$('#underline').hasClass("active")) {
-        $('#underline').addClass("active");
-        document.execCommand("underline");
-    }
-    else {
-        $('#underline').removeClass("active");
-    }
-});
-
