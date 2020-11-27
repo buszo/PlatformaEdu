@@ -2,6 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href={{ asset('plugins/fontawesome-free/css/all.min.css') }}>
+<link rel="stylesheet" href={{ asset('plugins/mathquill-0.10.1/mathquill.css') }}>
 <section class="content">
     <div class="row">
         <div class="col-md-12">
@@ -207,45 +208,43 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="note-btn-group btn-group note-table">
-                                <div class="note-btn-group btn-group">
-                                    <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="Table" data-original-title="Table">
-                                        <i class="fas fa-table"></i>
-                                    </button>
-                                    <div class="note-dropdown-menu dropdown-menu note-table p-3" role="list" aria-label="Table">
-                                        <label>Rozmiar tabeli</label>
-                                        <div class="row ml-1">
-                                            <input id="table-rows" type="text" class="col-4 mr-2">x
-                                            <input id="table-cols" class="col-4 ml-2" type="text">
-                                        </div>
-                                        <div class="row">
-                                            <div id="add-table" class="btn btn-light btn-sm mt-2 ml-2">Wstaw</div>
-                                        </div>
+                            <div class="btn-group">
+                                <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="Table" data-original-title="Table">
+                                    <i class="fas fa-table"></i>
+                                </button>
+                                <div class="note-dropdown-menu dropdown-menu note-table p-3" role="list" aria-label="Table">
+                                    <label>Rozmiar tabeli</label>
+                                    <div class="row ml-1">
+                                        <input id="table-rows" type="text" class="col-4 mr-2">x
+                                        <input id="table-cols" class="col-4 ml-2" type="text">
+                                    </div>
+                                    <div class="row">
+                                        <div id="add-table" class="btn btn-light btn-sm mt-2 ml-2">Wstaw</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="note-btn-group btn-group note-insert">
-                                <button id="link-button" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Link (CTRL+K)" data-original-title="Link (CTRL+K)">
+                            <div class="btn-group">
+                                <button id="link-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Link (CTRL+K)" data-original-title="Link (CTRL+K)">
                                     <i class="fas fa-link"></i>
                                 </button>
-                                <button id="image-button" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Picture" data-original-title="Picture">
+                                <button id="image-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Picture" data-original-title="Picture">
                                     <i class="fas fa-image"></i>
                                 </button>
-                                <button id="video-button" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Video" data-original-title="Video">
+                                <button id="video-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Video" data-original-title="Video">
                                     <i class="fas fa-video"></i>
                                 </button>
-                                <button id="insert-math" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Video" data-original-title="Video">
+                                <button id="insert-math" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Video" data-original-title="Video">
                                     <i class="fas fa-square-root-alt"></i>
                                 </button>
                             </div>
                             <div class="note-btn-group btn-group note-view">
-                                <button id="full-screen" type="button" class="note-btn btn btn-light btn-sm btn-fullscreen note-codeview-keep" tabindex="-1" title="" aria-label="Full Screen" data-original-title="Full Screen">
+                                <button id="full-screen" type="button" class="note-btn btn btn-light btn-sm p-2 btn-fullscreen note-codeview-keep" tabindex="-1" title="" aria-label="Full Screen" data-original-title="Full Screen">
                                     <i class="fas fa-expand"></i>
                                 </button>
-                                <button id="show-html" type="button" class="note-btn btn btn-light btn-sm btn-codeview note-codeview-keep" tabindex="-1" title="" aria-label="Code View" data-original-title="Code View">
+                                <button id="show-html" type="button" class="note-btn btn btn-light btn-sm p-2 btn-codeview note-codeview-keep" tabindex="-1" title="" aria-label="Code View" data-original-title="Code View">
                                     <i class="fas fa-code"></i>
                                 </button>
-                                <button id="help-button" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Help" data-original-title="Help">
+                                <button id="help-button" type="button" class="btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Help" data-original-title="Help">
                                     <i class="fas fa-question"></i>
                                 </button>
                             </div>
@@ -286,7 +285,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Insert Link</h4>
+                                        <h4 class="modal-title">Wstaw link</h4>
                                         <button id="close-insert-link" type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
                                     </div>
                                     <div class="modal-body">
@@ -338,7 +337,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Insert Image</h4>
+                                        <h4 class="modal-title">Wstaw obraz</h4>
                                         <button id="close-insert-image" type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
                                     </div>
                                     <div class="modal-body">
@@ -430,13 +429,13 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Insert Video</h4>
+                                        <h4 class="modal-title">Wstaw Film</h4>
                                         <button id="close-insert-video" type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group note-form-group row-fluid" data-children-count="1">
                                             <label for="note-dialog-video-url-16063198779941" class="note-form-label">
-                                                Video URL
+                                                Url filmu
                                                 <small class="text-muted" data-children-count="0">(YouTube, Vimeo, Vine, Instagram, DailyMotion or Youku)</small>
                                             </label>
                                             <input id="note-dialog-video-url-16063198779941" class="note-video-url form-control note-form-control note-input" type="text">
@@ -454,7 +453,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Help</h4>
+                                        <h4 class="modal-title">Pomoc</h4>
                                         <button id="close-help-modal" type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
                                     </div>
                                     <div class="modal-body" style="max-height: 300px; overflow: scroll;">
@@ -617,12 +616,12 @@
                                         <h4 class="modal-title">Podsumowanie</h4>
                                     </div>
                                     <div class="modal-footer">
-                                        <input id="preview" type="button" href="#" class="btn btn-info note-btn note-btn-primary" value="Podgląd" >
-                                        <button id="pdf-export" type="button" class="note-btn btn btn-info btn-sm btn-fullscreen note-codeview-keep pl-3 pr-3" tabindex="-1" title="" aria-label="Full Screen" style="margin-right:auto; font-size:19px;" data-original-title="Full Screen">
+                                        <input id="preview" type="button" href="#" class="btn btn-info" value="Podgląd" >
+                                        <button id="pdf-export" type="button" class="note-btn btn btn-info btn-sm pl-3 pr-3" tabindex="-1" title="" aria-label="Full Screen" style="margin-right:auto; font-size:19px;" data-original-title="Full Screen">
                                             <i class="fas fa-file-pdf"></i>
                                         </button>
-                                        <input id="save-sheet" type="button" href="#" class="btn btn-primary note-btn note-btn-primary" value="Zapisz">
-                                        <input id="reject-sheet" type="button" href="#" class="btn btn-danger note-btn note-btn-primary note-video-btn" value="Odrzuć">
+                                        <input id="save-sheet" type="button" href="#" class="btn btn-primary" value="Zapisz">
+                                        <input id="reject-sheet" type="button" href="#" class="btn btn-danger" value="Odrzuć">
                                     </div>
                                 </div>
                             </div>
@@ -636,5 +635,6 @@
         <!-- /.col-->
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src={{ asset('plugins/mathquill-0.10.1/mathquill.js') }}></script>
     <script src={{ asset('js/editor.js') }}></script>
     @endsection
