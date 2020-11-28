@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use mysql_xdevapi\Schema;
 use mysql_xdevapi\Table;
 
@@ -15,22 +17,21 @@ class TaskController extends Controller
 
     public function index(Request $req)
     {
-        $select = DB::table('task')->latest('created_at')->first();
+        $var = Task::all();
+        $select = Task::latest('created_at')->first();
         return view('task', ['select' => $select]);
     }
 
     public function createQuery()
     {
         //$this->clearTasks();
-        DB::table('task')->insert(
-            [
-                'title' => $this->request->input(['title']),
-                'description' => $this->request->input(['description']),
-                'createdBy' => Auth::user()->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
-        );
+        Task::create([
+            'title' => $this->request->input(['title']),
+            'description' => $this->request->input(['description']),
+            'createdBy' => Auth::user()->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
     }
 
     public function clearTasks()
@@ -42,7 +43,7 @@ class TaskController extends Controller
     {
         session_start();
         $var = $_SESSION['id'] = $id;
-        DB::table('task')->delete($id);
+        Task::where('id', $id)->delete();
         return back();
     }
 
@@ -53,7 +54,8 @@ class TaskController extends Controller
 
     public function taskDetails(int $id)
     {
-        $select = DB::table('task')->find($id);
+        Task::find($id);
+        $select = Task::find($id);
         return view('taskdetails', [
             'query' => $select
         ]);
@@ -61,12 +63,9 @@ class TaskController extends Controller
 
     public function list()
     {
-        $count = DB::table('task')->count();
-        $select = DB::table('task')
-            ->select('id', 'title', 'updated_at', 'created_at')
-            ->simplePaginate(5);
-//            ->get();
-        return view('layouts.tasklist', ['select' => $select, 'count' => $count]);
+        $select = Task::select('id','title','created_at','updated_at')
+        ->simplePaginate(5);
+        return view('layouts.tasklist', ['select' => $select]);
     }
 
     public function new(Request $req)
