@@ -3,6 +3,40 @@
 @section('content')
 <link rel="stylesheet" href={{ asset('plugins/fontawesome-free/css/all.min.css') }}>
 <link rel="stylesheet" href={{ asset('plugins/mathquill-0.10.1/mathquill.css') }}>
+<style>
+    #editor-content p, code, blockquote, h1, h2, h3, h4, h5, h6 {
+        margin-bottom: 3px;
+    }
+
+    #editor-content:focus {
+        outline:none;
+    }
+
+    .drag {
+        width: 22px;
+        height: 2px;
+        background-color: #C0C0C0;
+        margin: 1px auto;
+    }
+
+    .resize-bar {
+        background:#eee;
+        height:10px;
+        cursor:grab;
+    }
+
+    .resize-bar:active {
+        cursor: grabbing;
+    }
+
+    .count-label {
+        background: #eee;
+        font-size: 0.7em;
+        padding: 0.5em 0.7em;
+        border-radius: 5px;
+    }
+    
+</style>
 <section class="content">
     <div class="row">
         <div class="col-md-12">
@@ -13,46 +47,43 @@
                     </h3>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body" data-children-count="14">
-                    <textarea id="summernote" style="display: none;">                
-                      Place &lt;em&gt;some&lt;/em&gt; &lt;u&gt;text&lt;/u&gt; &lt;strong&gt;here&lt;/strong&gt;
-                    </textarea>
-                    <div class="note-editor note-frame card">
+                <div class="card-body pb-0" data-children-count="14">
+                    <div class="card">
                         <div class="note-dropzone">
                             <div class="note-dropzone-message"></div>
                         </div>
                         <div class="note-toolbar card-header" role="toolbar">
                             <div class="note-btn-group btn-group note-style">
                                 <div class="note-btn-group btn-group">
-                                    <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="Style" data-original-title="Style" aria-expanded="false">
+                                    <a type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="Style" data-original-title="Style" aria-expanded="false">
                                         <i class="fas fa-heading"></i>
-                                    </button>
+                                    </a>
                                     <div class="note-dropdown-menu dropdown-menu dropdown-style" role="list" aria-label="Style" style="">
-                                        <a class="dropdown-item" href="#" data-value="p" role="listitem" aria-label="p">
+                                        <a id="style-p" class="dropdown-item" href="#" data-value="p" role="listitem" aria-label="p">
                                             <p>Normal</p>
                                         </a>
-                                        <a class="dropdown-item" href="#" data-value="blockquote" role="listitem" aria-label="blockquote">
+                                        <a id="style-quote" class="dropdown-item" href="#" data-value="blockquote" role="listitem" aria-label="blockquote">
                                             <blockquote class="blockquote">Blockquote</blockquote>
                                         </a>
-                                        <a class="dropdown-item" href="#" data-value="pre" role="listitem" aria-label="pre">
+                                        <a id="style-code" class="dropdown-item" href="#" data-value="pre" role="listitem" aria-label="pre">
                                             <pre>Code</pre>
                                         </a>
-                                        <a class="dropdown-item" href="#" data-value="h1" role="listitem" aria-label="h1">
+                                        <a id="style-h1" class="dropdown-item" href="#" data-value="h1" role="listitem" aria-label="h1">
                                             <h1>Header 1</h1>
                                         </a>
-                                        <a class="dropdown-item" href="#" data-value="h2" role="listitem" aria-label="h2">
+                                        <a id="style-h2" class="dropdown-item" href="#" data-value="h2" role="listitem" aria-label="h2">
                                             <h2>Header 2</h2>
                                         </a>
-                                        <a class="dropdown-item" href="#" data-value="h3" role="listitem" aria-label="h3">
+                                        <a id="style-h3" class="dropdown-item" href="#" data-value="h3" role="listitem" aria-label="h3">
                                             <h3>Header 3</h3>
                                         </a>
-                                        <a class="dropdown-item" href="#" data-value="h4" role="listitem" aria-label="h4">
+                                        <a id="style-h4" class="dropdown-item" href="#" data-value="h4" role="listitem" aria-label="h4">
                                             <h4>Header 4</h4>
                                         </a>
-                                        <a class="dropdown-item" href="#" data-value="h5" role="listitem" aria-label="h5">
+                                        <a id="style-h5" class="dropdown-item" href="#" data-value="h5" role="listitem" aria-label="h5">
                                             <h5>Header 5</h5>
                                         </a>
-                                        <a class="dropdown-item" href="#" data-value="h6" role="listitem" aria-label="h6">
+                                        <a id="style-h6" class="dropdown-item" href="#" data-value="h6" role="listitem" aria-label="h6">
                                             <h6>Header 6</h6>
                                         </a>
                                     </div>
@@ -69,19 +100,23 @@
                                     <i class="fas fa-underline"></i>
                                 </button>
                                 
-                                <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Remove Font Style (CTRL+\)" data-original-title="Remove Font       Style (CTRL+\)">
+                                <button id="style-reset" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Remove Font Style (CTRL+\)" data-original-title="Remove Font       Style (CTRL+\)">
                                     <i class="fas fa-eraser"></i>
                                 </button>
                             </div>
                             <div class="note-btn-group btn-group note-fontname">
                                 <div class="note-btn-group btn-group">
                                     <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="Font Family" data-original-title="Font Family" aria-expanded="false">
-                                        <span class="note-current-fontname" style="font-family: &quot;Source Sans Pro&quot;;">Source Sans Pro</span>
+                                        <span class="note-current-fontname" style="font-family: 'Source Sans Pro';">Source Sans Pro</span>
                                     </button>
                                     <div class="note-dropdown-menu dropdown-menu note-check dropdown-fontname" role="list" aria-label="Font Family" style="">
                                         <a class="dropdown-item" href="#" data-value="Arial" role="listitem" aria-label="Arial">
                                             <i class="note-icon-menu-check"></i>
                                             <span style="font-family: 'Arial'">Arial</span>
+                                        </a>
+                                        <a class="dropdown-item" href="#" data-value="Arial" role="listitem" aria-label="Arial">
+                                            <i class="note-icon-menu-check"></i>
+                                            <span style="font-family: 'Source Sans Pro'">Source Sans Pro</span>
                                         </a>
                                         <a class="dropdown-item" href="#" data-value="Arial Black" role="listitem" aria-label="Arial Black">
                                             <i class="note-icon-menu-check"></i>
@@ -263,22 +298,23 @@
 
 
                             <!-- Zawartość utworzona przez użytkownika -->
-                            <div id="editor-content" class="note-editable card-block" contenteditable="true" aria-multiline="true" spellcheck="true" autocorrect="true" style="min-height: 471.719px;">
+                            <div id="editor-content" class="note-editable card-block" contenteditable="true" aria-multiline="true" spellcheck="true" autocorrect="true" style="min-height: 250px; height:500px; overflow:auto;">
                                 <p>
-                                    <span style="font-family: &quot;Arial Black&quot;;"></span>Rozpocznij pisanie...
+                                    <br>
                                 </p>
                             </div>
                         </div>
 
-                        <!-- resizer - nie widać i nie działa - do przerobienia -->
-                        <output class="note-status-output" role="status" aria-live="polite"></output>
-                        <div class="note-statusbar" role="status">
+                        <!-- resizer -->
+                        <output class="note-status-output"  role="status" aria-live="polite"></output>
+                        <div id="resize-bar" class="resize-bar" role="status">
                             <div class="note-resizebar" aria-label="Resize">
-                                <div class="note-icon-bar"></div>
-                                <div class="note-icon-bar"></div>
-                                <div class="note-icon-bar"></div>
+                                <div class="drag"></div>
+                                <div class="drag"></div>
+                                <div class="drag"></div>
                             </div>
                         </div>
+
 
                         <!-- Insert link modal button -->
                         <div id="insert-link" class="modal note-modal link-dialog" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Insert Link">
@@ -628,6 +664,8 @@
                         </div>
                     </div>
                 </div>
+                <span class="count-label mb-3 mr-4" style="margin-left:auto;">Liczba słów: <p style="display:inline">0</p></span>
+
             </div>
         </div>
         <button id="submit" class="mt-3 ml-3 pl-5 pr-5 btn btn-primary">Zapisz arkusz</button>
