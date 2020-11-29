@@ -8,6 +8,10 @@
         margin-bottom: 3px;
     }
 
+    #editor-content:focus {
+        outline:none;
+    }
+
     .drag {
         width: 22px;
         height: 2px;
@@ -24,6 +28,14 @@
     .resize-bar:active {
         cursor: grabbing;
     }
+
+    .count-label {
+        background: #eee;
+        font-size: 0.7em;
+        padding: 0.5em 0.7em;
+        border-radius: 5px;
+    }
+    
 </style>
 <section class="content">
     <div class="row">
@@ -35,8 +47,8 @@
                     </h3>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body" data-children-count="14">
-                    <div class="note-editor note-frame card">
+                <div class="card-body pb-0" data-children-count="14">
+                    <div class="card">
                         <div class="note-dropzone">
                             <div class="note-dropzone-message"></div>
                         </div>
@@ -302,6 +314,7 @@
                                 <div class="drag"></div>
                             </div>
                         </div>
+
 
                         <!-- Insert link modal button -->
                         <div id="insert-link" class="modal note-modal link-dialog" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Insert Link">
@@ -651,6 +664,8 @@
                         </div>
                     </div>
                 </div>
+                <span class="count-label mb-3 mr-4" style="margin-left:auto;">Liczba słów: <p style="display:inline">0</p></span>
+
             </div>
         </div>
         <button id="submit" class="mt-3 ml-3 pl-5 pr-5 btn btn-primary">Zapisz arkusz</button>
