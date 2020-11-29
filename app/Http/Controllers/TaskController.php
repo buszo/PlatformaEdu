@@ -25,10 +25,12 @@ class TaskController extends Controller
     public function createQuery()
     {
         //$this->clearTasks();
+        $id = Auth::user()->id;
         Task::create([
             'title' => $this->request->input(['title']),
             'description' => $this->request->input(['description']),
-            'createdBy' => Auth::user()->id,
+            'createdBy' => $id,
+            'category_id' => $this->request->input(['taskOption']),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -52,6 +54,15 @@ class TaskController extends Controller
 
     }
 
+    public function createCategory()
+    {
+        DB::table('categories')->insertOrIgnore([
+            ['id' => 1, 'name' => 'Matematyka'],
+            ['id' => 2, 'name' => 'Biologia'],
+            ['id' => 3, 'name' => 'Fizyka'],
+            ['id' => 4, 'name' => 'Chemia']]);
+    }
+
     public function taskDetails(int $id)
     {
         Task::find($id);
@@ -63,8 +74,20 @@ class TaskController extends Controller
 
     public function list()
     {
-        $select = Task::select('id','title','created_at','updated_at')
+        $this->createCategory(); // UŻYJ TEGO, ABY UZUPEŁNIĆ LISTĘ KAREGORII DO WYŚWIETLENIA
+        $select = Task::select('id','title','created_at','updated_at','category_id')
         ->simplePaginate(5);
+
+
+        $select = DB::table('task')
+            ->join('categories', 'task.category_id', '=', 'categories.id')
+            ->select(
+                'task.id', 'task.title', 'task.description', 'task.created_at', 'task.updated_at',
+                'categories.id as category_id', 'categories.name as categories_name'
+            )
+            ->simplePaginate(10);
+
+
         return view('layouts.tasklist', ['select' => $select]);
     }
 

@@ -25,6 +25,15 @@
                                            placeholder="Podaj opis zadania">
 
                                 </div>
+                                <div class="form-group">
+                                    <label>Wybierz kategorię</label>
+                                    <select name="taskOption" class="custom-select">
+                                        <option value="1">Matematyka</option>
+                                        <option value="2">Biologia</option>
+                                        <option value="3">Fizyka</option>
+                                        <option value="4">Chemia</option>
+                                    </select>
+                                </div>
 
                             </div>
                             <!-- /.card-body -->
