@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 session_start();
 use App\Http\Controllers\Controller;
+use App\Models\Avatar;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\False_;
 use Symfony\Component\Console\Input\Input;
@@ -99,13 +101,6 @@ class UserController extends Controller
             </script>
             <?php
         }
-
-
-
-
-
-
-
     }
 
     public function update($column, $data, $id)
@@ -116,14 +111,14 @@ class UserController extends Controller
 
     public function upload(Request $request)
     {
-
-
+        $var = Avatar::all();
+        $id = Auth::user()->id;
         if ($request->hasFile('image'))
         {
 
-            $hashName = $request->image->hashName();
+
             $image = $request->file('image');
-            $input['imagename'] = $hashName;
+            $input['imagename'] = $hashName = $request->image->hashName();
             $destinationPath = storage_path('app/images');
             $img = Image::make($image->path());
             $img->resize(160, 160, function ($constraint) {
@@ -132,6 +127,11 @@ class UserController extends Controller
 
             $destinationPath = public_path('/images');
             $image->move($destinationPath, $input['imagename']);
+
+            Avatar::create([
+                'hashName' => $input['imagename'],
+                'user_id' => $id
+            ]);
             return redirect('/user');
 
         }

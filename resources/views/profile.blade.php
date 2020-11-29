@@ -16,6 +16,7 @@
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle"
                                      src="../../dist/img/user4-128x128.jpg"
+                                     {{--                                     src="storage/app/image/{{ DB::table('avatars')->where('user_id', Auth::user()->id)->value('hashName') }}"--}}
                                      alt="User profile picture">
                             </div>
                             @if($edit == 0)
