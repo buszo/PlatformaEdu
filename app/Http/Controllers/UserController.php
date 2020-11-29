@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Schema;
 use mysql_xdevapi\Table;
 use Auth;
+use Image;
 use Illuminate\Support\Facades\Hash;
 use function GuzzleHttp\Promise\all;
 
@@ -113,9 +114,23 @@ class UserController extends Controller
     }
 
 
-    public function upload()
+    public function upload(Request $request)
     {
-        return 1;
+
+
+        if ($request->hasFile('image'))
+        {
+            $hashName = $request->image->hashName();
+            $file = $request->file('image');
+//            $img = Image::make($file->getRealPath());
+//            $img->resize(160,160);
+//            $img->save(rtrim('storage/app/images/'.$hashName, '/'));
+            $img = Image::make($file->getRealPath())->resize(160,160)->insert(rtrim('storage/app/images/'.$hashName, '/'));
+//            $img = Image::make('public/foo.jpg')->resize(320, 240)->insert('public/watermark.png');
+
+            $request->image->store('images');
+            dd($request->file('image')->getRealPath(),$hashName);
+        }
     }
 
 }

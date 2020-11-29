@@ -158,12 +158,12 @@
                                 </form>
                             @else
                                 <div class="card-body">
-                                    <form action="/upload" method="post">
-                                        <input type="file" name="picture" align="center">
+                                    <form action="/user/upload" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="file" name="image" align="center" enctype="multipart/form-data">
                                         <br>
                                         <br>
-                                        <button type="submit" class="btn btn-primary btn-block">Dodaj
-                                        </button>
+                                        <input type="submit" class="btn btn-primary btn-block" value="Dodaj">
                                     </form>
                                 </div>
                             @endif
