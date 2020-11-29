@@ -31,7 +31,7 @@
                                     <tr>
                                         <td>{{$item->id}}</td>
                                         <td>{{$item->title}}</td>
-                                        <td>...</td>
+                                        <td>{{$item->categories_name}}</td>
                                         <td>{{$item->created_at}}</td>
                                         <td>{{$item->updated_at}}</td>
                                         <td>

@@ -18,6 +18,7 @@ class CreateTaskTable extends Migration
             $table->string('title', 100);
             $table->text('description');
             $table->foreignId('createdBy');
+            $table->foreignId('category_id',)->default('1');
             $table->index(['createdBy']);
             $table->timestamps();
         });
