@@ -157,13 +157,27 @@
                                     </div>
                                 </form>
                             @else
+                                <br>
+                                @php
+                                    if (isset($_SESSION['error'])) {
+                                        $error = $_SESSION['error'];
+                                        echo <<<ERROR
+                                        <div class="alert alert-danger alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <h5><i class="icon fas fa-ban"></i> Błąd!</h5>
+                                        $error
+                                        </div>
+                                    ERROR;
+                                        unset($_SESSION['error']);
+                                        }
+                                @endphp
                                 <div class="card-body">
-                                    <form action="/upload" method="post">
-                                        <input type="file" name="picture" align="center">
+                                    <form action="upload" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="file" name="image" align="center" enctype="multipart/form-data">
                                         <br>
                                         <br>
-                                        <button type="submit" class="btn btn-primary btn-block">Dodaj
-                                        </button>
+                                        <input type="submit" class="btn btn-primary btn-block" value="Dodaj">
                                     </form>
                                 </div>
                             @endif

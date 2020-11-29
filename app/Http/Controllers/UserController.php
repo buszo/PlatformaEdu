@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Schema;
 use mysql_xdevapi\Table;
 use Auth;
+use Image;
 use Illuminate\Support\Facades\Hash;
 use function GuzzleHttp\Promise\all;
 
@@ -113,9 +114,35 @@ class UserController extends Controller
     }
 
 
-    public function upload()
+    public function upload(Request $request)
     {
-        return 1;
+
+
+        if ($request->hasFile('image'))
+        {
+
+            $hashName = $request->image->hashName();
+            $image = $request->file('image');
+            $input['imagename'] = $hashName;
+            $destinationPath = storage_path('app/images');
+            $img = Image::make($image->path());
+            $img->resize(160, 160, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$input['imagename']);
+
+            $destinationPath = public_path('/images');
+            $image->move($destinationPath, $input['imagename']);
+            return redirect('/user');
+
+        }
+        else{
+            $_SESSION['error'] = 'Nie dodano zdjęcia!';
+            ?>
+            <script>
+                history.back();
+            </script>
+            <?php
+        }
     }
 
 }
