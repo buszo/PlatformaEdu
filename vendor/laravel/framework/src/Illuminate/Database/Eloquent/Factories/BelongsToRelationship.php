@@ -53,25 +53,22 @@ class BelongsToRelationship
 
         return $relationship instanceof MorphTo ? [
             $relationship->getMorphType() => $this->factory->newModel()->getMorphClass(),
-            $relationship->getForeignKeyName() => $this->resolver($relationship->getOwnerKeyName()),
+            $relationship->getForeignKeyName() => $this->resolver(),
         ] : [
-            $relationship->getForeignKeyName() => $this->resolver($relationship->getOwnerKeyName()),
+            $relationship->getForeignKeyName() => $this->resolver(),
         ];
     }
 
     /**
      * Get the deferred resolver for this relationship's parent ID.
      *
-     * @param  string|null  $key
      * @return \Closure
      */
-    protected function resolver($key)
+    protected function resolver()
     {
-        return function () use ($key) {
+        return function () {
             if (! $this->resolved) {
-                $instance = $this->factory->create();
-
-                return $this->resolved = $key ? $instance->{$key} : $instance->getKey();
+                return $this->resolved = $this->factory->create()->getKey();
             }
 
             return $this->resolved;
