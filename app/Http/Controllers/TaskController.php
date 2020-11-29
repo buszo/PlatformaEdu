@@ -17,9 +17,7 @@ class TaskController extends Controller
 
     public function index(Request $req)
     {
-        $var = Task::all();
-        $select = Task::latest('created_at')->first();
-        return view('task', ['select' => $select]);
+        return view('task');
     }
 
     public function createQuery()
@@ -65,18 +63,24 @@ class TaskController extends Controller
 
     public function taskDetails(int $id)
     {
+        $userId = Auth::user()->id;
         Task::find($id);
         $select = Task::find($id);
-        return view('taskdetails', [
-            'query' => $select
-        ]);
+        if (DB::table('task')->where('createdBy', '=', $userId)->find($id))
+        {
+            return view('taskdetails', [
+                'query' => $select
+            ]);
+        }
+        else
+            return redirect()->back();
+
     }
 
     public function list()
     {
+        $id = Auth::user()->id;
         $this->createCategory(); // UŻYJ TEGO, ABY UZUPEŁNIĆ LISTĘ KAREGORII DO WYŚWIETLENIA
-        $select = Task::select('id','title','created_at','updated_at','category_id')
-        ->simplePaginate(5);
 
 
         $select = DB::table('task')
@@ -85,7 +89,9 @@ class TaskController extends Controller
                 'task.id', 'task.title', 'task.description', 'task.created_at', 'task.updated_at',
                 'categories.id as category_id', 'categories.name as categories_name'
             )
+            ->where('createdBy', '=', $id)
             ->simplePaginate(10);
+
 
 
         return view('layouts.tasklist', ['select' => $select]);
@@ -93,12 +99,16 @@ class TaskController extends Controller
 
     public function new(Request $req)
     {
+        @session_start();
         $this->request = $req;
         if (!empty($req->input(['title']) && !empty($req->input(['description'])))) {
             $this->createQuery();
+            $_SESSION['title'] = $req['title'];
         }
         return redirect()->back();
     }
 
 
 }
+
+
