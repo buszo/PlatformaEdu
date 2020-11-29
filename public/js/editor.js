@@ -1,14 +1,37 @@
-var e         = undefined;                  // element i pozycja y kursora
-var x         = undefined;                  // pozycja x kursora
+var e         = $('#editor-content').first(); // element i pozycja y kursora
+var x         = undefined;                    // pozycja x kursora
 var bold      = false;
 var italic    = false;
 var underline = false;
-var MQ        = MathQuill.getInterface(2);  // zmienna do działań matematycznych
-
+var MQ        = MathQuill.getInterface(2);    // zmienna do działań matematycznych
+var numWord   = 0;
 
 $(function() {
     $('#editor-content').focus();
 });
+
+
+// licznik słów
+function countWords(element) {
+    if (element.prop('nodeName') == 'TABLE') {
+        var tds = element.find('td');
+        $.each(tds, function (i, td) {
+            var text = td.innerText.trim();
+
+            if (text.length > 0) {
+                var split = text.split(' ');
+                numWord += split.length;
+            }
+        });
+    }
+    else {
+        var text = element.text().trim();
+        if (text.length > 0) {
+            var split = text.split(' ');
+            numWord += split.length;
+        }
+    }
+}
 
 
 // zwraca pozycję kursora w wierszu (elemencie)
@@ -46,14 +69,30 @@ function getCaretPosition(editableDiv) {
  }
 
  // event odpala się w momencie zmiany zawartości
- // ustawia współrzędne kursora
 document.getElementById('editor-content').addEventListener("input", function() {
+
+    // zabezpieczenie przed usunięciem pierwszego elementu <p>
+    if ($('#editor-content').children().length == 0) {
+        var p = document.createElement('p');
+        var br = document.createElement('br');
+        p.append(br);
+        $('#editor-content').empty();
+        $('#editor-content').prepend(p);
+    }
+
+    // ustalenie współrzędnych kursora
     e = getSelectionStart();
     x = getCaretPosition(e) + 1;
-
     // if (e.isEqualNode('table')) {
         // jeśli element jest tabelą to inaczej odczytać pozycję kursora
     //}
+
+    // obliczenie ilości słów
+    numWord = 0;
+    $('#editor-content').children().each(function () {
+        countWords($(this));
+    });
+    $('.count-label p').text(numWord);
 }, false);
 
 
@@ -148,7 +187,7 @@ function alignText() {
     document.execCommand();
 }
 
-// tabela
+// tabela - działa źle jeśli tabela wstawiana jako pierwsza
 $('#add-table').click(() => {
     var rows = $('#table-rows').val();
     var cols = $('#table-cols').val();
@@ -309,6 +348,10 @@ $('#submit').click(() => {
 
 // generowanie pdf
 $('#pdf-export').click(() => {
+
+
+
+
     var htmlSheet = $('#editor-content').innerHTML;
     $.ajax({
         url: '/Home/GeneratePdf',
