@@ -44,32 +44,29 @@
                         </form>
                     </div>
 
-                    @if(str_contains(url()->current(), '/created'))
+
+                    @php
+                        @session_start();
+                    @endphp
+                    @if(!empty($_SESSION['title']))
+
+
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                             <h5><i class="icon fas fa-check"></i> Sukces!</h5>
-                            Udało się utworzyć nowe zadanie!<br>
-                            ID: {{$select->id}}<br>
-                            Tytuł: {{$select->title}}
+                            Dodano wpis o tytule:<b></b> {{$_SESSION['title']}} <br>
+                            <a href="{{ route('taskList') }}"><i>Przejdź do listy zadań</i></a></div><br>
+
                         </div>
-                    @endif
-                    @if($ifidexist = DB::table('task')->count() != 0)
-                        <div class="card card-success">
-                            <div class="card-header">
-                                <h4 class="card-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class=""
-                                       aria-expanded="false">
-                                        Ostatnio dodane <hr></hr><i>ID: {{$select->id}} | Tytuł: {{$select->title}}</i>
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseThree" class="panel-collapse collapse show" style="">
-                                <div class="card-body">
-                                    {{$select->description}}
-                                </div>
-                            </div>
-                        </div>
-                    @endif
+    @unset($_SESSION['title'])
+    @endif
 
 
 @endsection
+
+
+
+
+
+
+
