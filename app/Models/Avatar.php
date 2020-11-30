@@ -12,8 +12,8 @@ class Avatar extends Model
     protected $table = 'avatars';
     protected $fillable = ['hashName', 'user_id'];
 
-    public function categories()
+    public function user()
     {
-
+        return $this->belongsTo(User::class);
     }
 }
