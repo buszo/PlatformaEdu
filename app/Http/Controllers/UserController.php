@@ -119,19 +119,26 @@ class UserController extends Controller
 
             $image = $request->file('image');
             $input['imagename'] = $hashName = $request->image->hashName();
-            $destinationPath = storage_path('app/images');
+            $destinationPath = public_path('/images');
             $img = Image::make($image->path());
             $img->resize(160, 160, function ($constraint) {
                 $constraint->aspectRatio();
             })->save($destinationPath.'/'.$input['imagename']);
 
-            $destinationPath = public_path('/images');
+
             $image->move($destinationPath, $input['imagename']);
+
+            while(DB::table('avatars')->where('user_id', $id)->exists())
+            {
+                unlink($destinationPath.'/'.DB::table('avatars')->where('user_id', Auth::user()->id)->value('hashName'));
+                DB::table('avatars')->where('user_id', $id)->delete();
+            }
 
             Avatar::create([
                 'hashName' => $input['imagename'],
                 'user_id' => $id
             ]);
+            $_SESSION['success'] = 'Zmieniono awatar!';
             return redirect('/user');
 
         }
