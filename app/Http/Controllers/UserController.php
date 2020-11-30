@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 session_start();
 use App\Http\Controllers\Controller;
+use App\Models\Avatar;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\False_;
 use Symfony\Component\Console\Input\Input;
@@ -9,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Schema;
 use mysql_xdevapi\Table;
 use Auth;
+use Image;
 use Illuminate\Support\Facades\Hash;
 use function GuzzleHttp\Promise\all;
 
@@ -98,13 +101,6 @@ class UserController extends Controller
             </script>
             <?php
         }
-
-
-
-
-
-
-
     }
 
     public function update($column, $data, $id)
@@ -113,9 +109,47 @@ class UserController extends Controller
     }
 
 
-    public function upload()
+    public function upload(Request $request)
     {
-        return 1;
+        $var = Avatar::all();
+        $id = Auth::user()->id;
+        if ($request->hasFile('image'))
+        {
+
+
+            $image = $request->file('image');
+            $input['imagename'] = $hashName = $request->image->hashName();
+            $destinationPath = public_path('/images');
+            $img = Image::make($image->path());
+            $img->resize(160, 160, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$input['imagename']);
+
+
+            $image->move($destinationPath, $input['imagename']);
+
+            while(DB::table('avatars')->where('user_id', $id)->exists())
+            {
+                unlink($destinationPath.'/'.DB::table('avatars')->where('user_id', Auth::user()->id)->value('hashName'));
+                DB::table('avatars')->where('user_id', $id)->delete();
+            }
+
+            Avatar::create([
+                'hashName' => $input['imagename'],
+                'user_id' => $id
+            ]);
+            $_SESSION['success'] = 'Zmieniono awatar!';
+            return redirect('/user');
+
+        }
+        else{
+            $_SESSION['error'] = 'Nie dodano zdjęcia!';
+            ?>
+            <script>
+                history.back();
+            </script>
+            <?php
+        }
     }
 
 }
