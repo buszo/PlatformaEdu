@@ -45,4 +45,9 @@ class User extends Authenticatable
         return $this->hasOne(Avatar::class);
     }
 
+    public function task()
+    {
+        return $this->hasMany(Task::class, 'createdBy');
+    }
+
 }
