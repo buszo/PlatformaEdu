@@ -662,6 +662,22 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Preview modal box -->
+                        <div id="pdf-modal" class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Preview">
+                            <div class="modal-dialog mt-5">
+                                <div class="modal-content" style="width:610px; height:900px;">
+                                <div class="modal-header">
+                                        <h4 class="modal-title">Podgląd</h4>
+                                        <button id="close-preview-modal" type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
+                                    </div>
+                                    <div class="modal-body" id="pdf-preview">
+                                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <span class="count-label mb-3 mr-4" style="margin-left:auto;">Liczba słów: <p style="display:inline">0</p></span>
