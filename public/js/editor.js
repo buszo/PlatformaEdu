@@ -84,7 +84,7 @@ document.getElementById('editor-content').addEventListener("input", function() {
     e = getSelectionStart();
     x = getCaretPosition(e) + 1;
     // if (e.isEqualNode('table')) {
-        // jeśli element jest tabelą to inaczej odczytać pozycję kursora
+        // TODO: jeśli element jest tabelą to inaczej odczytać pozycję kursora
     //}
 
     // obliczenie ilości słów
@@ -187,7 +187,6 @@ function alignText() {
     document.execCommand();
 }
 
-// tabela - działa źle jeśli tabela wstawiana jako pierwsza
 $('#add-table').click(() => {
     var rows = $('#table-rows').val();
     var cols = $('#table-cols').val();
@@ -248,7 +247,7 @@ $('#add-link').click(() => {
 
     console.log(link);
     e.after(link);
-    // link nie jest klikalny i nie przenosi na stronę
+    // TODO: link nie jest klikalny i nie przenosi na stronę
 });
 
 
@@ -277,7 +276,7 @@ $('#add-image').click(() => {
         var file = blob.files[0];
 
         var fr = new FileReader();
-        // odczytać obrazek, przekonwertować do base64 i wyświetlić
+        // TODO: odczytać obrazek, przekonwertować do base64 i wyświetlić
      }
 });
 
@@ -346,26 +345,40 @@ $('#submit').click(() => {
 });
 
 
+$('#close-preview-modal').click(() => {
+    $('#pdf-modal').hide();
+
+});
+
 // generowanie pdf
 $('#pdf-export').click(() => {
+    var htmlSheet = $('#editor-content').html().toString();
 
-
-
-
-    var htmlSheet = $('#editor-content').innerHTML;
+    
     $.ajax({
-        url: '/Home/GeneratePdf',
+        url: '/generatePdf',
+        type: 'GET',
         data: {
-            schema : htmlSheet
+            html : htmlSheet
         },
-        contentType: 'json',
-        method: 'POST',
-        success: function () {
-            // wyświetlić komunikat i pobrać plik jeżeli się powiodło
+        success: function(data) {
+
+            if (data) {
+                $('#pdf-preview').empty();
+
+                var object = document.createElement('embed');
+
+                object.setAttribute('src', 'data:application/pdf;base64,' + data);
+                object.setAttribute('type', 'application/pdf');
+                object.setAttribute('width', '580px');
+                object.setAttribute('height', '800px');
+
+                $('#pdf-preview').append(object);
+                $('#pdf-modal').show();
+            }
         },
         error: function () {
-            console.log('nie działa');
-            // wyświetlić komunikat jeśli się nie powiodło
+            // TODO: wyświetlić info o niepowodzeniu
         }
     });
 });

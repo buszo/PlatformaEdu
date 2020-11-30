@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Dompdf\Dompdf;
 
 class HomeController extends Controller
 {
@@ -27,10 +28,20 @@ class HomeController extends Controller
         return view('adminLTE.dashboard');
     }
 
-
-    public function generatePdf()
+    // TODO: generator dokumentów ma czytać CSS
+    public function generatePdf()       
     {
-        return view('');
+        $html = $_GET['html'];
+        $pdf = new Dompdf();
+
+        $pdf->loadHTML($html);
+        $pdf->render();
+        $output = $pdf->output();
+        file_put_contents('file', $output);
+        
+        $data = base64_encode($output);
+
+        return response()->json($data);
     }
 
     public function sheetEditor()

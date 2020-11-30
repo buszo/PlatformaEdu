@@ -44,5 +44,6 @@ Route::delete('/delete/{id}', [TaskController::class, 'deleteTask'])
     ->where(['id' => '[0-9]+'])->name('taskDelete');
 
 Route::get('/editor', [App\Http\Controllers\HomeController::class, 'sheetEditor'])->name('editor');
+Route::get('/generatePdf', [App\Http\Controllers\HomeController::class, 'generatePdf'])->name('pdf');
 
 
