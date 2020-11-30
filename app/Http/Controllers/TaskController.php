@@ -52,6 +52,7 @@ class TaskController extends Controller
 
     }
 
+
     public function createCategory()
     {
         DB::table('categories')->insertOrIgnore([
@@ -66,13 +67,11 @@ class TaskController extends Controller
         $userId = Auth::user()->id;
         Task::find($id);
         $select = Task::find($id);
-        if (DB::table('task')->where('createdBy', '=', $userId)->find($id))
-        {
+        if (DB::table('task')->where('createdBy', '=', $userId)->find($id)) {
             return view('taskdetails', [
                 'query' => $select
             ]);
-        }
-        else
+        } else
             return redirect()->back();
 
     }
@@ -80,8 +79,7 @@ class TaskController extends Controller
     public function list()
     {
         $id = Auth::user()->id;
-        $this->createCategory(); // UŻYJ TEGO, ABY UZUPEŁNIĆ LISTĘ KAREGORII DO WYŚWIETLENIA
-
+        $this->createCategory();
 
         $select = DB::table('task')
             ->join('categories', 'task.category_id', '=', 'categories.id')
@@ -91,8 +89,6 @@ class TaskController extends Controller
             )
             ->where('createdBy', '=', $id)
             ->simplePaginate(10);
-
-
 
         return view('layouts.tasklist', ['select' => $select]);
     }
