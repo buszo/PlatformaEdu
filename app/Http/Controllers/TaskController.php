@@ -111,8 +111,9 @@ class TaskController extends Controller
             )
             ->where('createdBy', '=', $id)
             ->simplePaginate(10);
-
-        return view('layouts.tasklist', ['select' => $select]);
+        $all = $select->count();
+        $categoryCount = DB::table('categories')->count('id');
+        return view('layouts.tasklist', ['select' => $select, 'all' => $all, 'categoryCount' => $categoryCount]);
     }
 
     public function new(Request $req)

@@ -1,6 +1,9 @@
 @extends('adminLTE.dashboard')
 @section('content')
 
+
+
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -29,11 +32,13 @@
 
                                 </thead>
                                 <tbody>
+
                                 @foreach($select ?? [] as $item)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$item->title}}</td>
-                                        <td><a href="/list/{{$item->categories_name}}">{{$item->categories_name}}</a> </td>
+                                        <td><a href="/list/{{$item->categories_name}}">{{$item->categories_name}}</a>
+                                        </td>
                                         <td>{{$item->created_at}}</td>
                                         <td>{{$item->updated_at}}</td>
                                         <td>
@@ -54,12 +59,17 @@
 
                                 @endforeach
                                 </tbody>
+
+
+                                </div>
+
                             </table>
+
                         </div>
                         <!-- /.card-body -->
                     </div>
                     {{$select->links()}}
-                 @php
+                    @php
                         @session_start();
                     @endphp
                     @if(!empty($_SESSION['id']))
@@ -72,8 +82,8 @@
                         </div>
                         @unset($_SESSION['id'])
                     @endif
-                    </div>
+                </div>
 
-                <script src="{{asset('plugins/sortowanie/tablesort.js')}}"></script>
+
 
 @endsection

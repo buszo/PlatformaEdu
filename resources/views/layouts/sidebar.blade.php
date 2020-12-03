@@ -29,10 +29,12 @@
 
 
         <!-- Sidebar Menu -->
+
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
+
 {{--                <li class="nav-item has-treeview menu-open">--}}
 {{--                    <a href="#" class="nav-link active">--}}
 {{--                        <i class="nav-icon fas fa-tachometer-alt"></i>--}}
@@ -279,34 +281,7 @@
 {{--                        </li>--}}
 {{--                    </ul>--}}
 {{--                </li>--}}
-                <li class="nav-header">ZARZĄDZANIE TREŚCIĄ</li>
-{{--                <li class="nav-item">--}}
-{{--                    <a href="pages/calendar.html" class="nav-link">--}}
-{{--                        <i class="nav-icon fas fa-calendar-alt"></i>--}}
-{{--                        <p>--}}
-{{--                            Calendar--}}
-{{--                            <span class="badge badge-info right">2</span>--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-                <li class="nav-item">
-                    <a href="/new" class="nav-link">
-                        <i class="nav-icon far fa-plus-square"></i>
-                        <p>
-                            Dodaj nowe zadanie
 
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/list" class="nav-link">
-                        <i class="nav-icon fas fa-clipboard-list"></i>
-                        <p>
-                            Lista dodanych zadań
-
-                        </p>
-                    </a>
-                </li>
 {{--                <li class="nav-item has-treeview">--}}
 {{--                    <a href="#" class="nav-link">--}}
 {{--                        <i class="nav-icon far fa-envelope"></i>--}}
@@ -569,6 +544,48 @@
 {{--                        <p>Informational</p>--}}
 {{--                    </a>--}}
 {{--                </li>--}}
+                <li class="nav-header">ZARZĄDZANIE TREŚCIĄ</li>
+                <li class="nav-item">
+                    <a href="{{route('newTaskIndex')}}" class="nav-link">
+                        <i class="nav-icon far fa-plus-square"></i>
+                        <p>
+                            Dodaj nowe zadanie
+
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="{{route('taskList')}}" class="nav-link">
+                        <i class="nav-icon fas fa-clipboard-list"></i>
+                        <p>
+                            Lista dodanych zadań
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Kategorie
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            @php
+                            $categories_raw = DB::table('categories')->get()->toArray();
+                            $categories = array_column($categories_raw, 'name', 'id');
+                            @endphp
+                            <ul class="nav nav-treeview">
+                            @foreach($categories ?? [] as $item)
+                                <li class="nav-item">
+                                    <a href="{{ route('taskListByCategory', [$item]) }}" class="nav-link">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p><i>{{$item}}</i></p>
+                                    </a>
+
+                                @endforeach
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

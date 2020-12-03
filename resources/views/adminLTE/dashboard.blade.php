@@ -52,6 +52,7 @@
                             @if (\Request::is('/'))
                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                             @else
+
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item active"><i>{{\Request::path(' / ')}}</i></li>
                                 @endif
