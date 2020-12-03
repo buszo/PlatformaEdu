@@ -8,7 +8,7 @@
                     <div class="card">
                         <div class="card-header">
 
-                            <h3 class="card-title"><b>Dodane zadania</b></h3>
+                            <h3 class="card-title"><b>Kategoria: {{$category}}</b></h3>
                         </div>
                         <!-- /.card-header -->
 
@@ -19,7 +19,6 @@
                                 <tr>
                                     <th>Id</th>
                                     <th class="table-sortable">Tytuł</th>
-                                    <th>Kategoria</th>
 
                                     <th>Utworzono</th>
                                     <th>Ostatnia modyfikacja</th>
@@ -33,7 +32,6 @@
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$item->title}}</td>
-                                        <td><a href="/list/{{$item->categories_name}}">{{$item->categories_name}}</a> </td>
                                         <td>{{$item->created_at}}</td>
                                         <td>{{$item->updated_at}}</td>
                                         <td>
@@ -49,6 +47,7 @@
                                                     </form>
                                                 </div>
                                             </div>
+                                            {{$select->links()}}
                                         </td>
                                     </tr>
 
@@ -58,22 +57,5 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
-                    {{$select->links()}}
-                 @php
-                        @session_start();
-                    @endphp
-                    @if(!empty($_SESSION['id']))
-
-
-                        <div class="alert alert-success alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <h5><i class="icon fas fa-check"></i> Sukces!</h5>
-                            Usunięto wpis od ID: {{$_SESSION['id']}}<br>
-                        </div>
-                        @unset($_SESSION['id'])
-                    @endif
-                    </div>
-
-                <script src="{{asset('plugins/sortowanie/tablesort.js')}}"></script>
 
 @endsection

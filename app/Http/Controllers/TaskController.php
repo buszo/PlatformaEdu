@@ -71,7 +71,29 @@ class TaskController extends Controller
             return view('taskdetails', [
                 'query' => $select
             ]);
-        } else
+        }
+    }
+
+
+
+
+    public function listByCategory(string $category)
+    {
+        $id = Auth::user()->id;
+        $select = DB::table('task')
+            ->join('categories', 'task.category_id', '=', 'categories.id')
+            ->select(
+                'task.id', 'task.title', 'task.description', 'task.created_at', 'task.updated_at',
+                'categories.id as category_id', 'categories.name as categories_name'
+            )
+            ->where('categories.name', '=', $category)->where('createdBy', '=', $id)
+            ->simplePaginate(10);
+
+        $categories_raw = DB::table('categories')->get()->toArray();
+        $categories = array_column($categories_raw, 'name', 'id');
+        if (in_array($category, $categories)) {
+            return view('listcategory', ['category' => $category, 'select' => $select]);
+        }else
             return redirect()->back();
 
     }
