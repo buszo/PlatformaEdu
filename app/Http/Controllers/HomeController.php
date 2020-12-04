@@ -46,6 +46,23 @@ class HomeController extends Controller
         return response()->json($data);
     }
 
+    public function getTasks()
+    {
+        $category = $_GET['category'];
+
+
+        $query = DB::table('task')->join('categories', 'task.category_id', '=', 'categories.id')->where('categories.name', '=', $category)->get();
+
+        return response()->json($query);
+    }
+
+    public function convertTaskToHtml()
+    {
+        $select = '';
+        return response()->json($select);
+    }
+
+
     public function sheetEditor()
     {
         return view('editor');

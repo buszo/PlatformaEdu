@@ -271,6 +271,9 @@
                                 <button id="insert-math" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Video" data-original-title="Video">
                                     <i class="fas fa-square-root-alt"></i>
                                 </button>
+                                <button id="insert-task" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Video" data-original-title="Video">
+                                    <i class="fas fa-flask"></i>
+                                </button>
                             </div>
                             <div class="note-btn-group btn-group note-view">
                                 <button id="full-screen" type="button" class="note-btn btn btn-light btn-sm p-2 btn-fullscreen note-codeview-keep" tabindex="-1" title="" aria-label="Full Screen" data-original-title="Full Screen">
@@ -314,6 +317,65 @@
                                 <div class="drag"></div>
                             </div>
                         </div>
+
+                        <!-- Add task modal -->
+                        <div id="task-modal" class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Task">
+                            <div class="modal-dialog mt-5">
+                                <div class="modal-content" style="width:610px; height:auto;">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Lista zadań</h4>
+                                        <button id="close-task-modal" type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
+                                    </div>
+                                    <div class="modal-body" id="search-task">
+                                        <div class="form-group">
+                                            <label for="task-title">Tytuł zadania</label>
+                                            <input type="text" class="form-control" id="task-title" placeholder="Tytuł">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="key-words">Słowa kluczowe</label>
+                                            <input type="input" class="form-control" id="key-words" placeholder="Tagi">
+                                            <small id="key-words-help" class="form-text text-muted">Tagi oddzielone przecinkiem lub spacją</small>
+                                        </div>
+                                        <div class="note-btn-group btn-group " >
+                                            <a type="button" id="task-category" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-original-title="Style" aria-expanded="false">
+                                                Matematyka
+                                            </a>
+                                            <div class="note-dropdown-menu dropdown-menu dropdown-style" role="list">
+                                                <a class="dropdown-item" href="#" data-value="biologia" role="listitem">
+                                                    <p>Biologia</p>
+                                                </a>
+                                                <a class="dropdown-item" href="#" data-value="fizyka" role="listitem">
+                                                    <p>Fizyka</p>
+                                                </a>
+                                                <a class="dropdown-item" href="#" data-value="matematyka" role="listitem">
+                                                    <p>Matematyka</p>
+                                                </a>
+                                                <a class="dropdown-item" href="#" data-value="chemia" role="listitem">
+                                                    <p>Chemia</p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <div style="display:inline-block;">
+                                                <button id="tasks-submit" type="button" class="btn btn-primary pr-4 pl-4">Szukaj</button>
+                                            </div>
+                                            <div class="form-group" style="display:inline-block; float: right; display:none;">
+                                                <input type="input" class="form-control" id="search-task" placeholder="Wprowadź szukaną frazę">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer"style="max-height:300px;">
+                                        <ul class="list-group" style="margin:0 auto;" id="tasks-list">
+
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer arrow-down" id="more-tasks">
+                                            <i style="margin:0 auto;" class="fas fa-chevron-circle-down"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
 
                         <!-- Insert link modal button -->
