@@ -65,7 +65,9 @@ class HomeController extends Controller
 
     public function sheetEditor()
     {
-        return view('editor');
+        $query = DB::table('categories')->select('categories.name as name')->get();
+
+        return view('editor', ['categories' => $query]);
     }
 
 

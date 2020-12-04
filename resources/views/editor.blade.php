@@ -35,7 +35,7 @@
         padding: 0.5em 0.7em;
         border-radius: 5px;
     }
-    
+
 </style>
 <section class="content">
     <div class="row">
@@ -340,36 +340,29 @@
                                             <a type="button" id="task-category" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-original-title="Style" aria-expanded="false">
                                                 Matematyka
                                             </a>
-                                            <div class="note-dropdown-menu dropdown-menu dropdown-style" role="list">
-                                                <a class="dropdown-item" href="#" data-value="biologia" role="listitem">
-                                                    <p>Biologia</p>
+                                            <div id="categories-list" class="note-dropdown-menu dropdown-menu dropdown-style" role="list">
+                                                @foreach($categories ?? [] as $item)
+                                                <a class="dropdown-item" href="#">
+                                                    <p>{{$item->name}}</p>
                                                 </a>
-                                                <a class="dropdown-item" href="#" data-value="fizyka" role="listitem">
-                                                    <p>Fizyka</p>
-                                                </a>
-                                                <a class="dropdown-item" href="#" data-value="matematyka" role="listitem">
-                                                    <p>Matematyka</p>
-                                                </a>
-                                                <a class="dropdown-item" href="#" data-value="chemia" role="listitem">
-                                                    <p>Chemia</p>
-                                                </a>
+                                                @endforeach
                                             </div>
                                         </div>
                                         <div class="mt-3">
                                             <div style="display:inline-block;">
                                                 <button id="tasks-submit" type="button" class="btn btn-primary pr-4 pl-4">Szukaj</button>
                                             </div>
-                                            <div class="form-group" style="display:inline-block; float: right; display:none;">
-                                                <input type="input" class="form-control" id="search-task" placeholder="Wprowadź szukaną frazę">
+                                            <div class="form-group" id="hidden-search" style="display:inline-block; float: right; display:none;">
+                                                <input type="input" class="form-control" id="search-task" placeholder="Przeszukaj wyniki">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-footer"style="max-height:300px;">
-                                        <ul class="list-group" style="margin:0 auto;" id="tasks-list">
+                                    <div class="modal-footer">
+                                        <ul class="list-group" style="margin:0 auto; max-height:300px;" id="tasks-list">
 
                                         </ul>
                                     </div>
-                                    <div class="modal-footer arrow-down" id="more-tasks">
+                                    <div class="modal-footer arrow-down" style="display:none;" id="more-tasks">
                                             <i style="margin:0 auto;" class="fas fa-chevron-circle-down"></i>
                                     </div>
                                 </div>

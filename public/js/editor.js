@@ -415,6 +415,13 @@ $('#more-tasks').click(() => {
 });
 
 
+$('#categories-list').children().each(function () {
+    $(this).click(() => {
+        var name = $(this).find('p').text();
+        $('#task-category').text(name);
+    });
+});
+
 function getTasks() {
     var title = $('task-title').val();
     var tags = $('#key-words').val();
@@ -427,29 +434,36 @@ function getTasks() {
             category : category,
         },
         success: function (data) {
-            if (data) {
-                $('#search-task').show();
+            if (data.length > 0) {
+                $('#hidden-search').show();
+                $('#more-tasks').show();
                 $.each(data, function (i, item) {
                     var li = document.createElement('li');
+                    var a = document.createElement('a');
                     var body = document.createElement('div');
                     var h = document.createElement('h5');
                     var p = document.createElement('p');
 
+                    a.setAttribute('href', '#');
                     li.setAttribute('class', 'list-group-item card');
                     body.setAttribute('class', 'card-body');
                     h.setAttribute('class', 'card-title');
                     p.setAttribute('class', 'card-text');
-
-                    console.log(item);
 
                     h.innerText = item.title;
                     p.innerText = item.description;
 
                     body.append(h);
                     body.append(p);
-                    li.append(body);
+                    a.append(body);
+                    li.append(a);
                     $('#tasks-list').append(li);
                 });
+            }
+            else {
+                $('#tasks-list').empty();
+                $('#hidden-search').hide();
+                $('#more-tasks').hide();
             }
         },
         error: function () {
