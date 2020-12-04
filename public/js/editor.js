@@ -321,11 +321,6 @@ $('#full-screen').click(() => {
     
 });
 
-// pokaż kod html
-$('#show-html').click(() => {
-    
-});
-
 // pomoc
 $('#help-button').click(() => {
     $('#help-modal').show();
@@ -342,6 +337,14 @@ $('#reject-sheet').click(() => {
 $('#submit').click(() => {
     $('#option-submit').show();
     $('#option-submit').css('background', 'rgba(0,0,0,0.4)');
+});
+
+// wstawianie zadania
+$('#insert-task').click(() => {
+    $('#task-modal').show();
+});
+$('#close-task-modal').click(() => {
+    $('#task-modal').hide();
 });
 
 
@@ -401,5 +404,57 @@ $('#resize-bar').on('mousedown', function(e){
             top: my
         });
     });
-            
 });
+
+$('#tasks-submit').click(() => {
+    getTasks();
+});
+
+$('#more-tasks').click(() => {
+    getTasks();
+});
+
+
+function getTasks() {
+    var title = $('task-title').val();
+    var tags = $('#key-words').val();
+    var category = $('#task-category').text().trim();
+
+    $.ajax({
+        url: '/getTasks',
+        type: 'GET',
+        data: {
+            category : category,
+        },
+        success: function (data) {
+            if (data) {
+                $('#search-task').show();
+                $.each(data, function (i, item) {
+                    var li = document.createElement('li');
+                    var body = document.createElement('div');
+                    var h = document.createElement('h5');
+                    var p = document.createElement('p');
+
+                    li.setAttribute('class', 'list-group-item card');
+                    body.setAttribute('class', 'card-body');
+                    h.setAttribute('class', 'card-title');
+                    p.setAttribute('class', 'card-text');
+
+                    console.log(item);
+
+                    h.innerText = item.title;
+                    p.innerText = item.description;
+
+                    body.append(h);
+                    body.append(p);
+                    li.append(body);
+                    $('#tasks-list').append(li);
+                });
+            }
+        },
+        error: function () {
+
+        }
+    });
+
+}
