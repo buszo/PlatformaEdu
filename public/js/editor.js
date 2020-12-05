@@ -181,6 +181,19 @@ function setColor(color) {
     document.execCommand('foreColor', false, color);
 }
 
+// wstawianie nieuporządkowanej listy 
+$('#ul-list').click(() => {
+    var ul = document.createElement('ul');
+    e.after(ul);
+});
+
+// wstawianie uporządkowanej listy
+$('#ol-list').click(() => {
+    var ol = document.createElement('ol');
+    e.after(ol);
+});
+
+
 // wyrównanie tekstu
 
 function alignText() {
@@ -406,6 +419,7 @@ $('#resize-bar').on('mousedown', function(e){
     });
 });
 
+// wyszukiwanie zadań
 $('#tasks-submit').click(() => {
     getTasks();
 });
@@ -414,7 +428,7 @@ $('#more-tasks').click(() => {
     getTasks();
 });
 
-
+// każde zadanie z listy jest przyciskiem
 $('#categories-list').children().each(function () {
     $(this).click(() => {
         var name = $(this).find('p').text();
@@ -422,6 +436,7 @@ $('#categories-list').children().each(function () {
     });
 });
 
+// pobiera listę zadań
 function getTasks() {
     var title = $('task-title').val();
     var tags = $('#key-words').val();
@@ -458,6 +473,24 @@ function getTasks() {
                     a.append(body);
                     li.append(a);
                     $('#tasks-list').append(li);
+                });
+
+                $('#tasks-list').children().each(function () {
+                    var stuff = $(this).find('a');
+                    
+                    stuff.click(() => {
+                        var title = stuff.find('h5').text();
+                        var desc = stuff.find('p').text();
+
+                        var h = document.createElement('h5');
+                        var p = document.createElement('p');
+
+                        h.innerText = title;
+                        p.innerText = desc;
+                        
+                        e.after(p);
+                        e.after(h);
+                    });
                 });
             }
             else {
