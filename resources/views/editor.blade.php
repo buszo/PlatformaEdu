@@ -8,6 +8,10 @@
         margin-bottom: 3px;
     }
 
+    #editor-content {
+        min-height: 250px; height:350px; overflow:auto;
+    }
+
     #editor-content:focus {
         outline:none;
     }
@@ -43,11 +47,20 @@
             <div class="card card-outline card-info">
                 <div class="card-header">
                     <h3 class="card-title">
-                        Nowy arkusz zadań
+                        <input type="text" class="form-control" placeholder="Nowy arkusz zadań">
                     </h3>
+                    <div style="float:right; color:#757575; margin-top:auto;" class="mt-1">
+                        <a id="submit" class="mr-2" role="button" style="cursor:pointer;">
+                            <i class="fas fa-save"></i>
+                        </a>
+                        <a data-toggle="collapse" href="#collapseExample" style="color:#757575" role="button" aria-expanded="false" aria-controls="collapseExample" >
+                            <i class="fas fa-window-minimize"></i>
+                        </a>
+                        
+                    </div>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body pb-0" data-children-count="14">
+                <div id="collapseExample" class="card-body pb-0 collapse show" data-children-count="14" >
                     <div class="card">
                         <div class="note-dropzone">
                             <div class="note-dropzone-message"></div>
@@ -55,7 +68,7 @@
                         <div class="note-toolbar card-header" role="toolbar">
                             <div class="note-btn-group btn-group note-style">
                                 <div class="note-btn-group btn-group">
-                                    <a type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="Style" data-original-title="Style" aria-expanded="false">
+                                    <a type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown">
                                         <i class="fas fa-heading"></i>
                                     </a>
                                     <div class="note-dropdown-menu dropdown-menu dropdown-style" role="list" aria-label="Style" style="">
@@ -90,23 +103,23 @@
                                 </div>
                             </div>
                             <div class="note-btn-group btn-group note-font">
-                                <button id="bold" type="button" class="note-btn btn btn-light btn-sm note-btn-bold" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Pogrubienie">
+                                <button id="bold" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Pogrubienie">
                                     <i class="fas fa-bold"></i>
                                 </button>
-                                <button id="italic" type="button" class="note-btn btn btn-light btn-sm note-btn-italic" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Kursywa">
+                                <button id="italic" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Kursywa">
                                     <i class="fas fa-italic"></i>
                                 </button>
-                                <button id="underline" type="button" class="note-btn btn btn-light btn-sm note-btn-underline" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Podkreślenie">
+                                <button id="underline" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Podkreślenie">
                                     <i class="fas fa-underline"></i>
                                 </button>
                                 
-                                <button id="style-reset" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Styl domyślny">
+                                <button id="style-reset" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Styl domyślny">
                                     <i class="fas fa-eraser"></i>
                                 </button>
                             </div>
                             <div class="note-btn-group btn-group note-fontname">
                                 <div class="note-btn-group btn-group">
-                                    <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="Font Family" data-original-title="Font Family" aria-expanded="false">
+                                    <button type="button" class="btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="Font Family" data-original-title="Font Family" aria-expanded="false">
                                         <span class="note-current-fontname" style="font-family: 'Source Sans Pro';">Source Sans Pro</span>
                                     </button>
                                     <div class="note-dropdown-menu dropdown-menu note-check dropdown-fontname" role="list" aria-label="Font Family" style="">
@@ -139,10 +152,10 @@
                             </div>
                             <div class="note-btn-group btn-group note-color">
                                 <div class="note-btn-group btn-group note-color note-color-all">
-                                    <button type="button" class="note-btn btn btn-light btn-sm note-current-color-button" tabindex="-1" title="" aria-label="Recent Color" data-original-title="Recent Color" data-backcolor="#FFFF00" data-forecolor="#000000">
+                                    <button type="button" class="btn btn-light btn-sm p-2" tabindex="-1" >
                                         <i class="fas fa-palette"></i>
                                     </button>
-                                    <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="More Color" data-original-title="More Color">
+                                    <button type="button" class="btn btn-light btn-sm p-2 dropdown-toggle" tabindex="-1" data-toggle="dropdown">
                                     </button>
                                     <div class="note-dropdown-menu dropdown-menu" role="list">
                                         <div class="note-palette">
@@ -208,35 +221,35 @@
                                 </div>
                             </div>
                             <div class="note-btn-group btn-group note-para">
-                                <button id="un-list" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Lista">
+                                <button id="un-list" type="button" class="btn btn-light btn-sm" tabindex="-1" data-toggle="tooltip" title="Lista">
                                     <i class="fas fa-list-ul"></i>
                                 </button>
-                                <button id="ol-list" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Lista porządkowana">
+                                <button id="ol-list" type="button" class="btn btn-light btn-sm" tabindex="-1" data-toggle="tooltip" title="Lista porządkowana">
                                     <i class="fas fa-list-ol"></i>
                                 </button>
                                 <div class="note-btn-group btn-group">
-                                    <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Wyrównywanie tekstu">
+                                    <button type="button" class="btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-toggle="tooltip" title="Wyrównywanie tekstu">
                                         <i class="fas fa-align-left"></i>
                                     </button>
-                                    <div class="note-dropdown-menu dropdown-menu" role="list">
-                                        <div class="note-btn-group btn-group note-align">
-                                            <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Align left (CTRL+SHIFT+L)" data-original-title="Align left (CTRL+SHIFT+L)">
+                                    <div class="dropdown-menu" role="list">
+                                        <div class="btn-group note-align">
+                                            <button type="button" class="btn btn-light btn-sm" tabindex="-1" title="" aria-label="Align left (CTRL+SHIFT+L)" data-original-title="Align left (CTRL+SHIFT+L)">
                                                 <i class="fas fa-align-left"></i>
                                             </button>
-                                            <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Align center (CTRL+SHIFT+E)" data-original-title="Align center (CTRL+SHIFT+E)">
+                                            <button type="button" class="btn btn-light btn-sm" tabindex="-1" title="" aria-label="Align center (CTRL+SHIFT+E)" data-original-title="Align center (CTRL+SHIFT+E)">
                                                 <i class="fas fa-align-center"></i>
                                             </button>
-                                            <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Align right (CTRL+SHIFT+R)" data-original-title="Align right (CTRL+SHIFT+R)">
+                                            <button type="button" class=" btn btn-light btn-sm" tabindex="-1" title="" aria-label="Align right (CTRL+SHIFT+R)" data-original-title="Align right (CTRL+SHIFT+R)">
                                                 <i class="fas fa-align-right"></i>
                                             </button>
-                                            <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Justify full (CTRL+SHIFT+J)" data-original-title="Justify full (CTRL+SHIFT+J)">
+                                            <button type="button" class="btn btn-light btn-sm" tabindex="-1" title="" aria-label="Justify full (CTRL+SHIFT+J)" data-original-title="Justify full (CTRL+SHIFT+J)">
                                                 <i class="fas fa-align-justify"></i>
                                             </button>
                                         </div>
                                         <div class="note-btn-group btn-group note-list">
-                                            <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Outdent (CTRL+[)" data-original-title="Outdent (CTRL+[)">
+                                            <button type="button" class="btn btn-light btn-sm" tabindex="-1" title="" aria-label="Outdent (CTRL+[)" data-original-title="Outdent (CTRL+[)">
                                                 <i class="note-icon-align-outdent"></i>
-                                            </button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Indent (CTRL+])" data-original-title="Indent (CTRL+])">
+                                            </button><button type="button" class="btn btn-light btn-sm" tabindex="-1" title="" aria-label="Indent (CTRL+])" data-original-title="Indent (CTRL+])">
                                                 <i class="note-icon-align-indent"></i>
                                             </button>
                                         </div>
@@ -244,7 +257,7 @@
                                 </div>
                             </div>
                             <div class="btn-group">
-                                <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Wstaw tabelę">
+                                <button type="button" class="btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-toggle="tooltip" title="Wstaw tabelę">
                                     <i class="fas fa-table"></i>
                                 </button>
                                 <div class="note-dropdown-menu dropdown-menu note-table p-3" role="list" aria-label="Table">
@@ -259,19 +272,19 @@
                                 </div>
                             </div>
                             <div class="btn-group">
-                                <button id="link-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Link">
+                                <button id="link-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Link">
                                     <i class="fas fa-link"></i>
                                 </button>
-                                <button id="image-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Zdjęcie">
+                                <button id="image-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Zdjęcie">
                                     <i class="fas fa-image"></i>
                                 </button>
-                                <button id="video-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" data-placement="top" title=Ffilm">
+                                <button id="video-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Film">
                                     <i class="fas fa-video"></i>
                                 </button>
-                                <button id="insert-math" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Działanie matematyczne">
+                                <button id="insert-math" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Działanie matematyczne">
                                     <i class="fas fa-square-root-alt"></i>
                                 </button>
-                                <button id="insert-task" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Wstaw zadanie">
+                                <button id="insert-task" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Wstaw zadanie">
                                     <i class="fas fa-flask"></i>
                                 </button>
                             </div>
@@ -299,9 +312,8 @@
                                 </div>
                             </div>
 
-
                             <!-- Zawartość utworzona przez użytkownika -->
-                            <div id="editor-content" class="note-editable card-block" contenteditable="true" aria-multiline="true" spellcheck="true" autocorrect="true" style="min-height: 250px; height:500px; overflow:auto;">
+                            <div id="editor-content" class="note-editable card-block" contenteditable="true" aria-multiline="true" spellcheck="true" autocorrect="true">
                                 <p>
                                     <br>
                                 </p>
@@ -368,8 +380,6 @@
                                 </div>
                             </div>
                         </div>
-
-
 
                         <!-- Insert link modal button -->
                         <div id="insert-link" class="modal note-modal link-dialog" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Insert Link">
@@ -483,6 +493,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="note-popover popover in note-table-popover bottom" style="display: none;">
                             <div class="arrow">
                             </div>
@@ -547,7 +558,7 @@
                                         <h4 class="modal-title">Pomoc</h4>
                                         <button id="close-help-modal" type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
                                     </div>
-                                    <div class="modal-body" style="max-height: 300px; overflow: scroll;">
+                                    <div class="modal-body" style="max-height: 300px; overflow: auto;">
                                         <div class="help-list-item"></div>
                                         <label style="width: 180px; margin-right: 10px;">
                                             <kbd>ESC</kbd>
@@ -690,9 +701,9 @@
                                         </label>
                                         <span>Show Link Dialog</span>
                                     </div>
-                                    <div class="modal-footer">
+                                    <div class="modal-footer" style="text-align:center">
                                         <p class="text-center">
-                                            Coś tam do wpisania
+                                            Skróty klawiszowe
                                         </p>
                                     </div>
                                 </div>
@@ -706,13 +717,21 @@
                                     <div class="modal-header">
                                         <h4 class="modal-title">Podsumowanie</h4>
                                     </div>
-                                    <div class="modal-footer">
-                                        <input id="preview" type="button" href="#" class="btn btn-info" value="Podgląd" >
-                                        <button id="pdf-export" type="button" class="note-btn btn btn-info btn-sm pl-3 pr-3" tabindex="-1" title="" aria-label="Full Screen" style="margin-right:auto; font-size:19px;" data-original-title="Full Screen">
+                                    <div class="modal-body">
+                                        <p>
+                                            Cofnij, aby kontytuować pisanie, zobacz jak będzie wyglądał twój dokument PDF generując go lub zapisz swój arkusz zadań
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer row">
+                                        <button id="reject-sheet" type="button" href="#" class="btn btn-secondary col" data-toggle="tooltip" title="Cofnij">
+                                            Wstecz
+                                        </button>
+                                        <button id="pdf-export" type="button" class="note-btn btn btn-secondary col" style="font-size:24px;" data-toggle="tooltip" title="Generuj PDF">
                                             <i class="fas fa-file-pdf"></i>
                                         </button>
-                                        <input id="save-sheet" type="button" href="#" class="btn btn-primary" value="Zapisz">
-                                        <input id="reject-sheet" type="button" href="#" class="btn btn-danger" value="Odrzuć">
+                                        <button id="save-sheet" type="button" href="#" class="btn btn-secondary col" data-toggle="tooltip" title="Zapisz">
+                                            Zapisz
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -736,10 +755,104 @@
                     </div>
                 </div>
                 <span class="count-label mb-3 mr-4" style="margin-left:auto;">Liczba słów: <p style="display:inline">0</p></span>
-
+            </div>
+                                            
+            <div class="alert alert-light mt-5">
+                <h4>Ostatnio zapisane arkusze</h4>
+            </div>
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div  style="display:inline-block; width:33%;">
+                            <div class="card">
+                                <div class="card-header">
+                                  Featured
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div  style="display:inline-block; width:33%;">
+                            <div class="card">
+                                <div class="card-header">
+                                  Featured
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:inline-block; width:33%;">
+                            <div class="card">
+                                <div class="card-header">
+                                  Featured
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item ">
+                        <div  style="display:inline-block; width:33%;">
+                            <div class="card">
+                                <div class="card-header">
+                                  Featured
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div  style="display:inline-block; width:33%;">
+                            <div class="card">
+                                <div class="card-header">
+                                  Featured
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:inline-block; width:33%;">
+                            <div class="card">
+                                <div class="card-header">
+                                  Featured
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style="color:#757575">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" style="font-size:30px;">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" style="color:#757575">
+                    <span class="carousel-control-next-icon" aria-hidden="true" style="font-size:30px;">
+                        <i class="fas fa-chevron-right"></i>
+                    </span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
-        <button id="submit" class="mt-3 ml-3 pl-5 pr-5 btn btn-primary">Zapisz arkusz</button>
 
         <!-- /.col-->
     </div>

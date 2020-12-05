@@ -544,12 +544,11 @@
                 {{--                    </a>--}}
                 {{--                </li>--}}
                 <li class="nav-header">ZARZĄDZANIE TREŚCIĄ</li>
-                
                 <li class="nav-item">
-                    <a href="{{route('editor')}}" class="nav-link">
-                        <i class="nav-icon fas fa-pen-alt"></i>
+                    <a href="{{route('sheetList')}}" class="nav-link">
+                        <i class="nav-icon fas fa-list-alt"></i>
                         <p>
-                            Nowy arkusz zadań
+                            Twoja lista arkuszy
                         </p>
                     </a>
                 </li>
@@ -558,11 +557,17 @@
                         <i class="nav-icon far fa-plus-square"></i>
                         <p>
                             Dodaj nowe zadanie
-
                         </p>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a href="{{route('editor')}}" class="nav-link">
+                        <i class="nav-icon fas fa-pen-alt"></i>
+                        <p>
+                            Nowy arkusz zadań
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{route('taskList')}}" class="nav-link">
                         <i class="nav-icon fas fa-clipboard-list"></i>
