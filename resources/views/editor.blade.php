@@ -49,14 +49,13 @@
                     <h3 class="card-title">
                         <input type="text" class="form-control" placeholder="Nowy arkusz zadań">
                     </h3>
-                    <div style="float:right; color:#757575; margin-top:auto;" class="mt-1">
+                    <div style="float:right; color:#757575;" class="mt-1">
                         <a id="submit" class="mr-2" role="button" style="cursor:pointer;">
                             <i class="fas fa-save"></i>
                         </a>
                         <a data-toggle="collapse" href="#collapseExample" style="color:#757575" role="button" aria-expanded="false" aria-controls="collapseExample" >
                             <i class="fas fa-window-minimize"></i>
                         </a>
-                        
                     </div>
                 </div>
                 <!-- /.card-header -->
