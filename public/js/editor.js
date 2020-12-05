@@ -1,4 +1,4 @@
-var e         = $('#editor-content').first(); // element i pozycja y kursora
+var e         = $('#editor-content').children().first(); // element i pozycja y kursora
 var x         = undefined;                    // pozycja x kursora
 var bold      = false;
 var italic    = false;
@@ -65,6 +65,10 @@ function getCaretPosition(editableDiv) {
   // zwraca wiersz (element), w którym jest kursor
   function getSelectionStart() {
     var node = document.getSelection().anchorNode;
+
+    if ($(node).is('#editor-content')) {
+        return $(('#editor-content')).children().first();
+    }
     return (node.nodeType == 3 ? node.parentNode : node);
  }
 
@@ -108,7 +112,6 @@ $('#style-code').click(() => {
 });
 $('#style-h1').click(() => {
     document.execCommand('formatBlock', false, '<h1>');
-    console.log('klik h1') 
 });
 $('#style-h2').click(() => {
     document.execCommand('formatBlock', false, '<h2>'); 

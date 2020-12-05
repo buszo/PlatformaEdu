@@ -70,6 +70,10 @@ class HomeController extends Controller
         return view('editor', ['categories' => $query]);
     }
 
+    public function sheetList() {
+        return view('sheetList');
+    }
+
 
     public function logout()
     {
