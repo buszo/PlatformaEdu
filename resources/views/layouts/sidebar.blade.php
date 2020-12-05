@@ -544,6 +544,15 @@
                 {{--                    </a>--}}
                 {{--                </li>--}}
                 <li class="nav-header">ZARZĄDZANIE TREŚCIĄ</li>
+                
+                <li class="nav-item">
+                    <a href="{{route('editor')}}" class="nav-link">
+                        <i class="nav-icon fas fa-pen-alt"></i>
+                        <p>
+                            Nowy arkusz zadań
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{route('newTaskIndex')}}" class="nav-link">
                         <i class="nav-icon far fa-plus-square"></i>

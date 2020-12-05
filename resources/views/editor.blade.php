@@ -90,17 +90,17 @@
                                 </div>
                             </div>
                             <div class="note-btn-group btn-group note-font">
-                                <button id="bold" type="button" class="note-btn btn btn-light btn-sm note-btn-bold" tabindex="-1" title="" aria-label="Bold (CTRL+B)" data-original-title="Bold (CTRL+B)">
+                                <button id="bold" type="button" class="note-btn btn btn-light btn-sm note-btn-bold" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Pogrubienie">
                                     <i class="fas fa-bold"></i>
                                 </button>
-                                <button id="italic" type="button" class="note-btn btn btn-light btn-sm note-btn-italic" tabindex="-1" title="" aria-label="Italic (CTRL+I)" data-original-title="Italic (CTRL+I)">
+                                <button id="italic" type="button" class="note-btn btn btn-light btn-sm note-btn-italic" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Kursywa">
                                     <i class="fas fa-italic"></i>
                                 </button>
-                                <button id="underline" type="button" class="note-btn btn btn-light btn-sm note-btn-underline" tabindex="-1" title="" aria-label="Underline (CTRL+U)" data-original-title="Underline (CTRL+U)">
+                                <button id="underline" type="button" class="note-btn btn btn-light btn-sm note-btn-underline" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Podkreślenie">
                                     <i class="fas fa-underline"></i>
                                 </button>
                                 
-                                <button id="style-reset" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Remove Font Style (CTRL+\)" data-original-title="Remove Font       Style (CTRL+\)">
+                                <button id="style-reset" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Styl domyślny">
                                     <i class="fas fa-eraser"></i>
                                 </button>
                             </div>
@@ -208,14 +208,14 @@
                                 </div>
                             </div>
                             <div class="note-btn-group btn-group note-para">
-                                <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Unordered list (CTRL+SHIFT+NUM7)" data-original-title="Unordered list (CTRL+SHIFT+NUM7)">
+                                <button id="un-list" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Lista">
                                     <i class="fas fa-list-ul"></i>
                                 </button>
-                                <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Ordered list (CTRL+SHIFT+NUM8)" data-original-title="Ordered list (CTRL+SHIFT+NUM8)">
+                                <button id="ol-list" type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Lista porządkowana">
                                     <i class="fas fa-list-ol"></i>
                                 </button>
                                 <div class="note-btn-group btn-group">
-                                    <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="Paragraph" data-original-title="Paragraph">
+                                    <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Wyrównywanie tekstu">
                                         <i class="fas fa-align-left"></i>
                                     </button>
                                     <div class="note-dropdown-menu dropdown-menu" role="list">
@@ -244,7 +244,7 @@
                                 </div>
                             </div>
                             <div class="btn-group">
-                                <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="Table" data-original-title="Table">
+                                <button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Wstaw tabelę">
                                     <i class="fas fa-table"></i>
                                 </button>
                                 <div class="note-dropdown-menu dropdown-menu note-table p-3" role="list" aria-label="Table">
@@ -259,19 +259,19 @@
                                 </div>
                             </div>
                             <div class="btn-group">
-                                <button id="link-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Link (CTRL+K)" data-original-title="Link (CTRL+K)">
+                                <button id="link-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Link">
                                     <i class="fas fa-link"></i>
                                 </button>
-                                <button id="image-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Picture" data-original-title="Picture">
+                                <button id="image-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Zdjęcie">
                                     <i class="fas fa-image"></i>
                                 </button>
-                                <button id="video-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Video" data-original-title="Video">
+                                <button id="video-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" data-placement="top" title=Ffilm">
                                     <i class="fas fa-video"></i>
                                 </button>
-                                <button id="insert-math" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Video" data-original-title="Video">
+                                <button id="insert-math" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Działanie matematyczne">
                                     <i class="fas fa-square-root-alt"></i>
                                 </button>
-                                <button id="insert-task" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Video" data-original-title="Video">
+                                <button id="insert-task" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Wstaw zadanie">
                                     <i class="fas fa-flask"></i>
                                 </button>
                             </div>
@@ -282,7 +282,7 @@
                                 <button id="show-html" type="button" class="note-btn btn btn-light btn-sm p-2 btn-codeview note-codeview-keep" tabindex="-1" title="" aria-label="Code View" data-original-title="Code View">
                                     <i class="fas fa-code"></i>
                                 </button>
-                                <button id="help-button" type="button" class="btn btn-light btn-sm p-2" tabindex="-1" title="" aria-label="Help" data-original-title="Help">
+                                <button id="help-button" type="button" class="btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Pomoc">
                                     <i class="fas fa-question"></i>
                                 </button>
                             </div>
