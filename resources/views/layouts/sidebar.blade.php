@@ -548,7 +548,7 @@
                     <a href="{{route('sheetList')}}" class="nav-link">
                         <i class="nav-icon fas fa-list-alt"></i>
                         <p>
-                            Twoja lista arkuszy
+                            Lista arkuszy
                         </p>
                     </a>
                 </li>

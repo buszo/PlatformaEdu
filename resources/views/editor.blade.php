@@ -40,11 +40,16 @@
         border-radius: 5px;
     }
 
+    #carouselExampleControls div div div:hover {
+        background: #eee;
+        cursor:pointer;
+    }
+
 </style>
 <section class="content">
     <div class="row">
         <div class="col-md-12">
-            <div class="card card-outline card-info">
+            <div class="card card-outline card-secondary">
                 <div class="card-header">
                     <h3 class="card-title">
                         <input type="text" class="form-control" placeholder="Nowy arkusz zadań">
