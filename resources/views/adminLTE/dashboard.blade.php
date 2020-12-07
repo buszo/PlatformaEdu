@@ -5,7 +5,7 @@
   <!ATTLIST tag math CDATA #IMPLIED>
 ]>
 
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" xmlns="http://www.w3.org/1999/html">
 <head>
         <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,6 +16,7 @@
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/sortowanie/style.css')}}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
     <!-- Theme style -->
@@ -51,6 +52,7 @@
                             @if (\Request::is('/'))
                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                             @else
+
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item active"><i>{{\Request::path(' / ')}}</i></li>
                                 @endif
@@ -86,6 +88,7 @@
 
 <!-- OPTIONAL SCRIPTS -->
 <script src={{asset('dist/js/demo.js')}}></script>
+
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->

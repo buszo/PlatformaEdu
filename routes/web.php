@@ -26,8 +26,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/new', [TaskController::class, 'index'])->name('newTaskIndex');
 Route::post('/created', [TaskController::class, 'new'])->name('taskCreated');
+Route::post('/createCategory', [TaskController::class, 'newCategory'])->name('categoryCreate');
 
 Route::get('/list', [TaskController::class, 'list'])->name('taskList');
+Route::get('/list/{category?}', [TaskController::class, 'listByCategory'])->name('taskListByCategory');
 
 Route::get('/user', [App\Http\Controllers\UserController::class, 'showProfile'])->name('showProfile');
 Route::get('/user/edit/data', [App\Http\Controllers\UserController::class, 'editProfile'])->name('editProfile');
@@ -44,5 +46,8 @@ Route::delete('/delete/{id}', [TaskController::class, 'deleteTask'])
     ->where(['id' => '[0-9]+'])->name('taskDelete');
 
 Route::get('/editor', [App\Http\Controllers\HomeController::class, 'sheetEditor'])->name('editor');
+Route::get('/generatePdf', [App\Http\Controllers\HomeController::class, 'generatePdf'])->name('pdf');
+Route::get('/getTasks', [App\Http\Controllers\HomeController::class, 'getTasks'])->name('getTask');
+Route::get('/sheetList', [App\Http\Controllers\HomeController::class, 'sheetList'])->name('sheetList');
 
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Dompdf\Dompdf;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -28,14 +30,48 @@ class HomeController extends Controller
     }
 
 
+    // TODO: generator dokumentów ma czytać CSS
     public function generatePdf()
     {
-        return view('');
+        $html = $_GET['html'];
+        $pdf = new Dompdf();
+
+        $pdf->loadHTML($html);
+        $pdf->render();
+        $output = $pdf->output();
+        file_put_contents('file', $output);
+
+        $data = base64_encode($output);
+
+        return response()->json($data);
     }
+
+    public function getTasks()
+    {
+        $category = $_GET['category'];
+
+
+        $query = DB::table('task')->join('categories', 'task.category_id', '=', 'categories.id')->where('categories.name', '=', $category)->get();
+
+        return response()->json($query);
+    }
+
+    public function convertTaskToHtml()
+    {
+        $select = '';
+        return response()->json($select);
+    }
+
 
     public function sheetEditor()
     {
-        return view('editor');
+        $query = DB::table('categories')->select('categories.name as name')->get();
+
+        return view('editor', ['categories' => $query]);
+    }
+
+    public function sheetList() {
+        return view('sheetList');
     }
 
 

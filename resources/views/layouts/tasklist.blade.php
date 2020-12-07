@@ -1,21 +1,27 @@
 @extends('adminLTE.dashboard')
 @section('content')
 
+
+
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
+
                             <h3 class="card-title"><b>Dodane zadania</b></h3>
                         </div>
                         <!-- /.card-header -->
+
                         <div class="card-body">
-                            <table id="example2" class="table table-bordered table-hover">
+
+                            <table id="example2" class="table table-bordered table-hover table-sortable">
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Tytuł</th>
+                                    <th class="table-sortable">Tytuł</th>
                                     <th>Kategoria</th>
 
                                     <th>Utworzono</th>
@@ -29,9 +35,10 @@
 
                                 @foreach($select ?? [] as $item)
                                     <tr>
-                                        <td>{{$item->id}}</td>
+                                        <td>{{$loop->iteration}}</td>
                                         <td>{{$item->title}}</td>
-                                        <td>{{$item->categories_name}}</td>
+                                        <td><a href="/list/{{$item->categories_name}}">{{$item->categories_name}}</a>
+                                        </td>
                                         <td>{{$item->created_at}}</td>
                                         <td>{{$item->updated_at}}</td>
                                         <td>
@@ -51,27 +58,13 @@
                                     </tr>
 
                                 @endforeach
-                                <th>Id</th>
-                                <th>                                            <select class="form-control select2" style="width: 100%;">
-                                        <option selected="selected">A-Z</option>
-                                        <option>Z-A</option>
-                                    </select></th>
-                                <th>
-
-                                            <select class="form-control select2" style="width: 100%;">
-                                                <option selected="selected">Wszystkie</option>
-                                                <option>Test</option>
-                                                <option>Test2</option>
-                                            </select>
-                                        </th>
-
-                                <th>
-                                   </th>
-                                <th>
-                              </th>
-                                <th> </th>
                                 </tbody>
+
+
+                                </div>
+
                             </table>
+
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -89,7 +82,8 @@
                         </div>
                         @unset($_SESSION['id'])
                     @endif
-                    </div>
+                </div>
+
 
 
 @endsection

@@ -1,4 +1,4 @@
-var e         = $('#editor-content').first(); // element i pozycja y kursora
+var e         = $('#editor-content').children().first(); // element i pozycja y kursora
 var x         = undefined;                    // pozycja x kursora
 var bold      = false;
 var italic    = false;
@@ -65,6 +65,10 @@ function getCaretPosition(editableDiv) {
   // zwraca wiersz (element), w którym jest kursor
   function getSelectionStart() {
     var node = document.getSelection().anchorNode;
+
+    if ($(node).is('#editor-content')) {
+        return $(('#editor-content')).children().first();
+    }
     return (node.nodeType == 3 ? node.parentNode : node);
  }
 
@@ -84,7 +88,7 @@ document.getElementById('editor-content').addEventListener("input", function() {
     e = getSelectionStart();
     x = getCaretPosition(e) + 1;
     // if (e.isEqualNode('table')) {
-        // jeśli element jest tabelą to inaczej odczytać pozycję kursora
+        // TODO: jeśli element jest tabelą to inaczej odczytać pozycję kursora
     //}
 
     // obliczenie ilości słów
@@ -108,7 +112,6 @@ $('#style-code').click(() => {
 });
 $('#style-h1').click(() => {
     document.execCommand('formatBlock', false, '<h1>');
-    console.log('klik h1') 
 });
 $('#style-h2').click(() => {
     document.execCommand('formatBlock', false, '<h2>'); 
@@ -181,13 +184,25 @@ function setColor(color) {
     document.execCommand('foreColor', false, color);
 }
 
+// wstawianie nieuporządkowanej listy 
+$('#ul-list').click(() => {
+    var ul = document.createElement('ul');
+    e.after(ul);
+});
+
+// wstawianie uporządkowanej listy
+$('#ol-list').click(() => {
+    var ol = document.createElement('ol');
+    e.after(ol);
+});
+
+
 // wyrównanie tekstu
 
 function alignText() {
     document.execCommand();
 }
 
-// tabela - działa źle jeśli tabela wstawiana jako pierwsza
 $('#add-table').click(() => {
     var rows = $('#table-rows').val();
     var cols = $('#table-cols').val();
@@ -248,7 +263,7 @@ $('#add-link').click(() => {
 
     console.log(link);
     e.after(link);
-    // link nie jest klikalny i nie przenosi na stronę
+    // TODO: link nie jest klikalny i nie przenosi na stronę
 });
 
 
@@ -277,7 +292,7 @@ $('#add-image').click(() => {
         var file = blob.files[0];
 
         var fr = new FileReader();
-        // odczytać obrazek, przekonwertować do base64 i wyświetlić
+        // TODO: odczytać obrazek, przekonwertować do base64 i wyświetlić
      }
 });
 
@@ -322,11 +337,6 @@ $('#full-screen').click(() => {
     
 });
 
-// pokaż kod html
-$('#show-html').click(() => {
-    
-});
-
 // pomoc
 $('#help-button').click(() => {
     $('#help-modal').show();
@@ -345,27 +355,49 @@ $('#submit').click(() => {
     $('#option-submit').css('background', 'rgba(0,0,0,0.4)');
 });
 
+// wstawianie zadania
+$('#insert-task').click(() => {
+    $('#task-modal').show();
+});
+$('#close-task-modal').click(() => {
+    $('#task-modal').hide();
+});
+
+
+$('#close-preview-modal').click(() => {
+    $('#pdf-modal').hide();
+
+});
 
 // generowanie pdf
 $('#pdf-export').click(() => {
+    var htmlSheet = $('#editor-content').html().toString();
 
-
-
-
-    var htmlSheet = $('#editor-content').innerHTML;
+    
     $.ajax({
-        url: '/Home/GeneratePdf',
+        url: '/generatePdf',
+        type: 'GET',
         data: {
-            schema : htmlSheet
+            html : htmlSheet
         },
-        contentType: 'json',
-        method: 'POST',
-        success: function () {
-            // wyświetlić komunikat i pobrać plik jeżeli się powiodło
+        success: function(data) {
+
+            if (data) {
+                $('#pdf-preview').empty();
+
+                var object = document.createElement('embed');
+
+                object.setAttribute('src', 'data:application/pdf;base64,' + data);
+                object.setAttribute('type', 'application/pdf');
+                object.setAttribute('width', '580px');
+                object.setAttribute('height', '800px');
+
+                $('#pdf-preview').append(object);
+                $('#pdf-modal').show();
+            }
         },
         error: function () {
-            console.log('nie działa');
-            // wyświetlić komunikat jeśli się nie powiodło
+            // TODO: wyświetlić info o niepowodzeniu
         }
     });
 });
@@ -388,5 +420,91 @@ $('#resize-bar').on('mousedown', function(e){
             top: my
         });
     });
-            
 });
+
+// wyszukiwanie zadań
+$('#tasks-submit').click(() => {
+    getTasks();
+});
+
+$('#more-tasks').click(() => {
+    getTasks();
+});
+
+// każde zadanie z listy jest przyciskiem
+$('#categories-list').children().each(function () {
+    $(this).click(() => {
+        var name = $(this).find('p').text();
+        $('#task-category').text(name);
+    });
+});
+
+// pobiera listę zadań
+function getTasks() {
+    var title = $('task-title').val();
+    var tags = $('#key-words').val();
+    var category = $('#task-category').text().trim();
+
+    $.ajax({
+        url: '/getTasks',
+        type: 'GET',
+        data: {
+            category : category,
+        },
+        success: function (data) {
+            if (data.length > 0) {
+                $('#hidden-search').show();
+                $('#more-tasks').show();
+                $.each(data, function (i, item) {
+                    var li = document.createElement('li');
+                    var a = document.createElement('a');
+                    var body = document.createElement('div');
+                    var h = document.createElement('h5');
+                    var p = document.createElement('p');
+
+                    a.setAttribute('href', '#');
+                    li.setAttribute('class', 'list-group-item card');
+                    body.setAttribute('class', 'card-body');
+                    h.setAttribute('class', 'card-title');
+                    p.setAttribute('class', 'card-text');
+
+                    h.innerText = item.title;
+                    p.innerText = item.description;
+
+                    body.append(h);
+                    body.append(p);
+                    a.append(body);
+                    li.append(a);
+                    $('#tasks-list').append(li);
+                });
+
+                $('#tasks-list').children().each(function () {
+                    var stuff = $(this).find('a');
+                    
+                    stuff.click(() => {
+                        var title = stuff.find('h5').text();
+                        var desc = stuff.find('p').text();
+
+                        var h = document.createElement('h5');
+                        var p = document.createElement('p');
+
+                        h.innerText = title;
+                        p.innerText = desc;
+                        
+                        e.after(p);
+                        e.after(h);
+                    });
+                });
+            }
+            else {
+                $('#tasks-list').empty();
+                $('#hidden-search').hide();
+                $('#more-tasks').hide();
+            }
+        },
+        error: function () {
+
+        }
+    });
+
+}
