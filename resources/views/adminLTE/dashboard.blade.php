@@ -1,10 +1,10 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
-[
-  <!ATTLIST tag math CDATA #IMPLIED>
-]>
-
+{{--[--}}
+{{--  <!ATTLIST tag math CDATA #IMPLIED>--}}
+{{--]--}}
+>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" xmlns="http://www.w3.org/1999/html">
 <head>
         <meta charset="utf-8">
@@ -41,24 +41,24 @@
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
+                <h1 class="m-0 text-dark" align="center">Witaj na platformie EDU</h1>
+{{--                <div class="row mb-2">--}}
+{{--                    <div class="col-sm-6">--}}
 
-                        <h1 class="m-0 text-dark">Witaj na platformie EDU</h1>
 
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            @if (\Request::is('/'))
-                                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            @else
+{{--                    </div><!-- /.col -->--}}
+{{--                    <div class="col-sm-6">--}}
+{{--                        <ol class="breadcrumb float-sm-right">--}}
+{{--                            @if (\Request::is('/'))--}}
+{{--                                <li class="breadcrumb-item"><a href="/">Home</a></li>--}}
+{{--                            @else--}}
 
-                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active"><i>{{\Request::path(' / ')}}</i></li>
-                                @endif
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
+{{--                            <li class="breadcrumb-item"><a href="/">Home</a></li>--}}
+{{--                            <li class="breadcrumb-item active"><i>{{\Request::path(' / ')}}</i></li>--}}
+{{--                                @endif--}}
+{{--                        </ol>--}}
+{{--                    </div><!-- /.col -->--}}
+{{--                </div><!-- /.row -->--}}
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->

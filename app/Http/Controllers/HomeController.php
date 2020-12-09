@@ -26,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('adminLTE.dashboard');
+        $edit = 0;
+        return view('profile', ['edit' => $edit]);
     }
 
 
