@@ -87,9 +87,6 @@ document.getElementById('editor-content').addEventListener("input", function() {
     // ustalenie współrzędnych kursora
     e = getSelectionStart();
     x = getCaretPosition(e) + 1;
-    // if (e.isEqualNode('table')) {
-        // TODO: jeśli element jest tabelą to inaczej odczytać pozycję kursora
-    //}
 
     // obliczenie ilości słów
     numWord = 0;
@@ -263,7 +260,6 @@ $('#add-link').click(() => {
 
     console.log(link);
     e.after(link);
-    // TODO: link nie jest klikalny i nie przenosi na stronę
 });
 
 
@@ -292,7 +288,6 @@ $('#add-image').click(() => {
         var file = blob.files[0];
 
         var fr = new FileReader();
-        // TODO: odczytać obrazek, przekonwertować do base64 i wyświetlić
      }
 });
 
@@ -395,9 +390,6 @@ $('#pdf-export').click(() => {
                 $('#pdf-preview').append(object);
                 $('#pdf-modal').show();
             }
-        },
-        error: function () {
-            // TODO: wyświetlić info o niepowodzeniu
         }
     });
 });
@@ -501,10 +493,37 @@ function getTasks() {
                 $('#hidden-search').hide();
                 $('#more-tasks').hide();
             }
-        },
-        error: function () {
-
         }
     });
 
 }
+
+
+$('#save-sheet').click(() => {
+    var html   = $('#editor-content').html().toString().trim();
+    var title  = $('#title').val();
+    let _token = $('meta[name="csrf-token"]').attr('content');
+    var desc   = $('#desc').val();
+    var id     = $('#hidden-id').val();
+
+    if(id == null){
+        id = '';
+    }
+
+    console.log(id);
+    $.ajax({
+        url: '/save',
+        data: {
+            title: title,
+            html: html,
+            desc: desc,
+            id: id,
+            _token: _token
+        },
+        type: 'POST',
+        success: function () {
+            location.reload();
+        }
+    });
+
+});
