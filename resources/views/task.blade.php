@@ -32,8 +32,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="Opis">Opis</label>
-                                    <input type="text" class="form-control" name="description"
-                                           placeholder="Podaj opis zadania">
+{{--                                    <input type="text" class="form-control" name="description"--}}
+{{--                                           placeholder="Podaj opis zadania">--}}
+                                    <style>
+                                        textarea{
+                                            height: 150px;
+                                            width: 100%;
+                                            padding:1%;
+                                            border-style: inset;
+                                            border-width: 1px;
+                                        }
+                                    </style>
+                                    <textarea name="description">
+  </textarea>
 
                                 </div>
                                 <div class="form-group">

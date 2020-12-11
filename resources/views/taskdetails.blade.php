@@ -2,7 +2,7 @@
 
 @section('content')
     @if(!empty($query))
-        <form method="#" action="#">
+        <form method="POST" action="{{route('taskUpdate', $id)}}">
             @csrf
 
             <div class="card-body">

@@ -26,6 +26,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/new', [TaskController::class, 'index'])->name('newTaskIndex');
 Route::post('/created', [TaskController::class, 'new'])->name('taskCreated');
+Route::post('/updated/{id}', [TaskController::class, 'updateTask'])->name('taskUpdate');
 Route::post('/createCategory', [TaskController::class, 'newCategory'])->name('categoryCreate');
 
 Route::get('/list', [TaskController::class, 'list'])->name('taskList');
