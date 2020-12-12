@@ -50,4 +50,10 @@ class User extends Authenticatable
         return $this->hasMany(Task::class, 'createdBy');
     }
 
+    public function sheet()
+    {
+        return $this->hasMany(Sheet::class, 'user_id');
+    }
+
+
 }

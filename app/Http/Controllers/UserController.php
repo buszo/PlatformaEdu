@@ -18,6 +18,12 @@ use function GuzzleHttp\Promise\all;
 class UserController extends Controller
 {
 
+    public function userID()
+    {
+        $id = Auth::user()->id;
+        return $id;
+    }
+
     public function showProfile()
     {
         $edit = 0;
@@ -149,6 +155,20 @@ class UserController extends Controller
                 history.back();
             </script>
             <?php
+        }
+    }
+
+    public function userProfile(int $id) 
+    {
+        $userID = $this->userID();
+        if ($userID == $id)
+        {
+            return redirect('/user');
+        }
+        else {
+            $query = DB::table('users')->where('users.id', '=', $id)->select('users.name as name', 'users.email as mail')->first();
+            
+            return view('userProfile', ['user' => $query]);
         }
     }
 

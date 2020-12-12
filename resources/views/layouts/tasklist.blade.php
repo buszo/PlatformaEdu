@@ -84,6 +84,6 @@
                     @endif
                 </div>
 
-
+            <script src="{{asset('plugins/sortowanie/tablesort.js')}}"></script>
 
 @endsection

@@ -67,9 +67,12 @@ class TaskController extends Controller
         return back();
     }
 
-    public function updateTask(int $id)
+    public function updateTask(Request $req, int $id)
     {
-
+            Task::where('id', $id)
+            ->update(['title' => $req->input(['title']),
+                'description' => $req->input(['description'])]);
+        return back();
     }
 
 
@@ -89,7 +92,8 @@ class TaskController extends Controller
         $select = Task::find($id);
         if (DB::table('task')->where('createdBy', '=', $userId)->find($id)) {
             return view('taskdetails', [
-                'query' => $select
+                'query' => $select,
+                'id' => $id
             ]);
         }
     }
@@ -117,7 +121,6 @@ class TaskController extends Controller
 
     public function list()
     {
-//        $this->createCategory();
 
         $select = DB::table('task')
             ->join('categories', 'task.category_id', '=', 'categories.id')

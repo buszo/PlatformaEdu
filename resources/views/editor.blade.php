@@ -1,6 +1,7 @@
 @extends('adminLTE.dashboard')
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <link rel="stylesheet" href={{ asset('plugins/fontawesome-free/css/all.min.css') }}>
 <link rel="stylesheet" href={{ asset('plugins/mathquill-0.10.1/mathquill.css') }}>
 <style>
@@ -52,7 +53,7 @@
             <div class="card card-outline card-secondary">
                 <div class="card-header">
                     <h3 class="card-title">
-                        <input type="text" class="form-control" placeholder="Nowy arkusz zadań">
+                        <input id="title" type="text" class="form-control" placeholder="Nowy arkusz zadań">
                     </h3>
                     <div style="float:right; color:#757575;" class="mt-1">
                         <a id="submit" class="mr-2" role="button" style="cursor:pointer;">
@@ -293,12 +294,6 @@
                                 </button>
                             </div>
                             <div class="note-btn-group btn-group note-view">
-                                <button id="full-screen" type="button" class="note-btn btn btn-light btn-sm p-2 btn-fullscreen note-codeview-keep" tabindex="-1" title="" aria-label="Full Screen" data-original-title="Full Screen">
-                                    <i class="fas fa-expand"></i>
-                                </button>
-                                <button id="show-html" type="button" class="note-btn btn btn-light btn-sm p-2 btn-codeview note-codeview-keep" tabindex="-1" title="" aria-label="Code View" data-original-title="Code View">
-                                    <i class="fas fa-code"></i>
-                                </button>
                                 <button id="help-button" type="button" class="btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" data-placement="top" title="Pomoc">
                                     <i class="fas fa-question"></i>
                                 </button>
@@ -315,12 +310,17 @@
                                     <div class="note-control-selection-info"></div>
                                 </div>
                             </div>
-
+                            @foreach($sheet ?? [] as $item)
+                                <input id="hidden-id" type="text" hidden value="{{ $item->id }}">
+                            @endforeach
                             <!-- Zawartość utworzona przez użytkownika -->
                             <div id="editor-content" class="note-editable card-block" contenteditable="true" aria-multiline="true" spellcheck="true" autocorrect="true">
                                 <p>
                                     <br>
                                 </p>
+                                @foreach($sheet ?? [] as $item)
+                                    {!! $item->content !!}
+                                @endforeach
                             </div>
                         </div>
 
@@ -568,142 +568,6 @@
                                             <kbd>ESC</kbd>
                                         </label>
                                         <span>Escape</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>ENTER</kbd>
-                                        </label>
-                                        <span>Insert Paragraph</span>
-                                        <div class="help-list-item"></div><label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+Z</kbd>
-                                        </label>
-                                        <span>Undo the last command</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+Y</kbd>
-                                        </label>
-                                        <span>Redo the last command</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>TAB</kbd>
-                                        </label>
-                                        <span>Tab</span>
-                                        <div class="help-list-item">
-                                        </div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>SHIFT+TAB</kbd>
-                                        </label>
-                                        <span>Untab</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+B</kbd>
-                                        </label>
-                                        <span>Set a bold style</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+I</kbd>
-                                        </label>
-                                        <span>Set a italic style</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+U</kbd>
-                                        </label>
-                                        <span>Set a underline style</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+SHIFT+S</kbd>
-                                        </label>
-                                        <span>Set a strikethrough style</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+BACKSLASH</kbd>
-                                        </label>
-                                        <span>Clean a style</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+SHIFT+L</kbd>
-                                        </label>
-                                        <span>Set left align</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+SHIFT+E</kbd>
-                                        </label>
-                                        <span>Set center align</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+SHIFT+R</kbd>
-                                        </label>
-                                        <span>Set right align</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+SHIFT+J</kbd>
-                                        </label>
-                                        <span>Set full align</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+SHIFT+NUM7</kbd>
-                                        </label>
-                                        <span>Toggle unordered list</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+SHIFT+NUM8</kbd>
-                                        </label>
-                                        <span>Toggle ordered list</span>
-                                        <div class="help-list-item">
-                                        </div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+LEFTBRACKET</kbd>
-                                        </label>
-                                        <span>Outdent on current paragraph</span>
-                                        <div class="help-list-item">
-                                        </div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+RIGHTBRACKET</kbd>
-                                        </label>
-                                        <span>Indent on current paragraph</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+NUM0</kbd>
-                                        </label>
-                                        <span>Change current block's format as a paragraph(P tag)</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+NUM1</kbd>
-                                        </label>
-                                        <span>Change current block's format as H1</span>
-                                        <div class="help-list-item"></div><label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+NUM2</kbd>
-                                        </label>
-                                        <span>Change current block's format as H2</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+NUM3</kbd>
-                                        </label>
-                                        <span>Change current block's format as H3</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+NUM4</kbd>
-                                        </label>
-                                        <span>Change current block's format as H4</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+NUM5</kbd>
-                                        </label>
-                                        <span>Change current block's format as H5</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+NUM6</kbd>
-                                        </label>
-                                        <span>Change current block's format as H6</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+ENTER</kbd>
-                                        </label>
-                                        <span>Insert horizontal rule</span>
-                                        <div class="help-list-item"></div>
-                                        <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>CTRL+K</kbd>
-                                        </label>
-                                        <span>Show Link Dialog</span>
                                     </div>
                                     <div class="modal-footer" style="text-align:center">
                                         <p class="text-center">
@@ -725,6 +589,7 @@
                                         <p>
                                             Cofnij, aby kontytuować pisanie, zobacz jak będzie wyglądał twój dokument PDF generując go lub zapisz swój arkusz zadań
                                         </p>
+                                        <textarea id="desc" type="text" class="form-control" placeholder="Opis"></textarea>
                                     </div>
                                     <div class="modal-footer row">
                                         <button id="reject-sheet" type="button" href="#" class="btn btn-secondary col" data-toggle="tooltip" title="Cofnij">
@@ -767,80 +632,40 @@
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <div  style="display:inline-block; width:33%;">
-                            <div class="card">
-                                <div class="card-header">
-                                  Featured
+                        @foreach($sheets ?? [] as $item)
+                            <div  style="display:inline-block; width:33%;">
+                                <a href="/show/{{ $item->id }}">
+                                <div class="card">
+                                    <div class="card-header">
+                                    {{ $item->title }}
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $item->updated_at }}</h5>
+                                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                        <a href="#" class="btn btn-secondary">Go somewhere</a>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Special title treatment</h5>
-                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
+                                </a>
                             </div>
-                        </div>
-                        <div  style="display:inline-block; width:33%;">
-                            <div class="card">
-                                <div class="card-header">
-                                  Featured
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Special title treatment</h5>
-                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display:inline-block; width:33%;">
-                            <div class="card">
-                                <div class="card-header">
-                                  Featured
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Special title treatment</h5>
-                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="carousel-item ">
-                        <div  style="display:inline-block; width:33%;">
-                            <div class="card">
-                                <div class="card-header">
-                                  Featured
+                        @foreach($sheets ?? [] as $item)
+                            <div  style="display:inline-block; width:33%;">
+                                <a href="{{ $item->id }}">
+                                <div class="card">
+                                    <div class="card-header">
+                                    {{ $item->title }}
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $item->updated_at }}</h5>
+                                        <p class="card-text">{{ $item->desc }}</p>
+                                        <a href="#" class="btn btn-secondary">Pokaż arkusz</a>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Special title treatment</h5>
-                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
+                                </a>
                             </div>
-                        </div>
-                        <div  style="display:inline-block; width:33%;">
-                            <div class="card">
-                                <div class="card-header">
-                                  Featured
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Special title treatment</h5>
-                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display:inline-block; width:33%;">
-                            <div class="card">
-                                <div class="card-header">
-                                  Featured
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Special title treatment</h5>
-                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>  
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style="color:#757575">
