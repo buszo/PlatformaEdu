@@ -49,7 +49,7 @@ Route::delete('/delete/{id}', [TaskController::class, 'deleteTask'])
 Route::get('/editor', [App\Http\Controllers\HomeController::class, 'sheetEditor'])->name('editor');
 Route::get('/editor/{id}', [App\Http\Controllers\HomeController::class, 'sheetEditor'])
 ->where(['id' => '[0-9]+'])->name('editSheet');
-Route::get('/generatePdf', [App\Http\Controllers\HomeController::class, 'generatePdf'])->name('pdf');
+Route::post('/generatePdf', [App\Http\Controllers\HomeController::class, 'generatePdf'])->name('pdf');
 Route::get('/getTasks', [App\Http\Controllers\HomeController::class, 'getTasks'])->name('getTask');
 Route::get('/sheetList', [App\Http\Controllers\HomeController::class, 'sheetList'])
 ->name('sheetList');

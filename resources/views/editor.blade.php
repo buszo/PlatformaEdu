@@ -2,8 +2,10 @@
 
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" href={{ asset('plugins/fontawesome-free/css/all.min.css') }}>
 <link rel="stylesheet" href={{ asset('plugins/mathquill-0.10.1/mathquill.css') }}>
+<link rel="stylesheet" href={{ asset('css/scrollbar.css') }}>
 <style>
     #editor-content p, code, blockquote, h1, h2, h3, h4, h5, h6 {
         margin-bottom: 3px;
@@ -44,6 +46,11 @@
     #carouselExampleControls div div div:hover {
         background: #eee;
         cursor:pointer;
+    }
+
+    .card-text {
+            height:50px;
+            overflow: auto;
     }
 
 </style>
@@ -107,7 +114,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="note-btn-group btn-group note-font">
+                            <div class="btn-group">
                                 <button id="bold" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Pogrubienie">
                                     <i class="fas fa-bold"></i>
                                 </button>
@@ -122,133 +129,70 @@
                                     <i class="fas fa-eraser"></i>
                                 </button>
                             </div>
-                            <div class="note-btn-group btn-group note-fontname">
-                                <div class="note-btn-group btn-group">
+                            <div class=" btn-group">
+                                <div class="btn-group">
                                     <button type="button" class="btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" title="" aria-label="Font Family" data-original-title="Font Family" aria-expanded="false">
                                         <span class="note-current-fontname" style="font-family: 'Source Sans Pro';">Source Sans Pro</span>
                                     </button>
-                                    <div class="note-dropdown-menu dropdown-menu note-check dropdown-fontname" role="list" aria-label="Font Family" style="">
-                                        <a class="dropdown-item" href="#" data-value="Arial" role="listitem" aria-label="Arial">
+                                    <div class="note-dropdown-menu dropdown-menu note-check dropdown-fontname" role="list" aria-label="Font Family">
+                                    <a id="sans-pro" class="dropdown-item" href="#" data-value="Arial" role="listitem" aria-label="Arial">
+                                            <i class="note-icon-menu-check"></i>
+                                            <span style="font-family: 'Source Sans Pro';">Source Sans Pro</span>
+                                        </a>
+                                        <a id="arial" class="dropdown-item" href="#" data-value="Arial" role="listitem" aria-label="Arial">
                                             <i class="note-icon-menu-check"></i>
                                             <span style="font-family: 'Arial'">Arial</span>
                                         </a>
-                                        <a class="dropdown-item" href="#" data-value="Arial" role="listitem" aria-label="Arial">
-                                            <i class="note-icon-menu-check"></i>
-                                            <span style="font-family: 'Source Sans Pro'">Source Sans Pro</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#" data-value="Arial Black" role="listitem" aria-label="Arial Black">
+                                        <a id="arial-black" class="dropdown-item" href="#" data-value="Arial Black" role="listitem" aria-label="Arial Black">
                                             <i class="note-icon-menu-check"></i>
                                             <span style="font-family: 'Arial Black'">Arial Black</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#" data-value="Comic Sans MS" role="listitem" aria-label="Comic Sans MS">
-                                            <i class="note-icon-menu-check"></i>
-                                            <span style="font-family: 'Comic Sans MS'">Comic Sans MS</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#" data-value="Courier New" role="listitem" aria-label="Courier New">
-                                            <i class="note-icon-menu-check"></i>
-                                            <span style="font-family: 'Courier New'">Courier New</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#" data-value="Helvetica" role="listitem" aria-label="Helvetica">
-                                            <i class="note-icon-menu-check"></i>
-                                            <span style="font-family: 'Helvetica'">Helvetica</span>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="note-btn-group btn-group note-color">
-                                <div class="note-btn-group btn-group note-color note-color-all">
+                            <div class="btn-group">
+                                <div class=" btn-group">
                                     <button type="button" class="btn btn-light btn-sm p-2" tabindex="-1" >
                                         <i class="fas fa-palette"></i>
                                     </button>
                                     <button type="button" class="btn btn-light btn-sm p-2 dropdown-toggle" tabindex="-1" data-toggle="dropdown">
                                     </button>
-                                    <div class="note-dropdown-menu dropdown-menu" role="list">
-                                        <div class="note-palette">
-                                            <div class="note-palette-title">Background Color</div>
-                                            <div>
-                                                <button type="button" class="note-color-reset btn btn-light btn-default" data-event="backColor" data-value="transparent">Transparent</button>
-                                            </div>
-                                            <div class="note-holder" data-event="backColor">
-                                                <!-- back colors -->
-                                                <div class="note-color-palette">
-                                                    <div class="note-color-row">
-                                                        <button type="button" class="note-color-btn" style="background-color:#FFFFFF" data-event="backColor" data-value="#FFFFFF" title="" aria-label="White" data-toggle="button" tabindex="-1" data-original-title="White"></button>
-                                                    </div>
-                                                    <div class="note-color-row">
-                                                        <button type="button" class="note-color-btn" style="background-color:#FF00FF" data-event="backColor" data-value="#FF00FF" title="" aria-label="Magenta" data-toggle="button" tabindex="-1" data-original-title="Magenta"></button>
-                                                    </div>
-                                                    <div class="note-color-row">
-                                                        <button type="button" class="note-color-btn" style="background-color:#E7D6DE" data-event="backColor" data-value="#E7D6DE" title="" aria-label="Twilight" data-toggle="button" tabindex="-1" data-original-title="Twilight"></button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="note-dropdown-menu dropdown-menu pr-2 pl-2" role="list">
+                                        <div class="mt-2">
+                                            <div ">Background Color</div>
+                                                
                                             <div data-children-count="1">
-                                                <button type="button" class="note-color-select btn btn-light btn-default" data-event="openPalette" data-value="backColorPicker">Select</button>
-                                                <input type="color" id="backColorPicker" class="note-btn note-color-select-btn" value="#FFFF00" data-event="backColorPalette">
+                                                <button id="button-back" type="button" class="note-color-select btn btn-light btn-default" data-event="openPalette" data-value="backColorPicker">Select</button>
+                                                <input id="background" type="color" id="backColorPicker" class="note-btn note-color-select-btn" value="#FFFFFF" data-event="backColorPalette">
                                             </div>
-                                            <div class="note-holder-custom" id="backColorPalette" data-event="backColor">
-                                                <div class="note-color-palette">
-                                                    <div class="note-color-row">
-                                                        <button type="button" class="note-color-btn" style="background-color:#FFFFFF" data-event="backColor" data-value="#FFFFFF" title="" aria-label="#FFFFFF" data-toggle="button" tabindex="-1" data-original-title="#FFFFFF"></button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                         </div>
-                                        <div class="note-palette">
-                                            <div class="note-palette-title">Text Color</div>
-                                            <div>
-                                                <button type="button" class="note-color-reset btn btn-light btn-default" data-event="removeFormat" data-value="foreColor">Reset to default</button>
-                                            </div>
-                                            <div class="note-holder" data-event="foreColor">
-                                                <!-- fore colors -->
-                                                <div class="note-color-palette">
-                                                    <div class="note-color-row">
-                                                        <button type="button" class="note-color-btn" style="background-color:#000000" data-event="foreColor" data-value="#000000" title="" aria-label="Black" data-toggle="button" tabindex="-1" data-original-title="Black"></button>
-                                                    </div>
-                                                    <div class="note-color-row">
-                                                        <button type="button" class="note-color-btn" style="background-color:#FF0000" data-event="foreColor" data-value="#FF0000" title="" aria-label="Red" data-toggle="button" tabindex="-1" data-original-title="Red"></button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="mt-2">
+                                            <div>Text Color</div>
+                                            
                                             <div data-children-count="1">
-                                                <button type="button" class="note-color-select btn btn-light btn-default" data-event="openPalette" data-value="foreColorPicker">Select</button>
-                                                <input type="color" id="foreColorPicker" class="note-btn note-color-select-btn" value="#000000" data-event="foreColorPalette">
-                                            </div>
-                                            <div class="note-holder-custom" id="foreColorPalette" data-event="foreColor">
-                                                <div class="note-color-palette">
-                                                    <div class="note-color-row">
-                                                        <button type="button" class="note-color-btn" style="background-color:#FFFFFF" data-event="foreColor" data-value="#FFFFFF" title="" aria-label="#FFFFFF" data-toggle="button" tabindex="-1" data-original-title="#FFFFFF"></button>
-                                                    </div>
-                                                </div>
+                                                <button id="button-fore" type="button" class="note-color-select btn btn-light btn-default" data-event="openPalette" data-value="foreColorPicker">Select</button>
+                                                <input id="foreground" type="color" id="foreColorPicker" class="note-btn note-color-select-btn" value="#000000" data-event="foreColorPalette">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="note-btn-group btn-group note-para">
-                                <button id="un-list" type="button" class="btn btn-light btn-sm" tabindex="-1" data-toggle="tooltip" title="Lista">
-                                    <i class="fas fa-list-ul"></i>
-                                </button>
-                                <button id="ol-list" type="button" class="btn btn-light btn-sm" tabindex="-1" data-toggle="tooltip" title="Lista porządkowana">
-                                    <i class="fas fa-list-ol"></i>
-                                </button>
                                 <div class="note-btn-group btn-group">
                                     <button type="button" class="btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-toggle="tooltip" title="Wyrównywanie tekstu">
                                         <i class="fas fa-align-left"></i>
                                     </button>
                                     <div class="dropdown-menu" role="list">
                                         <div class="btn-group note-align">
-                                            <button type="button" class="btn btn-light btn-sm" tabindex="-1" title="" aria-label="Align left (CTRL+SHIFT+L)" data-original-title="Align left (CTRL+SHIFT+L)">
+                                            <button id="left" type="button" class="btn btn-light btn-sm" tabindex="-1" title="" aria-label="Align left (CTRL+SHIFT+L)" data-original-title="Align left (CTRL+SHIFT+L)">
                                                 <i class="fas fa-align-left"></i>
                                             </button>
-                                            <button type="button" class="btn btn-light btn-sm" tabindex="-1" title="" aria-label="Align center (CTRL+SHIFT+E)" data-original-title="Align center (CTRL+SHIFT+E)">
+                                            <button id="center" type="button" class="btn btn-light btn-sm" tabindex="-1" title="" aria-label="Align center (CTRL+SHIFT+E)" data-original-title="Align center (CTRL+SHIFT+E)">
                                                 <i class="fas fa-align-center"></i>
                                             </button>
-                                            <button type="button" class=" btn btn-light btn-sm" tabindex="-1" title="" aria-label="Align right (CTRL+SHIFT+R)" data-original-title="Align right (CTRL+SHIFT+R)">
+                                            <button id="right" type="button" class=" btn btn-light btn-sm" tabindex="-1" title="" aria-label="Align right (CTRL+SHIFT+R)" data-original-title="Align right (CTRL+SHIFT+R)">
                                                 <i class="fas fa-align-right"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-light btn-sm" tabindex="-1" title="" aria-label="Justify full (CTRL+SHIFT+J)" data-original-title="Justify full (CTRL+SHIFT+J)">
-                                                <i class="fas fa-align-justify"></i>
                                             </button>
                                         </div>
                                         <div class="note-btn-group btn-group note-list">
@@ -283,9 +227,7 @@
                                 <button id="image-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Zdjęcie">
                                     <i class="fas fa-image"></i>
                                 </button>
-                                <button id="video-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Film">
-                                    <i class="fas fa-video"></i>
-                                </button>
+                                
                                 <button id="insert-math" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Działanie matematyczne">
                                     <i class="fas fa-square-root-alt"></i>
                                 </button>
@@ -300,16 +242,7 @@
                             </div>
                         </div>
                         <div class="note-editing-area" data-children-count="1">
-                            <div class="note-handle">
-                                <div class="note-control-selection" data-children-count="0" style="display: none;">
-                                    <div class="note-control-selection-bg"></div>
-                                    <div class="note-control-holder note-control-nw"></div>
-                                    <div class="note-control-holder note-control-ne"></div>
-                                    <div class="note-control-holder note-control-sw"></div>
-                                    <div class="note-control-sizing note-control-se"></div>
-                                    <div class="note-control-selection-info"></div>
-                                </div>
-                            </div>
+                            
                             @foreach($sheet ?? [] as $item)
                                 <input id="hidden-id" type="text" hidden value="{{ $item->id }}">
                             @endforeach
@@ -342,19 +275,10 @@
                                         <h4 class="modal-title">Lista zadań</h4>
                                         <button id="close-task-modal" type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
                                     </div>
-                                    <div class="modal-body" id="search-task">
-                                        <div class="form-group">
-                                            <label for="task-title">Tytuł zadania</label>
-                                            <input type="text" class="form-control" id="task-title" placeholder="Tytuł">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="key-words">Słowa kluczowe</label>
-                                            <input type="input" class="form-control" id="key-words" placeholder="Tagi">
-                                            <small id="key-words-help" class="form-text text-muted">Tagi oddzielone przecinkiem lub spacją</small>
-                                        </div>
+                                    <div class="modal-body">
                                         <div class="note-btn-group btn-group " >
                                             <a type="button" id="task-category" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-original-title="Style" aria-expanded="false">
-                                                Matematyka
+                                                {{ $categories->first()->name }}
                                             </a>
                                             <div id="categories-list" class="note-dropdown-menu dropdown-menu dropdown-style" role="list">
                                                 @foreach($categories ?? [] as $item)
@@ -374,7 +298,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <ul class="list-group" style="margin:0 auto; max-height:300px;" id="tasks-list">
+                                        <ul class="list-group" style="width:100%; max-height:500px; overflow:auto;" id="tasks-list">
 
                                         </ul>
                                     </div>
@@ -395,44 +319,17 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group note-form-group" data-children-count="1">
-                                            <label for="note-dialog-link-txt-16063198779941" class="note-form-label">Text to display</label>
+                                            <label for="note-dialog-link-txt-16063198779941" class="note-form-label">Tekst do wyświetlenia</label>
                                             <input id="link-text" class="note-link-text form-control note-form-control note-input" type="text">
                                         </div>
                                         <div class="form-group note-form-group" data-children-count="1">
-                                            <label for="note-dialog-link-url-16063198779941" class="note-form-label">To what URL should this link go?</label>
+                                            <label for="note-dialog-link-url-16063198779941" class="note-form-label">Gdzie URL powinien przenosić</label>
                                             <input id="link-link" class="note-link-url form-control note-form-control note-input" type="text" value="http://">
-                                        </div>
-                                        <div class="form-check sn-checkbox-open-in-new-window">
-                                            <label class="form-check-label" data-children-count="1">
-                                                <input type="checkbox" class="form-check-input" checked="" aria-label="Open in new window" aria-checked="true"> Open in new window
-                                            </label>
-                                        </div>
-                                        <div class="form-check sn-checkbox-use-protocol">
-                                            <label class="form-check-label" data-children-count="1">
-                                                <input type="checkbox" class="form-check-input" checked="" aria-label="Use default protocol" aria-checked="true"> Use default protocol
-                                            </label>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <input id="add-link" type="button" href="#" class="btn btn-primary note-btn note-btn-primary note-link-btn" value="Insert Link" disabled>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="note-popover popover in note-link-popover bottom" style="display: none;">
-                            <div class="arrow"></div>
-                            <div class="popover-content note-children-container">
-                                <span>
-                                    <a target="_blank"></a>&nbsp;
-                                </span>
-                                <div class="note-btn-group btn-group note-link">
-                                    <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Edit" data-original-title="Edit">
-                                        <i class="note-icon-link"></i>
-                                    </button>
-                                    <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Unlink" data-original-title="Unlink">
-                                        <i class="note-icon-chain-broken"></i>
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -447,115 +344,15 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group note-form-group note-group-select-from-files">
-                                            <label for="blob" class="note-form-label">Select from files</label>
                                             <input id="blob" class="note-image-input form-control-file note-form-control note-input" type="file" name="files" accept="image/*" multiple="multiple">
                                         </div>
-                                        <div class="form-group note-group-image-url" data-children-count="1">
-                                            <label for="image-url" class="note-form-label">Image URL</label>
-                                            <input id="image-url" class="note-image-url form-control note-form-control note-input" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <input id="add-image" type="button" href="#" class="btn btn-primary note-btn note-btn-primary note-image-btn" value="Insert Image" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="note-popover popover in note-image-popover bottom" style="display: none;">
-                            <div class="arrow"></div>
-                            <div class="popover-content note-children-container">
-                                <div class="note-btn-group btn-group note-resize">
-                                    <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Resize full" data-original-title="Resize full">
-                                        <span class="note-fontsize-10">100%</span>
-                                    </button>
-                                    <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Resize half" data-original-title="Resize half">
-                                        <span class="note-fontsize-10">50%</span>
-                                    </button>
-                                    <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Resize quarter" data-original-title="Resize quarter">
-                                        <span class="note-fontsize-10">25%</span>
-                                    </button>
-                                    <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Original size" data-original-title="Original size">
-                                        <i class="note-icon-rollback"></i>
-                                    </button>
-                                </div>
-                                <div class="note-btn-group btn-group note-float">
-                                    <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Float Left" data-original-title="Float Left">
-                                        <i class="note-icon-float-left"></i>
-                                    </button>
-                                    <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Float Right" data-original-title="Float Right">
-                                        <i class="note-icon-float-right"></i>
-                                    </button>
-                                    <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Remove float" data-original-title="Remove float">
-                                        <i class="note-icon-rollback"></i>
-                                    </button>
-                                </div>
-                                <div class="note-btn-group btn-group note-remove">
-                                    <button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1" title="" aria-label="Remove Image" data-original-title="Remove Image">
-                                        <i class="note-icon-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="note-popover popover in note-table-popover bottom" style="display: none;">
-                            <div class="arrow">
-                            </div>
-                            <div class="popover-content note-children-container">
-                                <div class="note-btn-group btn-group note-add">
-                                    <button type="button" class="note-btn btn btn-light btn-sm btn-md" tabindex="-1" title="" aria-label="Add row below" data-original-title="Add row below">
-                                        <i class="note-icon-row-below"></i>
-                                    </button>
-                                    <button type="button" class="note-btn btn btn-light btn-sm btn-md" tabindex="-1" title="" aria-label="Add row above" data-original-title="Add row above">
-                                        <i class="note-icon-row-above"></i>
-                                    </button>
-                                    <button type="button" class="note-btn btn btn-light btn-sm btn-md" tabindex="-1" title="" aria-label="Add column left" data-original-title="Add column left">
-                                        <i class="note-icon-col-before"></i>
-                                    </button>
-                                    <button type="button" class="note-btn btn btn-light btn-sm btn-md" tabindex="-1" title="" aria-label="Add column right" data-original-title="Add column right">
-                                        <i class="note-icon-col-after"></i>
-                                    </button>
-                                </div>
-                                <div class="note-btn-group btn-group note-delete">
-                                    <button type="button" class="note-btn btn btn-light btn-sm btn-md" tabindex="-1" title="" aria-label="Delete row" data-original-title="Delete row">
-                                        <i class="note-icon-row-remove"></i>
-                                    </button>
-                                    <button type="button" class="note-btn btn btn-light btn-sm btn-md" tabindex="-1" title="" aria-label="Delete column" data-original-title="Delete column">
-                                        <i class="note-icon-col-remove"></i>
-                                    </button>
-                                    <button type="button" class="note-btn btn btn-light btn-sm btn-md" tabindex="-1" title="" aria-label="Delete table" data-original-title="Delete table">
-                                        <i class="note-icon-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Insert video modal box -->
-                        <div id="insert-video" class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Insert Video">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Wstaw Film</h4>
-                                        <button id="close-insert-video" type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group note-form-group row-fluid" data-children-count="1">
-                                            <label for="note-dialog-video-url-16063198779941" class="note-form-label">
-                                                Url filmu
-                                                <small class="text-muted" data-children-count="0">(YouTube, Vimeo, Vine, Instagram, DailyMotion or Youku)</small>
-                                            </label>
-                                            <input id="note-dialog-video-url-16063198779941" class="note-video-url form-control note-form-control note-input" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <input type="button" href="#" class="btn btn-primary note-btn note-btn-primary note-video-btn" value="Insert Video" disabled="">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Help modal box -->
-                        <div id="help-modal" class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Help">
+                        <div id="help-modal" class="modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Help">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -565,21 +362,15 @@
                                     <div class="modal-body" style="max-height: 300px; overflow: auto;">
                                         <div class="help-list-item"></div>
                                         <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>ESC</kbd>
+                                            <kbd>POMOCY</kbd>
                                         </label>
-                                        <span>Escape</span>
-                                    </div>
-                                    <div class="modal-footer" style="text-align:center">
-                                        <p class="text-center">
-                                            Skróty klawiszowe
-                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Submit modal box -->
-                        <div id="option-submit" class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Submit">
+                        <div id="option-submit" class="modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Submit">
                             <div class="modal-dialog mt-5">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -607,7 +398,7 @@
                         </div>
 
                         <!-- Preview modal box -->
-                        <div id="pdf-modal" class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Preview">
+                        <div id="pdf-modal" class="modal" aria-hidden="false" tabindex="-1" role="dialog" aria-label="Preview">
                             <div class="modal-dialog mt-5">
                                 <div class="modal-content" style="width:610px; height:900px;">
                                 <div class="modal-header">
@@ -620,47 +411,28 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <span class="count-label mb-3 mr-4" style="margin-left:auto;">Liczba słów: <p style="display:inline">0</p></span>
             </div>
-                                            
-            <div class="alert alert-light mt-5">
-                <h4>Ostatnio zapisane arkusze</h4>
-            </div>
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            @if(count($sheets) > 0)
+                <div class="alert alert-light mt-5">
+                    <h4>Ostatnio zapisane arkusze</h4>
+                </div>
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         @foreach($sheets ?? [] as $item)
                             <div  style="display:inline-block; width:33%;">
                                 <a href="/show/{{ $item->id }}">
-                                <div class="card">
-                                    <div class="card-header">
-                                    {{ $item->title }}
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ $item->updated_at }}</h5>
-                                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                        <a href="#" class="btn btn-secondary">Go somewhere</a>
-                                    </div>
-                                </div>
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="carousel-item ">
-                        @foreach($sheets ?? [] as $item)
-                            <div  style="display:inline-block; width:33%;">
-                                <a href="{{ $item->id }}">
-                                <div class="card">
+                                <div class="card" style="height:210px;">
                                     <div class="card-header">
                                     {{ $item->title }}
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $item->updated_at }}</h5>
                                         <p class="card-text">{{ $item->desc }}</p>
-                                        <a href="#" class="btn btn-secondary">Pokaż arkusz</a>
+                                        <button class="btn btn-secondary">Podgląd</button >
                                     </div>
                                 </div>
                                 </a>
@@ -680,7 +452,12 @@
                     </span>
                     <span class="sr-only">Next</span>
                 </a>
-            </div>
+                </div>
+            @else
+                <div class="alert alert-light mt-5">
+                    <h4>Brak ostatnio zapisanych arkuszy</h4>
+                </div>
+            @endif
         </div>
 
         <!-- /.col-->

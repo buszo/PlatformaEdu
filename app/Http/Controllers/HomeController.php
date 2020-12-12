@@ -34,16 +34,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('adminLTE.dashboard');
+        return redirect('/user');
     }
 
 
     public function generatePdf()
     {
-        $html = $_GET['html'];
+        $html = $_POST['html'];
         $pdf = new Dompdf();
 
-        $pdf->loadHTML($html);
+        $pdf->loadHTML($html, 'UTF-8');
         $pdf->render();
         $output = $pdf->output();
         file_put_contents('file', $output);
@@ -55,23 +55,22 @@ class HomeController extends Controller
 
     public function getTasks()
     {
+        $page = $_GET['page'];
+        $num = 5;
         $category = $_GET['category'];
-        $query = DB::table('task')->join('categories', 'task.category_id', '=', 'categories.id')->where('categories.name', '=', $category)->get();
+        $query = DB::table('task')->join('categories', 'task.category_id', '=', 'categories.id')->where('categories.name', '=', $category)->skip($page * $num)->take($num)->get();
 
         return response()->json($query);
-    }
-
-    public function convertTaskToHtml()
-    {
-        $select = '';
-        return response()->json($select);
     }
 
 
     public function sheetEditor(int $id = -1)
     {
         $query = DB::table('categories')->select('categories.name as name')->get();
-        $query1 = DB::table('sheets')->select('sheets.id as id', 'sheets.title as title', 'sheets.updated_at as updated_at', 'sheets.desc as desc')->orderBy('updated_at', 'desc')->paginate(6);
+        $query1 = DB::table('sheets')->select('sheets.id as id', 'sheets.title as title', 'sheets.updated_at as updated_at', 'sheets.desc as desc')->orderBy('updated_at', 'desc')->get();
+       
+        if(count($query1) > 3) $query1 = $query1->take(3); 
+
         $sheet = DB::table('sheets')->select('sheets.id as id', 'sheets.content as content', 'sheets.title as title', 'sheets.desc as desc')->where('sheets.id', '=', $id)->get();
         return view('editor', ['categories' => $query, 'sheets' => $query1, 'sheet' => $sheet]);
 
@@ -80,21 +79,16 @@ class HomeController extends Controller
     public function sheetList(Request $request) 
     {
         $mail = $request->input('mail');
-        $title = $request->input('title');
-        $user = '';
-        $sheets = '';
-
-            $user = DB::table('users')->where('users.email','=', $mail)->first();
-            if ($user != null)
-            {
-                $sheets = DB::table('sheets')->select('sheets.id as id', 'sheets.title', 'sheets.desc as desc', 'sheets.user_id as user_id')->where('sheets.user_id', '=', $user->id)->paginate(8);
-            }
-            else 
-            {
-                $sheets = DB::table('sheets')->select('sheets.id as id', 'sheets.title', 'sheets.desc as desc', 'sheets.user_id as user_id')->paginate(8);
-            }
+        
+        $sheets = DB::table('sheets')->select('sheets.id as id', 'sheets.title', 'sheets.desc as desc', 'sheets.user_id as user_id')->simplePaginate(8);
+        $all = $sheets->count();
+        $user = DB::table('users')->where('users.email','=', $mail)->first();
 
 
+        if ($user != '') {
+            $sheets = DB::table('sheets')->select('sheets.id as id', 'sheets.title', 'sheets.desc as desc', 'sheets.user_id as user_id')->where('sheets.user_id', '=', $user->id)->paginate(8);
+        }
+        
         return view('sheetList', ['sheets' => $sheets]);
     }
 
