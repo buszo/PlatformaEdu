@@ -55,8 +55,10 @@ class HomeController extends Controller
 
     public function getTasks()
     {
+        $page = $_GET['page'];
+        $num = 5;
         $category = $_GET['category'];
-        $query = DB::table('task')->join('categories', 'task.category_id', '=', 'categories.id')->where('categories.name', '=', $category)->get();
+        $query = DB::table('task')->join('categories', 'task.category_id', '=', 'categories.id')->where('categories.name', '=', $category)->skip($page * $num)->take($num)->get();
 
         return response()->json($query);
     }
@@ -77,46 +79,14 @@ class HomeController extends Controller
     public function sheetList(Request $request) 
     {
         $mail = $request->input('mail');
-        $title = $request->input('title');
-        $since = $request->input('since');
-        $until = $request->input('until');
-        $desc = $request->input('desc');
-        $sheets1 = [];
-        $sheets2 = [];
-        $sheets3 = [];
-        $sheets4 = [];
-        $sheets5 = [];
-        $sheets_all = [];
-        $array = [];
+        
         $sheets = DB::table('sheets')->select('sheets.id as id', 'sheets.title', 'sheets.desc as desc', 'sheets.user_id as user_id')->simplePaginate(8);
         $all = $sheets->count();
         $user = DB::table('users')->where('users.email','=', $mail)->first();
 
 
         if ($user != '') {
-            $sheets1 = DB::table('sheets')->select('sheets.id as id', 'sheets.title', 'sheets.desc as desc', 'sheets.user_id as user_id')->where('sheets.user_id', '=', $user->id)->paginate(8);
-            if (count($sheets1)>0) array_push($sheets_all, (array)$sheets1);
-        }
-        if($title != '') {
-            $sheets2 = DB::table('sheets')->select('sheets.id as id', 'sheets.title', 'sheets.desc as desc', 'sheets.user_id as user_id')->where('sheets.title', '=', $title)->paginate(8);
-            if (count($sheets2)>0) array_push($sheets_all, (array)$sheets2);
-        }
-        if($since != '') {
-            $sheets3 = DB::table('sheets')->select('sheets.id as id', 'sheets.title', 'sheets.desc as desc', 'sheets.user_id as user_id')->where('sheets.updated_at', '>', $since)->paginate(8);
-            if (count($sheets3)>0) array_push($sheets_all, (array)$sheets3);
-        }
-        if($until != '') {
-            $sheets4 = DB::table('sheets')->select('sheets.id as id', 'sheets.title', 'sheets.desc as desc', 'sheets.user_id as user_id')->where('sheets.updated_at', '<', $until)->paginate(8);
-            if (count($sheets4)>0) array_push($sheets_all, (array)$sheets4);
-        }
-        if($desc != '') {
-            $sheets5 = DB::table('sheets')->select('sheets.id as id', 'sheets.title', 'sheets.desc as desc', 'sheets.user_id as user_id')->where('sheets.desc', '=', $desc)->paginate(8);
-            if (count($sheets5)>0) array_push($sheets_all, (array)$sheets5);
-        }
-
-        $intersection = []; 
-
-        if(count($sheets_all) >0) {
+            $sheets = DB::table('sheets')->select('sheets.id as id', 'sheets.title', 'sheets.desc as desc', 'sheets.user_id as user_id')->where('sheets.user_id', '=', $user->id)->paginate(8);
         }
         
         return view('sheetList', ['sheets' => $sheets]);

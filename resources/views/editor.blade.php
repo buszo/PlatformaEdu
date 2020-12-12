@@ -275,19 +275,10 @@
                                         <h4 class="modal-title">Lista zadań</h4>
                                         <button id="close-task-modal" type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
                                     </div>
-                                    <div class="modal-body" id="search-task">
-                                        <div class="form-group">
-                                            <label for="task-title">Tytuł zadania</label>
-                                            <input type="text" class="form-control" id="task-title" placeholder="Tytuł">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="key-words">Słowa kluczowe</label>
-                                            <input type="input" class="form-control" id="key-words" placeholder="Tagi">
-                                            <small id="key-words-help" class="form-text text-muted">Tagi oddzielone przecinkiem lub spacją</small>
-                                        </div>
+                                    <div class="modal-body">
                                         <div class="note-btn-group btn-group " >
                                             <a type="button" id="task-category" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-original-title="Style" aria-expanded="false">
-                                                Matematyka
+                                                {{ $categories->first()->name }}
                                             </a>
                                             <div id="categories-list" class="note-dropdown-menu dropdown-menu dropdown-style" role="list">
                                                 @foreach($categories ?? [] as $item)
@@ -307,7 +298,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <ul class="list-group" style="margin:0 auto; max-height:300px;" id="tasks-list">
+                                        <ul class="list-group" style="width:100%; max-height:500px; overflow:auto;" id="tasks-list">
 
                                         </ul>
                                     </div>
@@ -328,22 +319,12 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group note-form-group" data-children-count="1">
-                                            <label for="note-dialog-link-txt-16063198779941" class="note-form-label">Text to display</label>
+                                            <label for="note-dialog-link-txt-16063198779941" class="note-form-label">Tekst do wyświetlenia</label>
                                             <input id="link-text" class="note-link-text form-control note-form-control note-input" type="text">
                                         </div>
                                         <div class="form-group note-form-group" data-children-count="1">
-                                            <label for="note-dialog-link-url-16063198779941" class="note-form-label">To what URL should this link go?</label>
+                                            <label for="note-dialog-link-url-16063198779941" class="note-form-label">Gdzie URL powinien przenosić</label>
                                             <input id="link-link" class="note-link-url form-control note-form-control note-input" type="text" value="http://">
-                                        </div>
-                                        <div class="form-check sn-checkbox-open-in-new-window">
-                                            <label class="form-check-label" data-children-count="1">
-                                                <input type="checkbox" class="form-check-input" checked="" aria-label="Open in new window" aria-checked="true"> Open in new window
-                                            </label>
-                                        </div>
-                                        <div class="form-check sn-checkbox-use-protocol">
-                                            <label class="form-check-label" data-children-count="1">
-                                                <input type="checkbox" class="form-check-input" checked="" aria-label="Use default protocol" aria-checked="true"> Use default protocol
-                                            </label>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -381,14 +362,8 @@
                                     <div class="modal-body" style="max-height: 300px; overflow: auto;">
                                         <div class="help-list-item"></div>
                                         <label style="width: 180px; margin-right: 10px;">
-                                            <kbd>ESC</kbd>
+                                            <kbd>POMOCY</kbd>
                                         </label>
-                                        <span>Escape</span>
-                                    </div>
-                                    <div class="modal-footer" style="text-align:center">
-                                        <p class="text-center">
-                                            Skróty klawiszowe
-                                        </p>
                                     </div>
                                 </div>
                             </div>

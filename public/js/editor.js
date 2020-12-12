@@ -5,6 +5,8 @@ var italic    = false;
 var underline = false;
 var MQ        = MathQuill.getInterface(2);    // zmienna do działań matematycznych
 var numWord   = 0;
+var page      = 0;                            // stronicowanie okienka dodaj zadanie
+var category_g = '';
 
 $(function() {
     $('#editor-content').focus();
@@ -424,20 +426,48 @@ $('#categories-list').children().each(function () {
     });
 });
 
+// przeszukiwanie rezultatów wyszukiwania zadań
+$('#search-task').keyup(() => {
+    var taskToFind = $('#search-task').val().toLowerCase();
+
+    $('#tasks-list li').each(function () {
+        var correctTask = $(this).find('a').find('div').find('h5').text().toLowerCase();
+        var correctTitle = $(this).find('a').find('div').find('p').text().toLowerCase();
+
+        if (correctTask.includes(taskToFind) || correctTitle.includes(taskToFind)) {
+            $(this).show();
+        }
+        else {
+            $(this).hide();
+        }
+    });
+
+});
+
+
 // pobiera listę zadań
 function getTasks() {
-    var title = $('task-title').val();
-    var tags = $('#key-words').val();
     var category = $('#task-category').text().trim();
 
+    if (category_g != category) {
+        category_g = category;
+        $('#tasks-list').empty();
+        page = 0;
+    }
+
+    category_g = category;
     $.ajax({
         url: '/getTasks',
         type: 'GET',
         data: {
             category : category,
+            page : page
         },
         success: function (data) {
             if (data.length > 0) {
+
+                page++;
+
                 $('#hidden-search').show();
                 $('#more-tasks').show();
                 $.each(data, function (i, item) {
@@ -482,8 +512,10 @@ function getTasks() {
                 });
             }
             else {
-                $('#tasks-list').empty();
-                $('#hidden-search').hide();
+                if ($('#tasks-list').children().length == 0) {
+                    $('#hidden-search').hide();
+                    page = 0;
+                }
                 $('#more-tasks').hide();
             }
         }

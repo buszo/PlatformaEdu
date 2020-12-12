@@ -5,8 +5,13 @@
 .add-sheet {
     float:right; cursor:pointer; display:inline-block; margin-top:4px; font-size:30px;
 }
-</style>
 
+.card-text {
+            height:50px;
+            overflow: auto;
+    }
+</style>
+<link rel="stylesheet" href={{ asset('css/scrollbar.css') }}>
 
 <div class="container mt-3">
     <div class="container-fluid">
@@ -27,16 +32,6 @@
                     @csrf
                         <div class="form-group">
                             <input name="mail" type="text" class="form-control" id="mail" placeholder="Mail autora">
-                        </div>
-                        <div class="form-group row mr-1 ml-1">
-                            od<input name="since" type="text" class="form-control col ml-1 mr-1">do
-                            <input name="to" class="form-control col ml-1" type="text">
-                        </div>
-                        <div class="form-group">
-                            <input name="title" type="text" class="form-control" id="title" placeholder="Tytuł">
-                        </div>
-                        <div class="form-group">
-                            <input name="desc" type="text" class="form-control" id="desc" placeholder="Opis">
                         </div>
                         
                         <button class="btn btn-primary mt-3" type="submit">Szukaj</button>
@@ -73,23 +68,7 @@
                         
                     </div>
                     <div class="card-footer">
-                        <ul class="pagination justify-content-center" style="margin-bottom:0">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="/sheetList/1">1</a></li>
-                            <li class="page-item"><a class="page-link" href="/sheetList/2">2</a></li>
-                            <li class="page-item"><a class="page-link" href="/sheetList/3">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
+                    {{$sheets->links()}}
                     </div>
                 </div>
             </div>
