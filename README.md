@@ -3,6 +3,6 @@
 ## Ogólne info
 
 jak zrobicie pulla to odpalcie SQL i dajcie: 
-php artisan migrate
+php artisan migrate:fresh
 
 ## Do zrobienia
