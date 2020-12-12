@@ -4,53 +4,126 @@
 @extends('adminLTE.dashboard')
 
 @section('content')
+<style>
+    .profile-user-img:hover {
+        opacity: 0.5;
+    }
+
+    .image-background {
+        background: #eeeeee;
+        border-radius: 50%;
+    }
+</style>
+<div class="container">
+    <div class="main-body">
+    
+          <!-- Breadcrumb -->
+          <nav aria-label="breadcrumb" class="main-breadcrumb" style="margin-bottom:35px;">
+            <h3>Profil użytkownika</h3>
+          </nav>
+          <!-- /Breadcrumb -->
+          @if($edit == 0)
+            @php
+                if (isset($_SESSION['success'])) {
+                    $success = $_SESSION['success'];
+                    echo <<<ERROR
+                    <br>
+                    <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h5><i class="icon fas fa-check"></i> Sukces!</h5>
+                    $success
+                    </div>
+                ERROR;
+                    unset($_SESSION['success']);
+                    }
+            @endphp
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+
+                  <div class="d-flex flex-column align-items-center text-center ">
+                  <a class="image-background" href="/user/upload">
+                    <img style="border-radius:50%; width:150px; height:150px;" class="profile-user-img" src="../../images/{{ DB::table('avatars')->where('user_id', Auth::user()->id)->value('hashName') }}" class="rounded-circle">
+                  </a>
+                    <div class="mt-3">
+                        <h4>
+                        {{ Auth::user()->name }}
+                        </h4>
+                      <p class="text-secondary mb-1">Głos kraju bez pracy - to my Polacy</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0">Strona</h6>
+                    <span class="text-secondary"><a href="# ">Jakiś link</a></span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                  <a href="/user/edit/data" class="btn btn-primary btn-block"><b>Edytuj profil</b></a>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                  <a href="/user/edit/password" class="btn btn-primary btn-block"><b>Zmień hasło</b></a>
+                  </li>
+                                
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Nazwa użytkownika</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{ Auth::user()->name }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{ Auth::user()->email }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Utworzone zadania</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{ DB::table('task')->where('createdBy', Auth::user()->id)->count()}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Utworzone arkusze</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{ DB::table('sheets')->where('user_id', Auth::user()->id)->count()}}
+                    </div>
+                  </div>
+                  <hr>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+    </div>
 
     <section class="content">
         <div class="container-fluid">
             <div>
                 <div class="lockscreen-item">
 
-                    <!-- Profile Image -->
-                    <div class="card card-primary card-outline">
-                        <div class="card-body box-profile">
-                            <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle"
-                                     src="../../images/{{ DB::table('avatars')->where('user_id', Auth::user()->id)->value('hashName') }}"
-                                     alt="User profile picture">
-                            </div>
-                            @if($edit == 0)
-                                @php
-                                    if (isset($_SESSION['success'])) {
-                                        $success = $_SESSION['success'];
-                                        echo <<<ERROR
-                                        <br>
-                                        <div class="alert alert-success alert-dismissible">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                        <h5><i class="icon fas fa-check"></i> Sukces!</h5>
-                                        $success
-                                        </div>
-                                    ERROR;
-                                        unset($_SESSION['success']);
-                                        }
-                                @endphp
-
-                                <h3 class="profile-username text-center"> {{ Auth::user()->name }} </h3>
-
-                                <p class="text-muted text-center">{{ Auth::user()->email }}</p>
-
-                                <ul class="list-group list-group-unbordered mb-3">
-                                    <li class="list-group-item">
-                                        <b>ID: </b> <a class="float-right">{{ Auth::user()->id }}</a>
-                                </ul>
-                                <ul class="list-group list-group-unbordered mb-3">
-                                    <li class="list-group-item">
-                                        <b>Utworzone zadania: </b> <a
-                                            class="float-right">{{ DB::table('task')->where('createdBy', Auth::user()->id)->count()}}</a>
-                                </ul>
-
-                                <a href="/user/edit/data" class="btn btn-primary btn-block"><b>Edytuj profil</b></a>
-                                <a href="/user/edit/password" class="btn btn-primary btn-block"><b>Zmień hasło</b></a>
-                                <a href="/user/upload" class="btn btn-primary btn-block"><b>Zmień awatar</b></a>
+                    
                             @elseif($edit == 1)
                                 <form method="post" action="{{ route('userUpdate') }}">
                                     @csrf
@@ -181,9 +254,6 @@
                                     </form>
                                 </div>
                             @endif
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
 
                 </div>
                 <!-- /.col -->

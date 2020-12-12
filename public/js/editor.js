@@ -129,76 +129,72 @@ $('#style-h6').click(() => {
 
 // pogrubienie
 $('#bold').click(()=>{
-    if(!$('#bold').hasClass("active")) {
-        $('#bold').addClass("active");
         document.execCommand("bold");
-    }
-    else {
-        $('#bold').removeClass("active");
-    }
 });
 
 // kursywa
 $('#italic').click(()=>{
-    if(!$('#italic').hasClass("active")) {
-        $('#italic').addClass("active");
         document.execCommand("italic");
-    }
-    else {
-        $('#italic').removeClass("active");
-    }
 });
 
 // podkreślenie
 $('#underline').click(()=>{
-    if(!$('#underline').hasClass("active")) {
-        $('#underline').addClass("active");
         document.execCommand("underline");
-        document.execCommand('formatBlock', false, '<h1>'); 
-    }
-    else {
-        $('#underline').removeClass("active");
-    }
 });
 
 // reset stylu
-$('#reset-style').click(() => {
+$('#style-reset').click(() => {
     document.execCommand('fontName', false, 'Source Sans Pro');
     document.execCommand('foreColor', false, '#000000');
     document.execCommand('backColor', false, '#ffffff');
+    document.execCommand("JustifyLeft");
 });
 
 // czcionka
 
-function setFont(fontName) {
-    document.execCommand('fontName', false, fontName);
-}
+$('#sans-pro').click(() => {
+    document.execCommand('fontName', false, 'Source Sans Pro');
+});
+
+$('#arial').click(() => {
+    document.execCommand('fontName', false, 'Arial');
+});
+
+$('#arial-black').click(() => {
+    document.execCommand('fontName', false, 'Arial Black'); 
+});
 
 // kolor tekstu i tła
 
-function setColor(color) {
+
+$('#button-fore').click(() => {
+    var color = $('#foreground').val().toString();
+    console.log(color);
     document.execCommand('styleWithCSS', false, true);
     document.execCommand('foreColor', false, color);
-}
 
-// wstawianie nieuporządkowanej listy 
-$('#ul-list').click(() => {
-    var ul = document.createElement('ul');
-    e.after(ul);
 });
 
-// wstawianie uporządkowanej listy
-$('#ol-list').click(() => {
-    var ol = document.createElement('ol');
-    e.after(ol);
-});
+$('#button-back').click(() => {
+    var color = $('#background').val().toString();
+    document.execCommand('styleWithCSS', false, true);
+    document.execCommand('backColor', false, color);
 
+});
 
 // wyrównanie tekstu
 
-function alignText() {
-    document.execCommand();
-}
+$('#left').click(() => {
+    document.execCommand("JustifyLeft");
+});
+
+$('#right').click(() => {
+    document.execCommand("JustifyRight");
+});
+
+$('#center').click(() => {
+    document.execCommand("JustifyCenter");
+});
 
 $('#add-table').click(() => {
     var rows = $('#table-rows').val();
@@ -214,6 +210,7 @@ $('#add-table').click(() => {
         for (j = 0; j < cols; j++) {
             var td = document.createElement('td');
             td.innerText = '    ';
+            td.style.setProperty('border', '1px solid #eee');
             tr.append(td);
         }
         table.append(tr);
@@ -221,12 +218,12 @@ $('#add-table').click(() => {
     $('#table-rows').val('');
     $('#table-cols').val('');
 
+    table.style.setProperty('width', '100%');
+
     var p = document.createElement('p');
     var br = document.createElement('br');
     var local_table = table;
-    console.log(p, br);
     p.append(br);
-    console.log(table);
     e.after(table);
     local_table.after(p);
 });
@@ -272,34 +269,29 @@ $('#close-insert-image').click(() => {
     $('#insert-image').hide();
 });
 
-$('#image-url').keyup(() => {
-    if ($('#image-url').length > 0) {
-        $('#add-image').removeAttr('disabled');
+var image = document.createElement('img');
+var blob =document.getElementById("blob"); 
+
+function readFile() {
+    if (this.files && this.files[0]) {
+    
+      var FR= new FileReader();
+    
+      FR.addEventListener("load", function(e) {
+        image.src = e.target.result;
+
+      }); 
+      FR.readAsDataURL( this.files[0] );
+      e.after(image);
+
     }
-    else {
-        $('#add-image').addAttr('disabled');
-    }
-});
-$('#add-image').click(() => {
-    var image = document.createElement('img');
-    var blob = $('#blob'); 
-
-     if(blob.files[0] != 0) {
-        var file = blob.files[0];
-
-        var fr = new FileReader();
-     }
-});
+}
+        
+blob.addEventListener("change", readFile);
 
 
-// video
-$('#video-button').click(() => {
-    $('#insert-video').show();
-    $('#insert-video').css('background', 'rgba(0,0,0,0.4)');
-});
-$('#close-insert-video').click(() => {
-    $('#insert-video').hide();
-});
+
+
 
 // działania matematyczne
 $('#insert-math').click(() => {
@@ -367,13 +359,14 @@ $('#close-preview-modal').click(() => {
 // generowanie pdf
 $('#pdf-export').click(() => {
     var htmlSheet = $('#editor-content').html().toString();
-
+    var _token = $('meta[name="csrf-token"]').attr('content');
     
     $.ajax({
         url: '/generatePdf',
-        type: 'GET',
+        type: 'POST',
         data: {
-            html : htmlSheet
+            html : htmlSheet,
+            _token: _token
         },
         success: function(data) {
 

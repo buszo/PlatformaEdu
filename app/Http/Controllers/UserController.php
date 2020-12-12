@@ -166,7 +166,7 @@ class UserController extends Controller
             return redirect('/user');
         }
         else {
-            $query = DB::table('users')->where('users.id', '=', $id)->select('users.name as name', 'users.email as mail')->first();
+            $query = DB::table('users')->where('users.id', '=', $id)->select('users.id as id', 'users.name as name', 'users.email as mail')->get();
             
             return view('userProfile', ['user' => $query]);
         }
