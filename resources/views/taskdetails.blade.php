@@ -1,6 +1,7 @@
 @extends('adminLTE.dashboard')
 
 @section('content')
+    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
     @if(!empty($query))
         <form method="POST" action="{{route('taskUpdate', $id)}}">
             @csrf
@@ -13,8 +14,9 @@
                 </div>
                 <div class="form-group">
                     <label for="Opis">Opis</label>
-                    <textarea class="form-control" name="description"
-                              placeholder="Podaj opis zadania">{{$query->description}}</textarea>
+                    <textarea name="description" id="editor">
+            {{$query->description}}
+        </textarea>
                 </div>
 
             </div>
@@ -25,7 +27,13 @@
             </div>
         </form>
         </div>
-
+        <script>
+            ClassicEditor
+                .create( document.querySelector( '#editor' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+        </script>
 
     @else
         <div class="alert alert-danger alert-dismissible">

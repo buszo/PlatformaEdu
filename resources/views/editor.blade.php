@@ -124,7 +124,7 @@
                                 <button id="underline" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Podkreślenie">
                                     <i class="fas fa-underline"></i>
                                 </button>
-                                
+
                                 <button id="style-reset" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Styl domyślny">
                                     <i class="fas fa-eraser"></i>
                                 </button>
@@ -160,16 +160,16 @@
                                     <div class="note-dropdown-menu dropdown-menu pr-2 pl-2" role="list">
                                         <div class="mt-2">
                                             <div ">Background Color</div>
-                                                
+
                                             <div data-children-count="1">
                                                 <button id="button-back" type="button" class="note-color-select btn btn-light btn-default" data-event="openPalette" data-value="backColorPicker">Select</button>
                                                 <input id="background" type="color" id="backColorPicker" class="note-btn note-color-select-btn" value="#FFFFFF" data-event="backColorPalette">
                                             </div>
-                                            
+
                                         </div>
                                         <div class="mt-2">
                                             <div>Text Color</div>
-                                            
+
                                             <div data-children-count="1">
                                                 <button id="button-fore" type="button" class="note-color-select btn btn-light btn-default" data-event="openPalette" data-value="foreColorPicker">Select</button>
                                                 <input id="foreground" type="color" id="foreColorPicker" class="note-btn note-color-select-btn" value="#000000" data-event="foreColorPalette">
@@ -227,7 +227,7 @@
                                 <button id="image-button" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Zdjęcie">
                                     <i class="fas fa-image"></i>
                                 </button>
-                                
+
                                 <button id="insert-math" type="button" class="note-btn btn btn-light btn-sm p-2" tabindex="-1" data-toggle="tooltip" title="Działanie matematyczne">
                                     <i class="fas fa-square-root-alt"></i>
                                 </button>
@@ -242,7 +242,7 @@
                             </div>
                         </div>
                         <div class="note-editing-area" data-children-count="1">
-                            
+
                             @foreach($sheet ?? [] as $item)
                                 <input id="hidden-id" type="text" hidden value="{{ $item->id }}">
                             @endforeach
@@ -278,7 +278,7 @@
                                     <div class="modal-body">
                                         <div class="note-btn-group btn-group " >
                                             <a type="button" id="task-category" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown" data-original-title="Style" aria-expanded="false">
-                                                {{ $categories->first()->name }}
+                                                {{ $categories->first()->name  ?? 'Nie znaleziono żadnej kategorii'}}
                                             </a>
                                             <div id="categories-list" class="note-dropdown-menu dropdown-menu dropdown-style" role="list">
                                                 @foreach($categories ?? [] as $item)
@@ -406,7 +406,7 @@
                                         <button id="close-preview-modal" type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">×</button>
                                     </div>
                                     <div class="modal-body" id="pdf-preview">
-                                                
+
                                     </div>
                                 </div>
                             </div>
@@ -439,7 +439,7 @@
                             </div>
                         @endforeach
                     </div>
-                </div>  
+                </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style="color:#757575">
                     <span class="carousel-control-prev-icon" aria-hidden="true" style="font-size:30px;">
                         <i class="fas fa-chevron-left"></i>

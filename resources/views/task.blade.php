@@ -1,5 +1,6 @@
 @extends('adminLTE.dashboard')
 @section('content')
+    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
     @php
 
         $categories_raw = DB::table('categories')->where('userID', '=', $id)->get()->toArray();
@@ -11,6 +12,7 @@
             <h5><i class="icon fas fa-info"></i> Brak kategorii!</h5>
             Utwórz przynajmniej 1 kategorie zanim dodasz zadanie.
         </div>        @endif
+    @if(count($categories) > 0)
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -32,21 +34,28 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="Opis">Opis</label>
-{{--                                    <input type="text" class="form-control" name="description"--}}
-{{--                                           placeholder="Podaj opis zadania">--}}
-                                    <style>
-                                        textarea{
-                                            height: 150px;
-                                            width: 100%;
-                                            padding:1%;
-                                            border-style: inset;
-                                            border-width: 1px;
-                                        }
-                                    </style>
-                                    <textarea name="description">
-  </textarea>
+
+
+        <textarea name="description" id="editor">
+
+        </textarea>
+
+
+
+                        </form>
+                                    <script>
+                                        ClassicEditor
+                                            .create( document.querySelector( '#editor' ) )
+                                            .catch( error => {
+                                                console.error( error );
+                                            } );
+
+
+                                    </script>
+
 
                                 </div>
+
                                 <div class="form-group">
                                     <label>Wybierz kategorię</label>
                                     <select name="taskOption" class="custom-select">
@@ -55,17 +64,16 @@
                                         @endforeach
                                     </select>
                                 </div>
-
+                    <button type="submit" class="btn btn-primary">Dodaj zadanie</button>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Dodaj zadanie</button>
                             </div>
                         </form>
                     </div>
 
-
+@endif
                     @php
                         @session_start();
                     @endphp
