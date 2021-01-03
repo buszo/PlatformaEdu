@@ -484,7 +484,7 @@ function getTasks() {
                     p.setAttribute('class', 'card-text');
 
                     h.innerText = item.title;
-                    p.innerText = item.description;
+                    p.innerHTML = item.description;
 
                     body.append(h);
                     body.append(p);
@@ -498,13 +498,13 @@ function getTasks() {
                     
                     stuff.click(() => {
                         var title = stuff.find('h5').text();
-                        var desc = stuff.find('p').text();
+                        var desc = stuff.find('p').html();
 
                         var h = document.createElement('h5');
                         var p = document.createElement('p');
 
                         h.innerText = title;
-                        p.innerText = desc;
+                        p.innerHTML = desc;
                         
                         e.after(p);
                         e.after(h);
